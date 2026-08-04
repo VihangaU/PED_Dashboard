@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEDMIS — Executive Dashboard</title>
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-primary: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+      --primary-blue: #2563eb;
+      --strat-color: #16a34a;
+      --nonstrat-color: #d97706;
+      --danger-red: #dc2626;
+      --accent-bg: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      margin: 0;
+      padding: 24px;
+      font-size: 13px;
+    }
+
+    .chart-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 16px 24px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .header-title h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .header-title p {
+      margin: 4px 0 0;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cascade-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .select-dropdown {
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-dropdown:hover {
+      border-color: var(--primary-blue);
+    }
+
+    .pill-group {
+      display: flex;
+      background: var(--accent-bg);
+      padding: 3px;
+      border-radius: 6px;
+      gap: 2px;
+    }
+
+    .pill-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .pill-btn.active {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .dual-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: var(--accent-bg);
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+
+    .val-box h4 {
+      margin: 0 0 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .val-box.strat h4 {
+      color: var(--strat-color);
+    }
+
+    .val-box.nonstrat h4 {
+      color: var(--nonstrat-color);
+    }
+
+    .val-num {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .val-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .badge-danger {
+      background: #fee2e2;
+      color: var(--danger-red);
+      cursor: pointer;
+    }
+
+    .badge-success {
+      background: #dcfce7;
+      color: var(--strat-color);
+      cursor: pointer;
+    }
+
+    .badge-blue {
+      background: #e0e7ff;
+      color: var(--primary-blue);
+    }
+
+    .revenue-item, .budget-item, .clickable-box {
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .revenue-item:hover, .budget-item:hover, .clickable-box:hover {
+      background-color: #e2e8f0;
+    }
+
+    .revenue-item.active, .budget-item.active {
+      background-color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .big-value {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .header-big-total {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary-blue);
+      text-align: right;
+    }
+
+    .net-revenue-prominent {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .net-revenue-prominent h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--strat-color);
+    }
+
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .tooltip-icon {
+      font-size: 11px;
+      background: #cbd5e1;
+      color: #0f172a;
+      border-radius: 50%;
+      padding: 1px 5px;
+      font-weight: bold;
+    }
+
+    .tooltip-text {
+      visibility: hidden;
+      width: 220px;
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 10;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-size: 11px;
+      font-weight: normal;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .top5-container {
+      border-top: 1px dashed var(--border-color);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    .top5-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .top5-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px 0;
+    }
+
+    .top5-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 3px 0;
+    }
+
+    .btn-more {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--primary-blue);
+      color: var(--primary-blue);
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-more:hover {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: var(--card-bg);
+      border-radius: 10px;
+      width: 650px;
+      max-width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 12px;
+    }
+
+    th {
+      background: var(--accent-bg);
+      font-weight: 600;
+    }
+
+    .pagination-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .pagination-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: var(--primary-blue);
+      color: white;
+      border-color: var(--primary-blue);
+    }
+
+    .page-indicator {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-title">
+      <h1>PEDMIS Executive Dashboard</h1>
+      <p>Performance Analytics & Government Revenue Monitoring</p>
+    </div>
+    <span class="badge badge-blue" style="font-size: 12px;">PED User Access Only</span>
+  </div>
+
+  <!-- Global Filters Bar -->
+  <div class="controls-bar">
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <div>
+        <span style="font-weight: 600;">Active Timeframe:</span>
+        <span class="badge badge-blue" id="activeTimeframeBadge">FY 2025 (Annual)</span>
+      </div>
+      <div style="border-left: 1px solid var(--border-color); padding-left: 12px;">
+        <span style="font-weight: 600;">Current Currency:</span>
+        <span class="badge badge-success">LKR (Sri Lankan Rupee)</span>
+      </div>
+    </div>
+
+    <div class="cascade-controls">
+      <div class="pill-group">
+        <button class="pill-btn active" id="grainAnnual" onclick="setTimeGrain('Annually')">Annually</button>
+        <button class="pill-btn" id="grainQuarterly" onclick="setTimeGrain('Quarterly')">Quarterly</button>
+        <button class="pill-btn" id="grainMonthly" onclick="setTimeGrain('Monthly')">Monthly</button>
+      </div>
+
+      <select class="select-dropdown" id="selectYear" onchange="handleYearChange()">
+        <option value="2026">FY 2026</option>
+        <option value="2025" selected>FY 2025</option>
+        <option value="2024">FY 2024</option>
+        <option value="2023">FY 2023</option>
+      </select>
+
+      <select class="select-dropdown" id="selectQuarter" style="display: none;" onchange="handleQuarterChange()"></select>
+      <select class="select-dropdown" id="selectMonth" style="display: none;" onchange="handleMonthChange()"></select>
+    </div>
+  </div>
+
+  <!-- Financial Performance Grid -->
+  <div class="grid-2">
+
+    <!-- SOE Profitability Counts (Injected via soe_performance_chart.js) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">SOE Performance (Count)</div>
+        <span class="badge badge-danger" onclick="openNonFunctionalModal()">4 Non-Functioning SOEs ⓘ</span>
+      </div>
+      <div class="chart-section-title">SOE Net Profitability Distribution</div>
+      <div id="soePerformanceChartContainer">
+        <!-- Injected via soe_performance_chart.js -->
+      </div>
+      <small style="color: var(--text-muted); display: block; margin-top: 4px;">*Excludes unsubmitted profile records.</small>
+    </div>
+
+    <!-- Total Revenue & % of GDP (Injected via total_revenue_chart.js) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Total Revenue & GDP Share</div>
+      </div>
+      <div id="totalRevenueChartContainer">
+        <!-- Injected via total_revenue_chart.js -->
+      </div>
+    </div>
+
+    <!-- Government Revenue & Contributions -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Government Revenue</div>
+        <div class="header-big-total">
+          <small style="font-size:10px; display:block; color:var(--text-muted); font-weight:normal;">Total Roll-up:</small>
+          295.5B 
+        </div>
+      </div>
+
+      <div id="govtRevenueChartContainer">
+        <!-- Injected via government_revenue_chart.js -->
+      </div>
+    </div>    
+
+    <!-- Budget Support & Net Fiscal Impact -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Budget Support</div>
+        <div class="header-big-total">
+          <small style="font-size:10px; display:block; color:var(--text-muted); font-weight:normal;">Total Budget Funded:</small>
+          110.5B 
+        </div>
+      </div>
+
+      <div id="budgetSupportChartContainer">
+        <!-- Injected via budget_support_chart.js -->
+      </div>
+    </div>    
+
+    <!-- Governance & Audit Section (Injected via audit_chart.js) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Audit Opinion Breakdown</div>
+      </div>
+      <div class="chart-section-title">Audit Status Breakdown by Category</div>
+      <div id="auditChartContainer">
+        <!-- Injected via audit_chart.js -->
+      </div>
+    </div>
+
+    <!-- Workforce Section (Injected via workforce_chart.js) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Workforce Analysis</div>
+      </div>
+      <div id="workforceChartContainer">
+        <!-- Injected via workforce_chart.js -->
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="modal-overlay" id="categoryModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="categoryModalTitle" style="margin:0;">SOE Profitability List</h3>
+        <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeCategoryModal()">&times;</button>
+      </div>
+      <p style="color: var(--text-muted); font-size:11px;">Detailed financial breakdown of entities within this group.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>SOE Name</th>
+            <th>Net Profit / Loss Amount</th>
+          </tr>
+        </thead>
+        <tbody id="categoryTableBody"></tbody>
+      </table>
+      <div class="pagination-container">
+        <button class="pagination-btn" id="btnPrev" onclick="changePage(-1)">← Previous</button>
+        <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
+        <button class="pagination-btn" id="btnNext" onclick="changePage(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="deficitSurplusModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="deficitSurplusModalTitle" style="margin:0;">Deficit / Surplus Details</h3>
+        <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeDeficitSurplusModal()">&times;</button>
+      </div>
+      <p style="color: var(--text-muted); font-size:11px;">List of specific SOE entities contributing to this variance along with target vs actual amounts.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>SOE Name</th>
+            <th>Strategic Category</th>
+            <th>Performance Status</th>
+            <th>Variance</th>
+          </tr>
+        </thead>
+        <tbody id="deficitSurplusTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="nonFunctionalModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 style="margin:0;">Non-Functioning Entities Register</h3>
+        <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeNonFunctionalModal()">&times;</button>
+      </div>
+      <p style="color: var(--text-muted); font-size:11px;">This section presents the list of SOEs officially categorized as Non‑Functioning, in line with guidelines established by PED.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>SOE Name</th>
+            <th>Net profit/loss</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Janatha Estates Development Board (JEDB)</td><td>-22.5B </td></tr>
+          <tr><td>Sri Lanka Casualty Insurance Company</td><td>-15.0B </td></tr>
+          <tr><td>National Paper Corporation</td><td>-10.0B </td></tr>
+          <tr><td>Selacine Television Institute</td><td>+5.0B </td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Import External Component JavaScript Files -->
+  <script src="soe_performance_chart.js"></script>
+  <script src="total_revenue_chart.js"></script>
+  <script src="government_revenue_chart.js"></script>
+  <script src="budget_support_chart.js"></script>
+  <script src="workforce_chart.js"></script>
+  <script src="audit_chart.js"></script>
+
+  <script>
+    // Initialize External Components
+    document.addEventListener('DOMContentLoaded', () => {
+      initSOEPerformanceChart('soePerformanceChartContainer');
+      initTotalRevenueChart('totalRevenueChartContainer');
+      initGovtRevenueChart('govtRevenueChartContainer');
+      initBudgetSupportChart('budgetSupportChartContainer');
+      initWorkforceChart('workforceChartContainer');
+      initAuditChart('auditChartContainer');
+    });
+
+    // Multi-Tier Cascading Timeframe Logic
+    let selectedTimeGrain = 'Annually';
+    let selectedYear = '2025';
+    let selectedQuarter = 'Q1';
+    let selectedMonth = 'Jan 2025';
+
+    const quarterMonths = {
+      'Q1': ['Jan', 'Feb', 'Mar'],
+      'Q2': ['Apr', 'May', 'Jun'],
+      'Q3': ['Jul', 'Aug', 'Sep'],
+      'Q4': ['Oct', 'Nov', 'Dec']
+    };
+
+    function setTimeGrain(grain) {
+      selectedTimeGrain = grain;
+      document.getElementById('grainAnnual').classList.toggle('active', grain === 'Annually');
+      document.getElementById('grainQuarterly').classList.toggle('active', grain === 'Quarterly');
+      document.getElementById('grainMonthly').classList.toggle('active', grain === 'Monthly');
+
+      const yrSelect = document.getElementById('selectYear');
+      const qtrSelect = document.getElementById('selectQuarter');
+      const mthSelect = document.getElementById('selectMonth');
+
+      if (grain === 'Annually') {
+        yrSelect.style.display = 'inline-block';
+        qtrSelect.style.display = 'none';
+        mthSelect.style.display = 'none';
+      } else if (grain === 'Quarterly') {
+        yrSelect.style.display = 'inline-block';
+        qtrSelect.style.display = 'inline-block';
+        mthSelect.style.display = 'none';
+        populateQuarters();
+      } else if (grain === 'Monthly') {
+        yrSelect.style.display = 'inline-block';
+        qtrSelect.style.display = 'inline-block';
+        mthSelect.style.display = 'inline-block';
+        populateQuarters();
+        populateMonths();
+      }
+
+      updateActiveTimeframeDisplay();
+    }
+
+    function handleYearChange() {
+      selectedYear = document.getElementById('selectYear').value;
+      if (selectedTimeGrain === 'Quarterly' || selectedTimeGrain === 'Monthly') populateQuarters();
+      if (selectedTimeGrain === 'Monthly') populateMonths();
+      updateActiveTimeframeDisplay();
+    }
+
+    function populateQuarters() {
+      const qtrSelect = document.getElementById('selectQuarter');
+      qtrSelect.innerHTML = '';
+      ['Q1', 'Q2', 'Q3', 'Q4'].forEach(q => {
+        const opt = document.createElement('option');
+        opt.value = q;
+        opt.innerText = `${q} ${selectedYear}`;
+        qtrSelect.appendChild(opt);
+      });
+      selectedQuarter = qtrSelect.value;
+    }
+
+    function handleQuarterChange() {
+      selectedQuarter = document.getElementById('selectQuarter').value;
+      if (selectedTimeGrain === 'Monthly') populateMonths();
+      updateActiveTimeframeDisplay();
+    }
+
+    function populateMonths() {
+      const mthSelect = document.getElementById('selectMonth');
+      mthSelect.innerHTML = '';
+      const months = quarterMonths[selectedQuarter] || [];
+      months.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = `${m} ${selectedYear}`;
+        opt.innerText = `${m} ${selectedYear}`;
+        mthSelect.appendChild(opt);
+      });
+      selectedMonth = mthSelect.value;
+    }
+
+    function handleMonthChange() {
+      selectedMonth = document.getElementById('selectMonth').value;
+      updateActiveTimeframeDisplay();
+    }
+
+    function updateActiveTimeframeDisplay() {
+      const badge = document.getElementById('activeTimeframeBadge');
+      if (selectedTimeGrain === 'Annually') badge.innerText = `FY ${selectedYear} (Annual)`;
+      else if (selectedTimeGrain === 'Quarterly') badge.innerText = `${selectedQuarter} ${selectedYear} (Quarterly)`;
+      else if (selectedTimeGrain === 'Monthly') badge.innerText = `${selectedMonth} (Monthly)`;
+    }
+
+    function openModal(title) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('entityModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('entityModal').style.display = 'none';
+    }
+
+    function openNonFunctionalModal() {
+      document.getElementById('nonFunctionalModal').style.display = 'flex';
+    }
+
+    function closeNonFunctionalModal() {
+      document.getElementById('nonFunctionalModal').style.display = 'none';
+    }
+
+    const categoryData = {
+      'Strategic Net Profit SOEs': [
+        { name: '1. Bank of Ceylon', val: '+22.5B ' },
+        { name: '2. People\'s Bank', val: '+18.0B ' },
+        { name: '3. Sri Lanka Ports Authority', val: '+14.2B ' },
+        { name: '4. Sri Lanka Telecom PLC', val: '+8.4B ' },
+        { name: '5. Airport & Aviation Services Ltd', val: '+6.1B ' },
+        { name: '6. National Savings Bank', val: '+5.5B ' },
+        { name: '7. Sri Lanka Insurance Corporation', val: '+4.8B ' },
+        { name: '8. State Pharmaceuticals Corporation', val: '+3.2B ' },
+	{ name: '9. Lanka Electricity Company (LECO)', val: '+2.9B ' },
+        { name: '10. Litro Gas Lanka Ltd', val: '+2.4B ' },
+        { name: '11. Development Lotteries Board', val: '+1.9B ' },
+        { name: '12. National Lotteries Board', val: '+1.7B ' },
+        { name: '13. Sri Lanka Ports Management Company', val: '+1.5B ' },
+        { name: '14. Civil Aviation Authority of Sri Lanka', val: '+1.3B ' },
+        { name: '15. Marine Environment Protection Authority', val: '+1.1B ' },
+        { name: '16. Lanka IOC Public Share Unit', val: '+0.9B ' },
+        { name: '17. Export Development Board', val: '+0.8B ' },
+        { name: '18. Sri Lanka Standards Institution', val: '+0.7B ' },
+        { name: '19. Tea Small Holdings Development Authority', val: '+0.6B ' },
+        { name: '20. Coconut Development Authority', val: '+0.5B ' },
+        { name: '21. State Timber Corporation', val: '+0.4B ' },
+        { name: '22. Central Engineering Consultancy Bureau', val: '+0.3B ' },
+        { name: '23. Lanka Phosphate Ltd', val: '+0.2B ' },
+        { name: '24. Sri Lanka Handicrafts Board (Laksala)', val: '+0.1B ' },
+        { name: '25. State Printing Corporation', val: '+0.1B ' }
+      ],
+      'Strategic Loss SOEs': [
+        { name: '1. Ceylon Petroleum Corporation (CPC)', val: '-12.1B ' },
+        { name: '2. SriLankan Airlines Ltd', val: '-8.5B ' },
+        { name: '3. Ceylon Electricity Board (CEB)', val: '-5.2B ' },
+        { name: '4. Sri Lanka Railway Department', val: '-3.1B ' },
+        { name: '5. Sri Lanka Transport Board (SLTB)', val: '-1.8B ' }
+      ],
+      'Non-Strategic Profitable SOEs': [
+        { name: '1. National Water Supply & Drainage Board', val: '+4.2B ' },
+        { name: '2. Lanka Hospitals PLC', val: '+3.5B ' },
+	{ name: '3. Hotel Developers (Lanka) Ltd', val: '+2.1B ' },
+        { name: '4. Sri Lanka State Trading Corporation', val: '+1.8B ' },
+        { name: '5. BCI Campus Ltd', val: '+1.2B ' },
+        { name: '6. Lanka Mineral Sands Ltd', val: '+1.0B ' },
+        { name: '7. Lanka Sugar Company (Pvt) Ltd', val: '+0.9B ' },
+        { name: '8. State Engineering Corporation', val: '+0.8B ' },
+        { name: '9. Urban Development Authority (UDA)', val: '+0.7B ' },
+        { name: '10. Coast Conservation Department', val: '+0.6B ' },
+        { name: '11. National Design Centre', val: '+0.5B ' },
+        { name: '12. Lanka Coal Company (Pvt) Ltd', val: '+0.4B ' },
+        { name: '13. State Fertilizer Corporation', val: '+0.4B ' },
+        { name: '14. National Livestock Development Board', val: '+0.3B ' },
+        { name: '15. Lanka Cement PLC', val: '+0.3B ' },
+        { name: '16. State Gem & Jewellery Corporation', val: '+0.2B ' },
+        { name: '17. Sri Lanka Rubber Manufacturing Corp', val: '+0.2B ' },
+        { name: '18. Ceylon Fisheries Corporation', val: '+0.1B ' },
+        { name: '19. Ceylon Fishery Harbours Corporation', val: '+0.1B ' },
+        { name: '20. Building Materials Corporation', val: '+0.1B ' }
+      ],
+      'Non-Strategic Loss SOEs': [
+        { name: '1. Spices & Allied Products Marketing Board', val: '-1.1B ' },
+        { name: '2. Kahawatte Plantations Entity', val: '-0.9B ' },
+	{ name: '3. Elpitiya Plantations Entity', val: '-0.7B ' },
+        { name: '4. Kurunegala Plantations Ltd', val: '-0.5B ' },
+        { name: '5. Chilaw Plantations Ltd', val: '-0.3B ' },
+        { name: '6. National Paper Company Entity', val: '-0.2B ' },
+        { name: '7. Ceylon Fertilizer Co Ltd', val: '-0.1B ' }
+      ]
+    };
+
+    let currentCategory = '';
+    let currentPage = 1;
+    const itemsPerPage = 10;
+
+    function openCategoryModal(type) {
+      currentCategory = type;
+      currentPage = 1;
+      document.getElementById('categoryModalTitle').innerText = type;
+      renderCategoryPage();
+      document.getElementById('categoryModal').style.display = 'flex';
+    }
+
+    function renderCategoryPage() {
+      const tbody = document.getElementById('categoryTableBody');
+      tbody.innerHTML = '';
+      const items = categoryData[currentCategory] || [];
+      const totalPages = Math.ceil(items.length / itemsPerPage) || 1;
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const pageItems = items.slice(startIndex, startIndex + itemsPerPage);
+
+      pageItems.forEach(item => {
+        const tr = document.createElement('tr');
+        const isProfit = item.val.includes('+');
+        tr.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td style="font-weight: 700; color: ${isProfit ? 'var(--strat-color)' : 'var(--danger-red)'};">${item.val}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('pageIndicator').innerText = `Page ${currentPage} of ${totalPages} (${items.length} Total Entities)`;
+      document.getElementById('btnPrev').disabled = currentPage === 1;
+      document.getElementById('btnNext').disabled = currentPage === totalPages;
+    }
+
+    function changePage(direction) {
+      const items = categoryData[currentCategory] || [];
+      const totalPages = Math.ceil(items.length / itemsPerPage) || 1;
+      currentPage += direction;
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      renderCategoryPage();
+    }
+
+    function closeCategoryModal() {
+      document.getElementById('categoryModal').style.display = 'none';
+    }
+
+    const varianceData = {
+      'Levy Deficit Entities': [
+        { name: 'Water Resources Board', cat: 'Strategic', target: 'Net Profitable', actual: '5.0B ' }
+      ],
+      'Dividend Surplus Entities': [
+        { name: 'Sri Lanka Telecom', cat: 'Strategic', target: 'Net Profitable', actual: '6.0B ' }
+      ]
+    };
+
+    function openDeficitSurplusModal(type, event) {
+      event.stopPropagation();
+      document.getElementById('deficitSurplusModalTitle').innerText = type;
+      const tbody = document.getElementById('deficitSurplusTableBody');
+      tbody.innerHTML = '';
+      const items = varianceData[type] || [];
+      items.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td>${item.cat}</td>
+          <td>${item.target}</td>
+          <td>${item.actual}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('deficitSurplusModal').style.display = 'flex';
+    }
+
+    function closeDeficitSurplusModal() {
+      document.getElementById('deficitSurplusModal').style.display = 'none';
+    }
+
+    const top5Data = {
+      VAT: {
+        title: "TOP 5 CONTRIBUTORS (VAT, DUTIES & OTHER)",
+        items: [{ name: "1. Ceylon Petroleum Corp", val: "65.0B " }]
+      },
+      CIT: {
+        title: "TOP 5 CONTRIBUTORS (CORPORATE INCOME TAX)",
+        items: [{ name: "1. Bank of Ceylon", val: "38.5B " }]
+      },
+      Levy: {
+        title: "TOP 5 CONTRIBUTORS (LEVY)",
+        items: [{ name: "1. Airport & Aviation Services", val: "8.5B " }]
+      },
+      Dividend: {
+        title: "TOP 5 CONTRIBUTORS (DIVIDEND)",
+        items: [{ name: "1. Sri Lanka Telecom", val: "6.0B " }]
+      }
+    };
+
+    function updateTop5(category, element) {
+      document.querySelectorAll('.revenue-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+      const data = top5Data[category];
+      document.getElementById('top5-category-title').innerText = data.title;
+      const listContainer = document.getElementById('top5-list-container');
+      listContainer.innerHTML = '';
+      data.items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'top5-item';
+        li.innerHTML = `<span>${item.name}</span><span style="font-weight: 700;">${item.val}</span>`;
+        listContainer.appendChild(li);
+      });
+    }
+
+    const budgetTop5Data = {
+      Recurrent: {
+        title: "TOP 5 RECURRENT SUPPORT RECIPIENTS",
+        items: [{ name: "1. Sri Lanka Railway Dept", val: "18.5B " }]
+      },
+      Capital: {
+        title: "TOP 5 CAPITAL SUPPORT RECIPIENTS",
+        items: [{ name: "1. Road Development Authority", val: "32.0B " }]
+      }
+    };
+
+    function updateBudgetTop5(type, element) {
+      document.querySelectorAll('.budget-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+      const data = budgetTop5Data[type];
+      document.getElementById('budget-top5-title').innerText = data.title;
+      const listContainer = document.getElementById('budget-top5-list');
+      listContainer.innerHTML = '';
+      data.items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'top5-item';
+        li.innerHTML = `<span>${item.name}</span><span style="font-weight: 700;">${item.val}</span>`;
+        listContainer.appendChild(li);
+      });
+    }
+  </script>
+</body>
+
+</html>
