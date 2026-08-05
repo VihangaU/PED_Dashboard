@@ -255,19 +255,19 @@ function initWorkforceChart(containerId) {
 
         <!-- Segmented Progress Bar (% out of Total State Staff: 1,300,000) -->
         <div class="wf-segmented-track">
-          <div id="segment-strat-prof" class="wf-segment" style="width: 6.04%; background-color: #16a34a;" 
+          <div id="segment-strat-prof" class="wf-segment" style="width: 6.04%; background-color: #cce8c3;" 
                onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Profit)')"
                onmouseenter="highlightCategory('strat-prof')" onmouseleave="removeHighlight()"
                title="Strategic Profitable: 6.04% of Total State Staff (78,500)"></div>
-          <div id="segment-strat-loss" class="wf-segment" style="width: 2.27%; background-color: #dc2626;" 
+          <div id="segment-strat-loss" class="wf-segment" style="width: 2.27%; background-color: #f5baca;" 
                onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Loss)')"
                onmouseenter="highlightCategory('strat-loss')" onmouseleave="removeHighlight()"
                title="Strategic Loss: 2.27% of Total State Staff (29,500)"></div>
-          <div id="segment-nonstrat-prof" class="wf-segment" style="width: 3.23%; background-color: #3b82f6;" 
+          <div id="segment-nonstrat-prof" class="wf-segment" style="width: 3.23%; background-color: #c7dbf2;" 
                onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Profit)')"
                onmouseenter="highlightCategory('nonstrat-prof')" onmouseleave="removeHighlight()"
                title="Non-Strategic Profitable: 3.23% of Total State Staff (42,000)"></div>
-          <div id="segment-nonstrat-loss" class="wf-segment" style="width: 2.69%; background-color: #d97706;" 
+          <div id="segment-nonstrat-loss" class="wf-segment" style="width: 2.69%; background-color: #e8d1ac;" 
                onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Loss)')"
                onmouseenter="highlightCategory('nonstrat-loss')" onmouseleave="removeHighlight()"
                title="Non-Strategic Loss: 2.69% of Total State Staff (35,000)"></div>
@@ -284,22 +284,22 @@ function initWorkforceChart(containerId) {
         <div class="wf-chart-body">
           <div class="wf-donut-2d-box">
             <svg viewBox="0 0 100 100" class="wf-donut-svg">
-              <circle id="arc-strat-prof" r="24" cx="50" cy="50" stroke="#16a34a" stroke-dasharray="106.5 151" stroke-dashoffset="0"
+              <circle id="arc-strat-prof" r="24" cx="50" cy="50" stroke="#cce8c3" stroke-dasharray="106.5 151" stroke-dashoffset="0"
                       onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Profit)')"
                       onmouseenter="highlightCategory('strat-prof')" 
                       onmousemove="showWfTooltip(event, 'Strategic SOEs - Net Profit: 42.4% (78,500)')" 
                       onmouseleave="removeHighlight()" />
-              <circle id="arc-strat-loss" r="24" cx="50" cy="50" stroke="#dc2626" stroke-dasharray="40 151" stroke-dashoffset="-106.5"
+              <circle id="arc-strat-loss" r="24" cx="50" cy="50" stroke="#f5baca" stroke-dasharray="40 151" stroke-dashoffset="-106.5"
                       onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Loss)')"
                       onmouseenter="highlightCategory('strat-loss')" 
                       onmousemove="showWfTooltip(event, 'Strategic SOEs - Net Loss: 15.9% (29,500)')" 
                       onmouseleave="removeHighlight()" />
-              <circle id="arc-nonstrat-prof" r="24" cx="50" cy="50" stroke="#3b82f6" stroke-dasharray="57 151" stroke-dashoffset="-146.5"
+              <circle id="arc-nonstrat-prof" r="24" cx="50" cy="50" stroke="#c7dbf2" stroke-dasharray="57 151" stroke-dashoffset="-146.5"
                       onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Profit)')"
                       onmouseenter="highlightCategory('nonstrat-prof')" 
                       onmousemove="showWfTooltip(event, 'Non-Strategic SOEs - Net Profit: 22.7% (42,000)')" 
                       onmouseleave="removeHighlight()" />
-              <circle id="arc-nonstrat-loss" r="24" cx="50" cy="50" stroke="#d97706" stroke-dasharray="47.5 151" stroke-dashoffset="-203.5"
+              <circle id="arc-nonstrat-loss" r="24" cx="50" cy="50" stroke="#e8d1ac" stroke-dasharray="47.5 151" stroke-dashoffset="-203.5"
                       onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Loss)')"
                       onmouseenter="highlightCategory('nonstrat-loss')" 
                       onmousemove="showWfTooltip(event, 'Non-Strategic SOEs - Net Loss: 18.9% (35,000)')" 
@@ -311,25 +311,25 @@ function initWorkforceChart(containerId) {
             <div class="wf-legend-item" id="legend-strat-prof"
                  onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightCategory('strat-prof')" onmouseleave="removeHighlight()">
-              <span><span class="wf-color-dot" style="background:#16a34a;"></span>Strategic SOEs - Net Profit</span>
+              <span><span class="wf-color-dot" style="background:#cce8c3;"></span>Strategic SOEs - Net Profit</span>
               <strong>78,500 (42.4%)</strong>
             </div>
             <div class="wf-legend-item" id="legend-strat-loss"
                  onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightCategory('strat-loss')" onmouseleave="removeHighlight()">
-              <span><span class="wf-color-dot" style="background:#dc2626;"></span>Strategic SOEs - Net Loss</span>
+              <span><span class="wf-color-dot" style="background:#f5baca;"></span>Strategic SOEs - Net Loss</span>
               <strong>29,500 (15.9%)</strong>
             </div>
             <div class="wf-legend-item" id="legend-nonstrat-prof"
                  onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightCategory('nonstrat-prof')" onmouseleave="removeHighlight()">
-              <span><span class="wf-color-dot" style="background:#3b82f6;"></span>Non-Strategic SOEs - Net Profit</span>
+              <span><span class="wf-color-dot" style="background:#c7dbf2;"></span>Non-Strategic SOEs - Net Profit</span>
               <strong>42,000 (22.7%)</strong>
             </div>
             <div class="wf-legend-item" id="legend-nonstrat-loss"
                  onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightCategory('nonstrat-loss')" onmouseleave="removeHighlight()">
-              <span><span class="wf-color-dot" style="background:#d97706;"></span>Non-Strategic SOEs - Net Loss</span>
+              <span><span class="wf-color-dot" style="background:#e8d1ac;"></span>Non-Strategic SOEs - Net Loss</span>
               <strong>35,000 (18.9%)</strong>
             </div>
           </div>
