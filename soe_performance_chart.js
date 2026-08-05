@@ -97,7 +97,7 @@ function initSOEPerformanceChart(containerId) {
         color: #ffffff;
         padding: 4px 8px;
         border-radius: 4px;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: bold;
         z-index: 100;
         pointer-events: none;
