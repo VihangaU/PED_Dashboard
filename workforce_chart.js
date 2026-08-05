@@ -3,8 +3,8 @@
  * 
  * Includes:
  * 1. Centered "Share of Total State Staff" label.
- * 2. Synchronized hover highlighting across Progress Bar Segments, Doughnut Arcs, and Legend items.
- * 3. Fixed mouseleave reset handler.
+ * 2. Dynamic arc percentage tooltips following the cursor on hover.
+ * 3. Two-way synchronized hover highlighting across Progress Bar Segments, Doughnut Arcs, and Legend items.
  */
 
 const workforceCategoryData = {
@@ -95,6 +95,7 @@ function initWorkforceChart(containerId) {
         display: flex;
         flex-direction: column;
         gap: 14px;
+        position: relative;
       }
       .chart-section-title {
         font-size: 11px;
@@ -113,6 +114,7 @@ function initWorkforceChart(containerId) {
         border: 1px solid var(--border-color);
         padding: 14px;
         border-radius: 8px;
+        position: relative;
       }
       .wf-donut-2d-box {
         width: 130px;
@@ -205,7 +207,26 @@ function initWorkforceChart(containerId) {
         color: var(--text-muted);
         margin-top: 4px;
       }
+
+      /* Arc Tooltip Following Cursor */
+      .wf-pie-tooltip {
+        display: none;
+        position: absolute;
+        background: #0f172a;
+        color: #ffffff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: bold;
+        z-index: 1000;
+        pointer-events: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        white-space: nowrap;
+      }
     </style>
+
+    <!-- Arc Hover Tooltip Container -->
+    <div id="wfPieTooltip" class="wf-pie-tooltip"></div>
 
     <div class="workforce-chart-card">
       <div class="wf-summary-bar">
@@ -259,16 +280,24 @@ function initWorkforceChart(containerId) {
             <svg viewBox="0 0 100 100" class="wf-donut-svg">
               <circle id="arc-strat-prof" r="24" cx="50" cy="50" stroke="#16a34a" stroke-dasharray="106.5 151" stroke-dashoffset="0"
                       onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Profit)')"
-                      onmouseenter="highlightCategory('strat-prof')" onmouseleave="removeHighlight()" />
+                      onmouseenter="highlightCategory('strat-prof')" 
+                      onmousemove="showWfTooltip(event, 'Strategic SOEs - Net Profit: 42.4% (78,500)')" 
+                      onmouseleave="removeHighlight()" />
               <circle id="arc-strat-loss" r="24" cx="50" cy="50" stroke="#dc2626" stroke-dasharray="40 151" stroke-dashoffset="-106.5"
                       onclick="openWorkforceModal('Workforce - (Strategic SOEs - Net Loss)')"
-                      onmouseenter="highlightCategory('strat-loss')" onmouseleave="removeHighlight()" />
+                      onmouseenter="highlightCategory('strat-loss')" 
+                      onmousemove="showWfTooltip(event, 'Strategic SOEs - Net Loss: 15.9% (29,500)')" 
+                      onmouseleave="removeHighlight()" />
               <circle id="arc-nonstrat-prof" r="24" cx="50" cy="50" stroke="#3b82f6" stroke-dasharray="57 151" stroke-dashoffset="-146.5"
                       onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Profit)')"
-                      onmouseenter="highlightCategory('nonstrat-prof')" onmouseleave="removeHighlight()" />
+                      onmouseenter="highlightCategory('nonstrat-prof')" 
+                      onmousemove="showWfTooltip(event, 'Non-Strategic SOEs - Net Profit: 22.7% (42,000)')" 
+                      onmouseleave="removeHighlight()" />
               <circle id="arc-nonstrat-loss" r="24" cx="50" cy="50" stroke="#d97706" stroke-dasharray="47.5 151" stroke-dashoffset="-203.5"
                       onclick="openWorkforceModal('Workforce - (Non-Strategic SOEs - Net Loss)')"
-                      onmouseenter="highlightCategory('nonstrat-loss')" onmouseleave="removeHighlight()" />
+                      onmouseenter="highlightCategory('nonstrat-loss')" 
+                      onmousemove="showWfTooltip(event, 'Non-Strategic SOEs - Net Loss: 18.9% (35,000)')" 
+                      onmouseleave="removeHighlight()" />
             </svg>
           </div>
 
@@ -332,7 +361,22 @@ function initWorkforceChart(containerId) {
   `;
 }
 
-// Synchronized Hover Highlight Handler
+// Tooltip position handler
+function showWfTooltip(evt, text) {
+  const tooltip = document.getElementById('wfPieTooltip');
+  if (!tooltip) return;
+  tooltip.innerText = text;
+  tooltip.style.display = 'block';
+  tooltip.style.left = (evt.pageX + 12) + 'px';
+  tooltip.style.top = (evt.pageY - 28) + 'px';
+}
+
+function hideWfTooltip() {
+  const tooltip = document.getElementById('wfPieTooltip');
+  if (tooltip) tooltip.style.display = 'none';
+}
+
+// Two-Way Synchronized Hover Highlight Handler
 function highlightCategory(catId) {
   removeHighlight();
   const arc = document.getElementById(`arc-${catId}`);
@@ -346,6 +390,7 @@ function highlightCategory(catId) {
 
 // Reset Highlight State
 function removeHighlight() {
+  hideWfTooltip();
   document.querySelectorAll('.wf-donut-svg circle').forEach(c => c.classList.remove('highlighted'));
   document.querySelectorAll('.wf-legend-item').forEach(l => l.classList.remove('highlighted'));
   document.querySelectorAll('.wf-segment').forEach(s => s.classList.remove('highlighted'));
