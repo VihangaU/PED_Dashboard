@@ -216,12 +216,18 @@ function initWorkforceChart(containerId) {
         color: #ffffff;
         padding: 4px 8px;
         border-radius: 4px;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: bold;
         z-index: 1000;
         pointer-events: none;
         box-shadow: 0 2px 6px rgba(0,0,0,0.25);
         white-space: nowrap;
+      }      
+      .wf-legend-item.highlighted {
+        background: #e2e8f0;
+        border-color: var(--primary-blue);
+        transform: translateX(4px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
     </style>
 
@@ -443,4 +449,27 @@ function changeWorkforcePage(direction) {
 
 function closeWorkforceModal() {
   document.getElementById('workforceModal').style.display = 'none';
+}
+
+// Two-Way Synchronized Hover Highlight Handler
+function highlightCategory(catId) {
+  removeHighlight();
+
+  // Select elements by ID
+  const arc = document.getElementById(`arc-${catId}`);
+  const legend = document.getElementById(`legend-${catId}`);
+  const segment = document.getElementById(`segment-${catId}`);
+
+  // Add highlighted class to arc, legend item, and bar segment
+  if (arc) arc.classList.add('highlighted');
+  if (legend) legend.classList.add('highlighted');
+  if (segment) segment.classList.add('highlighted');
+}
+
+// Reset Highlight State
+function removeHighlight() {
+  hideWfTooltip();
+  document.querySelectorAll('.wf-donut-svg circle').forEach(c => c.classList.remove('highlighted'));
+  document.querySelectorAll('.wf-legend-item').forEach(l => l.classList.remove('highlighted'));
+  document.querySelectorAll('.wf-segment').forEach(s => s.classList.remove('highlighted'));
 }

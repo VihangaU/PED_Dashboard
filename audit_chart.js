@@ -232,19 +232,19 @@ function initAuditChart(containerId) {
       <div class="audit-legend-container">
         <div class="audit-legend-item" id="legend-strat-prof"
              onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()">
-          <span class="audit-color-dot" style="background:#16a34a;"></span>Strategic SOEs - Net Profit
+          <span class="audit-color-dot" style="background:#cce8c3;"></span>Strategic SOEs - Net Profit
         </div>
         <div class="audit-legend-item" id="legend-strat-loss"
              onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()">
-          <span class="audit-color-dot" style="background:#dc2626;"></span>Strategic SOEs - Net Loss
+          <span class="audit-color-dot" style="background:#f5baca;"></span>Strategic SOEs - Net Loss
         </div>
         <div class="audit-legend-item" id="legend-nonstrat-prof"
              onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()">
-          <span class="audit-color-dot" style="background:#3b82f6;"></span>Non-Strategic SOEs - Net Profit
+          <span class="audit-color-dot" style="background:#c7dbf2;"></span>Non-Strategic SOEs - Net Profit
         </div>
         <div class="audit-legend-item" id="legend-nonstrat-loss"
              onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()">
-          <span class="audit-color-dot" style="background:#d97706;"></span>Non-Strategic SOEs - Net Loss
+          <span class="audit-color-dot" style="background:#e8d1ac;"></span>Non-Strategic SOEs - Net Loss
         </div>
       </div>
 
@@ -258,19 +258,19 @@ function initAuditChart(containerId) {
             <span class="row-total-badge badge-success">34</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-prof" style="width: 58.8%; background:#5fb880;"
+            <div class="row-segment seg-strat-prof" style="width: 58.8%; background:#cce8c3; color:#000000;"
                  onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Strategic Profitable: 20 SOEs">20</div>
-            <div class="row-segment seg-strat-loss" style="width: 5.9%; background:#f07575;"
+            <div class="row-segment seg-strat-loss" style="width: 5.9%; background:#f5baca; color:#000000;"
                  onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Strategic Loss: 2 SOEs">2</div>
-            <div class="row-segment seg-nonstrat-prof" style="width: 29.4%; background:#82adf5;"
+            <div class="row-segment seg-nonstrat-prof" style="width: 29.4%; background:#c7dbf2; color:#000000;"
                  onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Non-Strategic Profitable: 10 SOEs">10</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 5.9%; background:#d19754;"
+            <div class="row-segment seg-nonstrat-loss" style="width: 5.9%; background:#e8d1ac; color:#000000;"
                  onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Non-Strategic Loss: 2 SOEs">2</div>
@@ -284,19 +284,19 @@ function initAuditChart(containerId) {
             <span class="row-total-badge badge-danger">23</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-prof" style="width: 21.7%; background:#5fb880;"
+            <div class="row-segment seg-strat-prof" style="width: 21.7%; background:#cce8c3; color:#000000;"
                  onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Strategic Profitable: 5 SOEs">5</div>
-            <div class="row-segment seg-strat-loss" style="width: 13.0%; background:#f07575;"
+            <div class="row-segment seg-strat-loss" style="width: 13.0%; background:#f5baca; color:#000000;"
                  onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Strategic Loss: 3 SOEs">3</div>
-            <div class="row-segment seg-nonstrat-prof" style="width: 43.5%; background:#82adf5;"
+            <div class="row-segment seg-nonstrat-prof" style="width: 43.5%; background:#c7dbf2; color:#000000;"
                  onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Non-Strategic Profitable: 10 SOEs">10</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 21.8%; background:#d19754;"
+            <div class="row-segment seg-nonstrat-loss" style="width: 21.8%; background:#e8d1ac; color:#000000;"
                  onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Non-Strategic Loss: 5 SOEs">5</div>
@@ -310,11 +310,11 @@ function initAuditChart(containerId) {
             <span class="row-total-badge" style="background:#cbd5e1; color:#334155;">4</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-loss" style="width: 25.0%; background:#f07575;"
+            <div class="row-segment seg-strat-loss" style="width: 25.0%; background:#f5baca; color:#000000;"
                  onclick="openAuditPopup('Audit Opinion Unavailable (Not Uploaded Yet) - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unavailable (Not Uploaded Yet) - Strategic Loss: 1 SOE">1</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 75.0%; background:#d19754;"
+            <div class="row-segment seg-nonstrat-loss" style="width: 75.0%; background:#e8d1ac; color:#000000;"
                  onclick="openAuditPopup('Audit Opinion Unavailable (Not Uploaded Yet) - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unavailable (Not Uploaded Yet) - Non-Strategic Loss: 3 SOEs">3</div>
