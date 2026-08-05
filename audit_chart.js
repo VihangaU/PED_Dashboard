@@ -16,7 +16,7 @@
 
 const auditCategoryData = {
   // --- CLEAN OPINIONS (True and Fair) ---
-  'Clean Audit Opinions (True and Fair) - Strategic Profitable SOEs': [
+  'Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Profit)': [
     { name: 'Bank of Ceylon', category: 'Strategic', opinion: 'True and Fair' },
     { name: 'People\'s Bank', category: 'Strategic', opinion: 'True and Fair' },
     { name: 'Ports Authority', category: 'Strategic', opinion: 'True and Fair' },
@@ -38,11 +38,11 @@ const auditCategoryData = {
     { name: 'Tea Small Holdings Authority', category: 'Strategic', opinion: 'True and Fair' },
     { name: 'Marine Environment Protection Authority', category: 'Strategic', opinion: 'True and Fair' }
   ],
-  'Clean Audit Opinions (True and Fair) - Strategic Loss SOEs': [
+  'Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Loss)': [
     { name: 'Ceylon Petroleum Corp', category: 'Strategic', opinion: 'True and Fair' },
     { name: 'SriLankan Airlines', category: 'Strategic', opinion: 'True and Fair' }
   ],
-  'Clean Audit Opinions (True and Fair) - Non-Strategic Profitable SOEs': [
+  'Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Profit)': [
     { name: 'Lanka Hospitals PLC', category: 'Non-Strategic', opinion: 'True and Fair' },
     { name: 'BCI Campus Ltd', category: 'Non-Strategic', opinion: 'True and Fair' },
     { name: 'Lanka Sugar Company', category: 'Non-Strategic', opinion: 'True and Fair' },
@@ -54,25 +54,25 @@ const auditCategoryData = {
     { name: 'Ceylon Fisheries Corporation', category: 'Non-Strategic', opinion: 'True and Fair' },
     { name: 'Building Materials Corp', category: 'Non-Strategic', opinion: 'True and Fair' }
   ],
-  'Clean Audit Opinions (True and Fair) - Non-Strategic Loss SOEs': [
+  'Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Loss)': [
     { name: 'Spices & Allied Products Board', category: 'Non-Strategic', opinion: 'True and Fair' },
     { name: 'Kurunegala Plantations Ltd', category: 'Non-Strategic', opinion: 'True and Fair' }
   ],
 
   // --- UNCLEAN OPINIONS (Qualified / Adverse / Disclaimer) ---
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Strategic Profitable SOEs': [
+  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Profit)': [
     { name: 'State Printing Corporation', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Lanka Phosphate Ltd', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Sri Lanka Handicrafts Board', category: 'Strategic', opinion: 'Adverse' },
     { name: 'Sri Lanka Ports Management', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Lanka IOC Share Entity', category: 'Strategic', opinion: 'Disclaimer' }
   ],
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Strategic Loss SOEs': [
+  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Loss)': [
     { name: 'Ceylon Electricity Board', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Sri Lanka Railway Dept', category: 'Strategic', opinion: 'Adverse' },
     { name: 'Sri Lanka Transport Board', category: 'Strategic', opinion: 'Disclaimer' }
   ],
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Non-Strategic Profitable SOEs': [
+  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Profit)': [
     { name: 'National Water Supply Board', category: 'Non-Strategic', opinion: 'Qualified' },
     { name: 'Sri Lanka State Trading Corp', category: 'Non-Strategic', opinion: 'Adverse' },
     { name: 'Hotel Developers (Lanka) Ltd', category: 'Non-Strategic', opinion: 'Qualified' },
@@ -84,7 +84,7 @@ const auditCategoryData = {
     { name: 'Sri Lanka Rubber Manufacturing', category: 'Non-Strategic', opinion: 'Qualified' },
     { name: 'Ceylon Fishery Harbours Corp', category: 'Non-Strategic', opinion: 'Adverse' }
   ],
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Non-Strategic Loss SOEs': [
+  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Loss)': [
     { name: 'Kahawatte Plantations Entity', category: 'Non-Strategic', opinion: 'Adverse' },
     { name: 'Elpitiya Plantations Entity', category: 'Non-Strategic', opinion: 'Qualified' },
     { name: 'Chilaw Plantations Ltd', category: 'Non-Strategic', opinion: 'Disclaimer' },
@@ -93,10 +93,10 @@ const auditCategoryData = {
   ],
 
   // --- UNAVAILABLE (Not Uploaded Yet) ---
-  'Audit Opinion Unavailable (Not Uploaded Yet) - Strategic Loss SOEs': [
+  'Audit Opinion Unavailable (Not Uploaded Yet) - (Strategic SOEs - Net Loss)': [
     { name: 'Mahanagera Transport Corp', category: 'Strategic', opinion: 'Not Uploaded Yet' }
   ],
-  'Audit Opinion Unavailable (Not Uploaded Yet) - Non-Strategic Loss SOEs': [
+  'Audit Opinion Unavailable (Not Uploaded Yet) - (Non-Strategic SOEs - Net Loss)': [
     { name: 'Janatha Estates Development Board', category: 'Non-Strategic', opinion: 'Not Uploaded Yet' },
     { name: 'Selacine Television Institute', category: 'Non-Strategic', opinion: 'Not Uploaded Yet' },
     { name: 'Sri Lanka Casualty Insurance', category: 'Non-Strategic', opinion: 'Not Uploaded Yet' }
@@ -258,20 +258,20 @@ function initAuditChart(containerId) {
             <span class="row-total-badge badge-success">34</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-prof" style="width: 58.8%; background:#16a34a;"
-                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - Strategic Profitable SOEs')"
+            <div class="row-segment seg-strat-prof" style="width: 58.8%; background:#5fb880;"
+                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Strategic Profitable: 20 SOEs">20</div>
-            <div class="row-segment seg-strat-loss" style="width: 5.9%; background:#dc2626;"
-                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - Strategic Loss SOEs')"
+            <div class="row-segment seg-strat-loss" style="width: 5.9%; background:#f07575;"
+                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Strategic Loss: 2 SOEs">2</div>
-            <div class="row-segment seg-nonstrat-prof" style="width: 29.4%; background:#3b82f6;"
-                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - Non-Strategic Profitable SOEs')"
+            <div class="row-segment seg-nonstrat-prof" style="width: 29.4%; background:#82adf5;"
+                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Non-Strategic Profitable: 10 SOEs">10</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 5.9%; background:#d97706;"
-                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - Non-Strategic Loss SOEs')"
+            <div class="row-segment seg-nonstrat-loss" style="width: 5.9%; background:#d19754;"
+                 onclick="openAuditPopup('Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Clean (True and Fair) - Non-Strategic Loss: 2 SOEs">2</div>
           </div>
@@ -284,20 +284,20 @@ function initAuditChart(containerId) {
             <span class="row-total-badge badge-danger">23</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-prof" style="width: 21.7%; background:#16a34a;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Strategic Profitable SOEs')"
+            <div class="row-segment seg-strat-prof" style="width: 21.7%; background:#5fb880;"
+                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Strategic Profitable: 5 SOEs">5</div>
-            <div class="row-segment seg-strat-loss" style="width: 13.0%; background:#dc2626;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Strategic Loss SOEs')"
+            <div class="row-segment seg-strat-loss" style="width: 13.0%; background:#f07575;"
+                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Strategic Loss: 3 SOEs">3</div>
-            <div class="row-segment seg-nonstrat-prof" style="width: 43.5%; background:#3b82f6;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Non-Strategic Profitable SOEs')"
+            <div class="row-segment seg-nonstrat-prof" style="width: 43.5%; background:#82adf5;"
+                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Non-Strategic Profitable: 10 SOEs">10</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 21.8%; background:#d97706;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - Non-Strategic Loss SOEs')"
+            <div class="row-segment seg-nonstrat-loss" style="width: 21.8%; background:#d19754;"
+                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unclean (Qualified / Adverse / Disclaimer) - Non-Strategic Loss: 5 SOEs">5</div>
           </div>
@@ -310,12 +310,12 @@ function initAuditChart(containerId) {
             <span class="row-total-badge" style="background:#cbd5e1; color:#334155;">4</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-loss" style="width: 25.0%; background:#dc2626;"
-                 onclick="openAuditPopup('Audit Opinion Unavailable (Not Uploaded Yet) - Strategic Loss SOEs')"
+            <div class="row-segment seg-strat-loss" style="width: 25.0%; background:#f07575;"
+                 onclick="openAuditPopup('Audit Opinion Unavailable (Not Uploaded Yet) - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unavailable (Not Uploaded Yet) - Strategic Loss: 1 SOE">1</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 75.0%; background:#d97706;"
-                 onclick="openAuditPopup('Audit Opinion Unavailable (Not Uploaded Yet) - Non-Strategic Loss SOEs')"
+            <div class="row-segment seg-nonstrat-loss" style="width: 75.0%; background:#d19754;"
+                 onclick="openAuditPopup('Audit Opinion Unavailable (Not Uploaded Yet) - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
                  title="Unavailable (Not Uploaded Yet) - Non-Strategic Loss: 3 SOEs">3</div>
           </div>

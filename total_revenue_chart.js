@@ -28,7 +28,7 @@ const revenueCategoryData = {
   ],
 
   // --- STRATEGIC NET PROFIT SOEs (25 SOEs Total Revenue: 950.0B) ---
-  'Strategic Sector - Net Profit SOEs Revenue Breakdown (25 SOEs)': [
+  'Total Revenue (Strategic SOEs - Net Profit)': [
     { name: '1. Bank of Ceylon', rev: '180.0B' },
     { name: '2. People\'s Bank', rev: '145.0B' },
     { name: '3. Sri Lanka Telecom PLC', rev: '115.2B' },
@@ -57,7 +57,7 @@ const revenueCategoryData = {
   ],
 
   // --- STRATEGIC NET LOSS SOEs (5 SOEs Total Revenue: 400.0B) ---
-  'Strategic Sector - Net Loss SOEs Revenue Breakdown (5 SOEs)': [
+  'Total Revenue (Strategic SOEs - Net Loss)': [
     { name: '1. Ceylon Petroleum Corporation (CPC)', rev: '450.0B' },
     { name: '2. Ceylon Electricity Board (CEB)', rev: '390.0B' },
     { name: '3. SriLankan Airlines Ltd', rev: '210.0B' },
@@ -66,7 +66,7 @@ const revenueCategoryData = {
   ],
 
   // --- NON-STRATEGIC NET PROFIT SOEs (20 SOEs Total Revenue: 680.0B) ---
-  'Non-Strategic Sector - Net Profit SOEs Revenue Breakdown (20 SOEs)': [
+  'Total Revenue (Non-Strategic SOEs - Net Profit)': [
     { name: '1. National Water Supply & Drainage Board', rev: '45.0B' },
     { name: '2. Lanka Hospitals PLC', rev: '18.5B' },
     { name: '3. Hotel Developers (Lanka) Ltd', rev: '12.0B' },
@@ -90,7 +90,7 @@ const revenueCategoryData = {
   ],
 
   // --- NON-STRATEGIC NET LOSS SOEs (7 SOEs Total Revenue: 30.0B) ---
-  'Non-Strategic Sector - Net Loss SOEs Revenue Breakdown (7 SOEs)': [
+  'Total Revenue (Non-Strategic SOEs - Net Loss)': [
     { name: '1. Spices & Allied Products Marketing Board', rev: '4.2B' },
     { name: '2. Kahawatte Plantations Entity', rev: '3.8B' },
     { name: '3. Elpitiya Plantations Entity', rev: '3.1B' },
@@ -230,13 +230,13 @@ function initTotalRevenueChart(containerId) {
         <!-- Profit and Loss Revenue Sub-Badges -->
         <div class="rev-split-container">
           <div class="rev-split-badge profit" 
-               onclick="openRevenueCategoryModal('Strategic Sector - Net Profit SOEs Revenue Breakdown (25 SOEs)')"
+               onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Profit)')"
                title="Click to view revenue of all 25 Strategic Net Profit SOEs">
             <span class="rev-split-label">Net Profit SOEs</span>
             <span class="rev-split-value">950.0B</span>
           </div>
           <div class="rev-split-badge loss" 
-               onclick="openRevenueCategoryModal('Strategic Sector - Net Loss SOEs Revenue Breakdown (5 SOEs)')"
+               onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Loss)')"
                title="Click to view revenue of all 5 Strategic Net Loss SOEs">
             <span class="rev-split-label">Net Loss SOEs</span>
             <span class="rev-split-value">400.0B</span>
@@ -257,13 +257,13 @@ function initTotalRevenueChart(containerId) {
         <!-- Profit and Loss Revenue Sub-Badges -->
         <div class="rev-split-container">
           <div class="rev-split-badge profit" 
-               onclick="openRevenueCategoryModal('Non-Strategic Sector - Net Profit SOEs Revenue Breakdown (20 SOEs)')"
+               onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Profit)')"
                title="Click to view revenue of all 20 Non-Strategic Net Profit SOEs">
             <span class="rev-split-label">Net Profit SOEs</span>
             <span class="rev-split-value">680.0B</span>
           </div>
           <div class="rev-split-badge loss" 
-               onclick="openRevenueCategoryModal('Non-Strategic Sector - Net Loss SOEs Revenue Breakdown (7 SOEs)')"
+               onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Loss)')"
                title="Click to view revenue of all 7 Non-Strategic Net Loss SOEs">
             <span class="rev-split-label">Net Loss SOEs</span>
             <span class="rev-split-value">30.0B</span>

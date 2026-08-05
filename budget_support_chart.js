@@ -9,36 +9,36 @@
 // Data Store for Budget Support Allocations per Category
 const budgetSupportData = {
   // --- RECURRENT SUPPORT ---
-  'Recurrent Budget Support - Strategic Profitable SOEs': [
+  'Recurrent Budget Support (Strategic SOEs - Net Profit)': [
     { name: 'National Water Supply Board (Operational Support)', value: '3.0B' },
     { name: 'Airport & Aviation Services (Regional Airfield Maintenance)', value: '1.8B' }
   ],
-  'Recurrent Budget Support - Strategic Loss SOEs': [
+  'Recurrent Budget Support (Strategic SOEs - Net Loss)': [
     { name: 'Sri Lanka Railway Dept (Operational Subsidy)', value: '18.5B' },
     { name: 'Ceylon Electricity Board (Fuel Subsidy Grant)', value: '12.0B' }
   ],
-  'Recurrent Budget Support - Non-Strategic Profitable SOEs': [
+  'Recurrent Budget Support (Non-Strategic SOEs - Net Profit)': [
     { name: 'State Engineering Corporation (Restructuring Grant)', value: '1.2B' },
     { name: 'Ceylon Fisheries Corporation (Cold Chain Support)', value: '0.8B' }
   ],
-  'Recurrent Budget Support - Non-Strategic Loss SOEs': [
+  'Recurrent Budget Support (Non-Strategic SOEs - Net Loss)': [
     { name: 'Sri Lanka Transport Board (SLTB Fleet Subsidy)', value: '5.2B' },
     { name: 'Spices & Allied Products Board (Admin Support)', value: '0.5B' }
   ],
 
   // --- CAPITAL SUPPORT ---
-  'Capital Budget Support - Strategic Profitable SOEs': [
+  'Capital Budget Support (Strategic SOEs - Net Profit)': [
     { name: 'Ports Authority Infrastructure Expansion', value: '5.0B' },
     { name: 'Sri Lanka Telecom (Rural Connectivity Project)', value: '3.5B' }
   ],
-  'Capital Budget Support - Strategic Loss SOEs': [
+  'Capital Budget Support (Strategic SOEs - Net Loss)': [
     { name: 'Road Development Authority (Highway Network Grant)', value: '32.0B' },
     { name: 'Sri Lanka Railway Dept (Rolling Stock & Track Upgrades)', value: '10.5B' }
   ],
-  'Capital Budget Support - Non-Strategic Profitable SOEs': [
+  'Capital Budget Support (Non-Strategic SOEs - Net Profit)': [
     { name: 'National Water Supply Board (Water Treatment Capital Grant)', value: '19.0B' }
   ],
-  'Capital Budget Support - Non-Strategic Loss SOEs': [
+  'Capital Budget Support (Non-Strategic SOEs - Net Loss)': [
     { name: 'Urban Development Authority (Urban Renewal Grant)', value: '3.5B' }
   ]
 };
@@ -195,7 +195,7 @@ function initBudgetSupportChart(containerId) {
 
           <div class="budget-sub-grid">
             <!-- Strategic Profit -->
-            <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Recurrent Budget Support - Strategic Profitable SOEs')">
+            <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Recurrent Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Strategic Profit (11.9%)</span>
                 <span class="budget-cat-val">4.8B  ⓘ</span>
@@ -206,7 +206,7 @@ function initBudgetSupportChart(containerId) {
             </div>
 
             <!-- Strategic Loss -->
-            <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Recurrent Budget Support - Strategic Loss SOEs')">
+            <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Recurrent Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Strategic Loss (75.3%)</span>
                 <span class="budget-cat-val">30.5B  ⓘ</span>
@@ -217,7 +217,7 @@ function initBudgetSupportChart(containerId) {
             </div>
 
             <!-- Non-Strategic Profit -->
-            <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Recurrent Budget Support - Non-Strategic Profitable SOEs')">
+            <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Recurrent Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Profit (4.9%)</span>
                 <span class="budget-cat-val">2.0B  ⓘ</span>
@@ -228,7 +228,7 @@ function initBudgetSupportChart(containerId) {
             </div>
 
             <!-- Non-Strategic Loss -->
-            <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Recurrent Budget Support - Non-Strategic Loss SOEs')">
+            <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Recurrent Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Loss (14.1%)</span>
                 <span class="budget-cat-val">5.7B  ⓘ</span>
@@ -250,7 +250,7 @@ function initBudgetSupportChart(containerId) {
 
           <div class="budget-sub-grid">
             <!-- Strategic Profit -->
-            <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Capital Budget Support - Strategic Profitable SOEs')">
+            <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Capital Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Strategic Profit (12.1%)</span>
                 <span class="budget-cat-val">8.5B  ⓘ</span>
@@ -261,7 +261,7 @@ function initBudgetSupportChart(containerId) {
             </div>
 
             <!-- Strategic Loss -->
-            <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Capital Budget Support - Strategic Loss SOEs')">
+            <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Capital Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Strategic Loss (60.7%)</span>
                 <span class="budget-cat-val">42.5B  ⓘ</span>
@@ -272,7 +272,7 @@ function initBudgetSupportChart(containerId) {
             </div>
 
             <!-- Non-Strategic Profit -->
-            <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Capital Budget Support - Non-Strategic Profitable SOEs')">
+            <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Capital Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Profit (22.1%)</span>
                 <span class="budget-cat-val">15.5B  ⓘ</span>
@@ -283,7 +283,7 @@ function initBudgetSupportChart(containerId) {
             </div>
 
             <!-- Non-Strategic Loss -->
-            <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Capital Budget Support - Non-Strategic Loss SOEs')">
+            <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Capital Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Loss (5.1%)</span>
                 <span class="budget-cat-val">3.5B  ⓘ</span>

@@ -11,100 +11,100 @@
 // Comprehensive Data Store for Government Revenue Streams & Variances
 const govtRevenueData = {
   // --- VAT, DUTIES & OTHER ---
-  'VAT, Duties & Other - Strategic Profitable SOEs': [
+  'VAT,Duties & Others (Strategic SOEs -Net Profit)': [
     { name: 'Bank of Ceylon', category: 'Strategic Profitable', value: '24.5B ' },
     { name: 'Sri Lanka Telecom PLC', category: 'Strategic Profitable', value: '12.5B ' },
     { name: 'Airport & Aviation Services Ltd', category: 'Strategic Profitable', value: '18.0B ' },
     { name: 'National Savings Bank', category: 'Strategic Profitable', value: '10.0B ' }
   ],
-  'VAT, Duties & Other - Strategic Loss SOEs': [
+  'VAT,Duties & Others (Strategic SOEs -Net Loss)': [
     { name: 'Ceylon Petroleum Corporation (CPC)', category: 'Strategic Loss', value: '65.0B ' },
     { name: 'Ceylon Electricity Board (CEB)', category: 'Strategic Loss', value: '8.5B ' }
   ],
-  'VAT, Duties & Other - Non-Strategic Profitable SOEs': [
+  'VAT,Duties & Others (Non-Strategic SOEs -Net Profit)': [
     { name: 'National Water Supply & Drainage Board', category: 'Non-Strategic Profitable', value: '4.2B ' },
     { name: 'Lanka Hospitals PLC', category: 'Non-Strategic Profitable', value: '2.3B ' }
   ],
-  'VAT, Duties & Other - Non-Strategic Loss SOEs': [
+  'VAT,Duties & Others (Non-Strategic SOEs -Net Loss)': [
     { name: 'Sri Lanka Transport Board (SLTB)', category: 'Non-Strategic Loss', value: '1.0B ' }
   ],
 
   // --- CORPORATE INCOME TAX (CIT) ---
-  'Corporate Income Tax (CIT) - Strategic Profitable SOEs': [
+  'Corporate Income Tax (CIT)  (Strategic SOEs -Net Profit)': [
     { name: 'Bank of Ceylon', category: 'Strategic Profitable', value: '38.5B ' },
     { name: 'People\'s Bank', category: 'Strategic Profitable', value: '29.0B ' },
     { name: 'National Savings Bank', category: 'Strategic Profitable', value: '19.5B ' },
     { name: 'Sri Lanka Insurance Corporation', category: 'Strategic Profitable', value: '14.0B ' }
   ],
-  'Corporate Income Tax (CIT) - Strategic Loss SOEs': [
+  'Corporate Income Tax (CIT)  (Strategic SOEs -Net Loss)': [
     { name: 'SriLankan Airlines (Tax Adjustments)', category: 'Strategic Loss', value: '1.0B ' }
   ],
-  'Corporate Income Tax (CIT) - Non-Strategic Profitable SOEs': [
+  'Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Profit)': [
     { name: 'Sri Lanka Ports Authority', category: 'Non-Strategic Profitable', value: '9.0B ' },
     { name: 'Litro Gas Lanka Ltd', category: 'Non-Strategic Profitable', value: '3.5B ' }
   ],
-  'Corporate Income Tax (CIT) - Non-Strategic Loss SOEs': [
+  'Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Loss)': [
     { name: 'Spices & Allied Products Board', category: 'Non-Strategic Loss', value: '0.5B ' }
   ],
 
   // --- LEVY STREAM REVENUE ---
-  'Levy Revenue - Strategic Profitable SOEs': [
+  'Levy  (Strategic SOEs -Net Profit)': [
     { name: 'Airport & Aviation Services Ltd', category: 'Strategic Profitable', value: '8.5B ' },
     { name: 'Development Lotteries Board', category: 'Strategic Profitable', value: '4.2B ' },
     { name: 'National Lotteries Board', category: 'Strategic Profitable', value: '3.3B ' }
   ],
-  'Levy Revenue - Strategic Loss SOEs': [
+  'Levy  (Strategic SOEs -Net Loss)': [
     { name: 'Ceylon Electricity Board', category: 'Strategic Loss', value: '2.0B ' }
   ],
-  'Levy Revenue - Non-Strategic Profitable SOEs': [
+  'Levy  (Non-Strategic SOEs -Net Profit)': [
     { name: 'Ports Authority (Levy Portion)', category: 'Non-Strategic Profitable', value: '6.0B ' }
   ],
-  'Levy Revenue - Non-Strategic Loss SOEs': [
+  'Levy  (Non-Strategic SOEs -Net Loss)': [
     { name: 'State Engineering Corporation', category: 'Non-Strategic Loss', value: '1.0B ' }
   ],
 
   // --- LEVY DEFICITS PER SUB-CATEGORY ---
-  'Levy Deficit Breakdown - Strategic Profitable SOEs': [
+  'Levy Deficit (Strategic SOEs - Net Profit)': [
     { name: 'Civil Aviation Authority', target: '2.0B ', actual: '1.0B ', variance: '1.0B  Deficit' }
   ],
-  'Levy Deficit Breakdown - Strategic Loss SOEs': [
+  'Levy Deficit (Strategic SOEs - Net Loss)': [
     { name: 'Water Resources Board', target: '3.0B ', actual: '1.0B ', variance: '2.0B  Deficit' }
   ],
-  'Levy Deficit Breakdown - Non-Strategic Profitable SOEs': [
+  'Levy Deficit (Non-Strategic SOEs - Net Profit)': [
     { name: 'State Pharmaceuticals Corporation', target: '1.5B ', actual: '0.8B ', variance: '0.7B  Deficit' }
   ],
-  'Levy Deficit Breakdown - Non-Strategic Loss SOEs': [
+  'Levy Deficit (Non-Strategic SOEs - Net Loss)': [
     { name: 'National Transport Commission', target: '1.8B ', actual: '0.5B ', variance: '1.3B  Deficit' }
   ],
 
   // --- DIVIDEND STREAM REVENUE ---
-  'Dividend Revenue - Strategic Profitable SOEs': [
+  'Dividend (Strategic SOEs - Net Profit)': [
     { name: 'Sri Lanka Telecom PLC', category: 'Strategic Profitable', value: '6.0B ' },
     { name: 'Lanka Hospitals PLC', category: 'Strategic Profitable', value: '3.5B ' },
     { name: 'Litro Gas Lanka Ltd', category: 'Strategic Profitable', value: '2.0B ' }
   ],
-  'Dividend Revenue - Strategic Loss SOEs': [
+  'Dividend (Strategic SOEs - Net Loss)': [
     { name: 'Ceylon Petroleum Corporation (N/A)', category: 'Strategic Loss', value: '1.0B ' }
   ],
-  'Dividend Revenue - Non-Strategic Profitable SOEs': [
+  'Dividend (Non-Strategic SOEs - Net Profit)': [
     { name: 'Ceylon Electricity Board (Dividend Share)', category: 'Non-Strategic Profitable', value: '1.8B ' },
     { name: 'Milco (Pvt) Ltd', category: 'Non-Strategic Profitable', value: '0.2B ' }
   ],
-  'Dividend Revenue - Non-Strategic Loss SOEs': [
+  'Dividend (Non-Strategic SOEs - Net Loss)': [
     { name: 'Kurunegala Plantations Ltd', category: 'Non-Strategic Loss', value: '1.0B ' }
   ],
 
   // --- DIVIDEND SURPLUSES PER SUB-CATEGORY ---
-  'Dividend Surplus Breakdown - Strategic Profitable SOEs': [
+  'Dividend Surplus (Strategic SOEs - Net Profit)': [
     { name: 'Sri Lanka Telecom PLC', target: '5.0B ', actual: '6.0B ', variance: '1.0B  Surplus' }
   ],
-  'Dividend Surplus Breakdown - Strategic Loss SOEs': [
+  'Dividend Surplus (Strategic SOEs - Net Loss)': [
     { name: 'Ceylon Electricity Board Special Unit', target: '0.5B ', actual: '0.6B ', variance: '0.1B  Surplus' }
   ],
-  'Dividend Surplus Breakdown - Non-Strategic Profitable SOEs': [
+  'Dividend Surplus (Non-Strategic SOEs - Net Profit)': [
     { name: 'Lanka Hospitals PLC', target: '3.3B ', actual: '3.5B ', variance: '0.2B  Surplus' }
   ],
-  'Dividend Surplus Breakdown - Non-Strategic Loss SOEs': [
+  'Dividend Surplus (Non-Strategic SOEs - Net Loss)': [
     { name: 'Chilaw Plantations Ltd', target: '0.1B ', actual: '0.15B ', variance: '0.05B  Surplus' }
   ]
 };
@@ -269,19 +269,19 @@ function initGovtRevenueChart(containerId) {
           <span class="govt-stream-big-val">145.0B </span>
         </div>
         <div class="govt-sub-badge-grid">
-          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('VAT, Duties & Other - Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('VAT,Duties & Others (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">65.0B</span>
           </div>
-          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('VAT, Duties & Other - Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('VAT,Duties & Others (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">73.5B</span>
           </div>
-          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('VAT, Duties & Other - Non-Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('VAT,Duties & Others (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">5.5B</span>
           </div>
-          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('VAT, Duties & Other - Non-Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('VAT,Duties & Others (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
           </div>
@@ -295,19 +295,19 @@ function initGovtRevenueChart(containerId) {
           <span class="govt-stream-big-val">110.0B </span>
         </div>
         <div class="govt-sub-badge-grid">
-          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Corporate Income Tax (CIT) - Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Corporate Income Tax (CIT)  (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">95.5B</span>
           </div>
-          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Corporate Income Tax (CIT) - Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Corporate Income Tax (CIT)  (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
           </div>
-          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Corporate Income Tax (CIT) - Non-Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">12.5B</span>
           </div>
-          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Corporate Income Tax (CIT) - Non-Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
           </div>
@@ -321,25 +321,25 @@ function initGovtRevenueChart(containerId) {
           <span class="govt-stream-big-val">25.0B </span>
         </div>
         <div class="govt-sub-badge-grid">
-          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Levy Revenue - Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Levy  (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">16.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit Breakdown - Strategic Profitable SOEs', event)">Deficit: 1.0B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Profit)', event)">Deficit: 1.0B ⓘ</span>
           </div>
-          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Levy Revenue - Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Levy  (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">2.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit Breakdown - Strategic Loss SOEs', event)">Deficit: 2.0B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Loss)', event)">Deficit: 2.0B ⓘ</span>
           </div>
-          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Levy Revenue - Non-Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">6.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit Breakdown - Non-Strategic Profitable SOEs', event)">Deficit: 0.7B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Profit)', event)">Deficit: 0.7B ⓘ</span>
           </div>
-          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Levy Revenue - Non-Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit Breakdown - Non-Strategic Loss SOEs', event)">Deficit: 1.3B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Loss)', event)">Deficit: 1.3B ⓘ</span>
           </div>
         </div>
       </div>
@@ -351,25 +351,25 @@ function initGovtRevenueChart(containerId) {
           <span class="govt-stream-big-val">15.5B </span>
         </div>
         <div class="govt-sub-badge-grid">
-          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Dividend Revenue - Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Dividend (Strategic SOEs - Net Profit)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">11.5B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus Breakdown - Strategic Profitable SOEs', event)">Surplus: 1.0B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Profit)', event)">Surplus: 1.0B ⓘ</span>
           </div>
-          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Dividend Revenue - Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Dividend (Strategic SOEs - Net Loss)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus Breakdown - Strategic Loss SOEs', event)">Surplus: 0.1B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Loss)', event)">Surplus: 0.1B ⓘ</span>
           </div>
-          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Dividend Revenue - Non-Strategic Profitable SOEs', event)">
+          <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Profit)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">2.0B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus Breakdown - Non-Strategic Profitable SOEs', event)">Surplus: 0.2B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Profit)', event)">Surplus: 0.2B ⓘ</span>
           </div>
-          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Dividend Revenue - Non-Strategic Loss SOEs', event)">
+          <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Loss)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus Breakdown - Non-Strategic Loss SOEs', event)">Surplus: 0.05B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Loss)', event)">Surplus: 0.05B ⓘ</span>
           </div>
         </div>
       </div>
