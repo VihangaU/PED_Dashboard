@@ -73,7 +73,7 @@ function initBudgetSupportChart(containerId) {
         padding: 12px;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 14px;
         height: 100%;
         transition: all 0.2s ease;
       }
@@ -87,7 +87,7 @@ function initBudgetSupportChart(containerId) {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 8px;
+        padding-bottom: 14px;
         flex-shrink: 0;
       }
       .budget-stream-title {
@@ -96,7 +96,7 @@ function initBudgetSupportChart(containerId) {
         color: var(--text-primary);
       }
       .budget-stream-total {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 800;
       }
       .budget-stream-percentage {
@@ -109,7 +109,7 @@ function initBudgetSupportChart(containerId) {
       .budget-sub-grid {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
         flex-grow: 1;
         justify-content: space-between;
       }
