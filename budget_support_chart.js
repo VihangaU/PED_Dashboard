@@ -197,8 +197,8 @@ function initBudgetSupportChart(containerId) {
             <!-- Strategic Profit -->
             <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Recurrent Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
-                <span>Strategic Profit (11.9%)</span>
-                <span class="budget-cat-val">4.8B  ⓘ</span>
+                <span>Strategic SOEs - Net Profit (11.9%)</span>
+                <span class="budget-cat-val">4.8B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 11.9%; background: var(--strat-color);"></div>
@@ -208,8 +208,8 @@ function initBudgetSupportChart(containerId) {
             <!-- Strategic Loss -->
             <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Recurrent Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
-                <span>Strategic Loss (75.3%)</span>
-                <span class="budget-cat-val">30.5B  ⓘ</span>
+                <span>Strategic SOEs - Net Loss (75.3%)</span>
+                <span class="budget-cat-val">30.5B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 75.3%; background: var(--danger-red);"></div>
@@ -219,8 +219,8 @@ function initBudgetSupportChart(containerId) {
             <!-- Non-Strategic Profit -->
             <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Recurrent Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
-                <span>Non-Strategic Profit (4.9%)</span>
-                <span class="budget-cat-val">2.0B  ⓘ</span>
+                <span>Non-Strategic SOEs - Net Profit (4.9%)</span>
+                <span class="budget-cat-val">2.0B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 4.9%; background: #3b82f6;"></div>
@@ -230,8 +230,8 @@ function initBudgetSupportChart(containerId) {
             <!-- Non-Strategic Loss -->
             <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Recurrent Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
-                <span>Non-Strategic Loss (14.1%)</span>
-                <span class="budget-cat-val">5.7B  ⓘ</span>
+                <span>Non-Strategic SOEs - Net Loss (14.1%)</span>
+                <span class="budget-cat-val">5.7B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 14.1%; background: var(--nonstrat-color);"></div>
@@ -253,7 +253,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Capital Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Strategic Profit (12.1%)</span>
-                <span class="budget-cat-val">8.5B  ⓘ</span>
+                <span class="budget-cat-val">8.5B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 12.1%; background: var(--strat-color);"></div>
@@ -264,7 +264,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Capital Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Strategic Loss (60.7%)</span>
-                <span class="budget-cat-val">42.5B  ⓘ</span>
+                <span class="budget-cat-val">42.5B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 60.7%; background: var(--danger-red);"></div>
@@ -275,7 +275,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Capital Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Profit (22.1%)</span>
-                <span class="budget-cat-val">15.5B  ⓘ</span>
+                <span class="budget-cat-val">15.5B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 22.1%; background: #3b82f6;"></div>
@@ -286,7 +286,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Capital Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Loss (5.1%)</span>
-                <span class="budget-cat-val">3.5B  ⓘ</span>
+                <span class="budget-cat-val">3.5B  </span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 5.1%; background: var(--nonstrat-color);"></div>

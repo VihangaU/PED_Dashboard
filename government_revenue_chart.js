@@ -324,22 +324,22 @@ function initGovtRevenueChart(containerId) {
           <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Levy  (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">16.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Profit)', event)">Deficit: 1.0B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Profit)', event)">Deficit: 1.0B </span>
           </div>
           <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Levy  (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">2.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Loss)', event)">Deficit: 2.0B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Loss)', event)">Deficit: 2.0B </span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">6.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Profit)', event)">Deficit: 0.7B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Profit)', event)">Deficit: 0.7B </span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Loss)', event)">Deficit: 1.3B ⓘ</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Loss)', event)">Deficit: 1.3B </span>
           </div>
         </div>
       </div>
@@ -354,22 +354,22 @@ function initGovtRevenueChart(containerId) {
           <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Dividend (Strategic SOEs - Net Profit)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">11.5B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Profit)', event)">Surplus: 1.0B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Profit)', event)">Surplus: 1.0B </span>
           </div>
           <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Dividend (Strategic SOEs - Net Loss)', event)">
             <span class="govt-badge-label">Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Loss)', event)">Surplus: 0.1B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Loss)', event)">Surplus: 0.1B </span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Profit)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Profit</span>
             <span class="govt-badge-val">2.0B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Profit)', event)">Surplus: 0.2B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Profit)', event)">Surplus: 0.2B </span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Loss)', event)">
             <span class="govt-badge-label">Non-Strategic SOEs - Net Loss</span>
             <span class="govt-badge-val">1.0B</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Loss)', event)">Surplus: 0.05B ⓘ</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Loss)', event)">Surplus: 0.05B </span>
           </div>
         </div>
       </div>
@@ -436,7 +436,7 @@ function openGovtModal(keyTitle, event) {
     thead.innerHTML = `
       <tr>
         <th>SOE Name</th>
-        <th>Target Amount</th>
+        <th>Estimated Amount</th>
         <th>Actual Received</th>
         <th>Variance Value</th>
       </tr>
