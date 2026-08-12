@@ -59,47 +59,63 @@ const auditCategoryData = {
     { name: 'Kurunegala Plantations Ltd', category: 'Non-Strategic', opinion: 'True and Fair' }
   ],
 
-  // --- UNCLEAN OPINIONS (Qualified / Adverse / Disclaimer) ---
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Profit)': [
+  // --- Qualified OPINIONS  ---
+  'Qualified Audit Opinions - (Strategic SOEs - Net Profit)': [
     { name: 'State Printing Corporation', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Lanka Phosphate Ltd', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Sri Lanka Handicrafts Board', category: 'Strategic', opinion: 'Adverse' },
     { name: 'Sri Lanka Ports Management', category: 'Strategic', opinion: 'Qualified' },
-    { name: 'Lanka IOC Share Entity', category: 'Strategic', opinion: 'Disclaimer' }
-  ],
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Loss)': [
-    { name: 'Ceylon Electricity Board', category: 'Strategic', opinion: 'Qualified' },
-    { name: 'Sri Lanka Railway Dept', category: 'Strategic', opinion: 'Adverse' },
+    { name: 'Lanka IOC Share Entity', category: 'Strategic', opinion: 'Disclaimer' },
     { name: 'Sri Lanka Transport Board', category: 'Strategic', opinion: 'Disclaimer' }
   ],
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Profit)': [
-    { name: 'National Water Supply Board', category: 'Non-Strategic', opinion: 'Qualified' },
-    { name: 'Sri Lanka State Trading Corp', category: 'Non-Strategic', opinion: 'Adverse' },
-    { name: 'Hotel Developers (Lanka) Ltd', category: 'Non-Strategic', opinion: 'Qualified' },
-    { name: 'National Livestock Development Board', category: 'Non-Strategic', opinion: 'Disclaimer' },
-    { name: 'Coast Conservation Dept', category: 'Non-Strategic', opinion: 'Qualified' },
-    { name: 'Lanka Coal Company', category: 'Non-Strategic', opinion: 'Adverse' },
-    { name: 'State Fertilizer Corp', category: 'Non-Strategic', opinion: 'Qualified' },
+  'Qualified Audit Opinions - (Strategic SOEs - Net Loss)': [
+    { name: 'Ceylon Electricity Board', category: 'Strategic', opinion: 'Qualified' },
+    { name: 'Sri Lanka Railway Dept', category: 'Strategic', opinion: 'Adverse' }
+  ],
+  'Qualified Audit Opinions - (Non-Strategic SOEs - Net Profit)': [
     { name: 'Lanka Cement PLC', category: 'Non-Strategic', opinion: 'Disclaimer' },
     { name: 'Sri Lanka Rubber Manufacturing', category: 'Non-Strategic', opinion: 'Qualified' },
     { name: 'Ceylon Fishery Harbours Corp', category: 'Non-Strategic', opinion: 'Adverse' }
   ],
-  'Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Loss)': [
+  'Qualified Audit Opinions - (Non-Strategic SOEs - Net Loss)': [
+    { name: 'State Fertilizer Corp', category: 'Non-Strategic', opinion: 'Qualified' }
+  ],
+
+  // --- Adverse Opinions  ---
+  'Adverse Audit Opinions - (Strategic SOEs - Net Profit)': [
+    { name: 'National Water Supply Board', category: 'Non-Strategic', opinion: 'Qualified' },
+    { name: 'Sri Lanka State Trading Corp', category: 'Non-Strategic', opinion: 'Adverse' },
+  ],
+  'Adverse Audit Opinions - (Strategic SOEs - Net Loss)': [
+    { name: 'Lanka Coal Company', category: 'Non-Strategic', opinion: 'Adverse' },
+  ],
+  'Adverse Audit Opinions - (Non-Strategic SOEs - Net Profit)': [
+    { name: 'National Livestock Development Board', category: 'Non-Strategic', opinion: 'Disclaimer' },
+    { name: 'Coast Conservation Dept', category: 'Non-Strategic', opinion: 'Qualified' },
+  ],
+  'Adverse Audit Opinions - (Non-Strategic SOEs - Net Loss)': [
+    { name: 'Hotel Developers (Lanka) Ltd', category: 'Non-Strategic', opinion: 'Qualified' },
+  ],
+
+  // --- Disclaimer Opinions  ---
+  'Disclaimer Audit Opinions - (Strategic SOEs - Net Profit)': [
     { name: 'Kahawatte Plantations Entity', category: 'Non-Strategic', opinion: 'Adverse' },
     { name: 'Elpitiya Plantations Entity', category: 'Non-Strategic', opinion: 'Qualified' },
     { name: 'Chilaw Plantations Ltd', category: 'Non-Strategic', opinion: 'Disclaimer' },
+  ],
+  'Disclaimer Audit Opinions - (Non-Strategic SOEs - Net Profit)': [
     { name: 'National Paper Company Entity', category: 'Non-Strategic', opinion: 'Adverse' },
     { name: 'Ceylon Fertilizer Co Ltd', category: 'Non-Strategic', opinion: 'Qualified' }
   ],
 
   // --- UNAVAILABLE (Not Uploaded Yet) ---
   'Audit Opinion Unavailable (Not Uploaded Yet) - (Strategic SOEs - Net Loss)': [
-    { name: 'Mahanagera Transport Corp', category: 'Strategic', opinion: 'Not Uploaded Yet' }
+    { name: 'Mahanagera Transport Corp', category: 'Strategic', year: '2020', opinion: 'Adverse' }
   ],
   'Audit Opinion Unavailable (Not Uploaded Yet) - (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Janatha Estates Development Board', category: 'Non-Strategic', opinion: 'Not Uploaded Yet' },
-    { name: 'Selacine Television Institute', category: 'Non-Strategic', opinion: 'Not Uploaded Yet' },
-    { name: 'Sri Lanka Casualty Insurance', category: 'Non-Strategic', opinion: 'Not Uploaded Yet' }
+    { name: 'Janatha Estates Development Board', category: 'Non-Strategic', year: '2022', opinion: 'Adverse' },
+    { name: 'Selacine Television Institute', category: 'Non-Strategic', year: '2023', opinion: 'Disclaimer' },
+    { name: 'Sri Lanka Casualty Insurance', category: 'Non-Strategic', year: '2023', opinion: 'Qualified' }
   ]
 };
 
@@ -222,11 +238,13 @@ function initAuditChart(containerId) {
 
     <div class="audit-card-wrapper">
       <!-- Classification Definitions -->
+      <!--
       <div class="audit-definitions-bar">
         <div>• <strong>Clean:</strong> True and Fair</div>
         <div>• <strong>Unclean:</strong> Qualified / Adverse / Disclaimer</div>
         <div>• <strong>Unavailable:</strong> Audit Opinion Not Issued</div>
       </div>
+      -->
 
       <!-- Interactive Legend -->
       <div class="audit-legend-container">
@@ -277,36 +295,80 @@ function initAuditChart(containerId) {
           </div>
         </div>
 
-        <!-- Row 2: Unclean (23 Total) -->
+        <!-- Row 2: Qualified (12 Total) -->
         <div class="stacked-row-group">
           <div class="row-label-container">
-            <span class="row-label">Unclean</span>
-            <span class="row-total-badge badge-danger">23</span>
+            <span class="row-label">Qualified</span>
+            <span class="row-total-badge badge-danger">12</span>
           </div>
           <div class="stacked-row-track">
-            <div class="row-segment seg-strat-prof" style="width: 21.7%; background:#cce8c3; color:#000000;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Profit)')"
+            <div class="row-segment seg-strat-prof" style="width: 50%; background:#cce8c3; color:#000000;"
+                 onclick="openAuditPopup('Qualified Audit Opinions - (Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
-                 title="Unclean (Qualified / Adverse / Disclaimer) - Strategic Profitable: 5 SOEs">5</div>
-            <div class="row-segment seg-strat-loss" style="width: 13.0%; background:#f5baca; color:#000000;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Strategic SOEs - Net Loss)')"
+                 title="Qualified - Strategic Profitable: 6 SOEs">6</div>
+            <div class="row-segment seg-strat-loss" style="width: 16.67%; background:#f5baca; color:#000000;"
+                 onclick="openAuditPopup('Qualified Audit Opinions - (Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
-                 title="Unclean (Qualified / Adverse / Disclaimer) - Strategic Loss: 3 SOEs">3</div>
-            <div class="row-segment seg-nonstrat-prof" style="width: 43.5%; background:#c7dbf2; color:#000000;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Profit)')"
+                 title="Qualified - Strategic Loss: 2 SOEs">2</div>
+            <div class="row-segment seg-nonstrat-prof" style="width: 25%; background:#c7dbf2; color:#000000;"
+                 onclick="openAuditPopup('Qualified Audit Opinions - (Non-Strategic SOEs - Net Profit)')"
                  onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
-                 title="Unclean (Qualified / Adverse / Disclaimer) - Non-Strategic Profitable: 10 SOEs">10</div>
-            <div class="row-segment seg-nonstrat-loss" style="width: 21.8%; background:#e8d1ac; color:#000000;"
-                 onclick="openAuditPopup('Unclean Audit Opinions (Qualified / Adverse / Disclaimer) - (Non-Strategic SOEs - Net Loss)')"
+                 title="Qualified - Non-Strategic Profitable: 3 SOEs">3</div>
+            <div class="row-segment seg-nonstrat-loss" style="width: 8.33%; background:#e8d1ac; color:#000000;"
+                 onclick="openAuditPopup('Qualified Audit Opinions - (Non-Strategic SOEs - Net Loss)')"
                  onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
-                 title="Unclean (Qualified / Adverse / Disclaimer) - Non-Strategic Loss: 5 SOEs">5</div>
+                 title="Qualified - Non-Strategic Loss: 1 SOE">1</div>
           </div>
         </div>
 
-        <!-- Row 3: Unavailable (4 Total) -->
+        <!-- Row 3: Adverse (6 Total) -->
         <div class="stacked-row-group">
           <div class="row-label-container">
-            <span class="row-label">Unavailable</span>
+            <span class="row-label">Adverse</span>
+            <span class="row-total-badge badge-danger">6</span>
+          </div>
+          <div class="stacked-row-track">
+            <div class="row-segment seg-strat-prof" style="width: 33.33%; background:#cce8c3; color:#000000;"
+                 onclick="openAuditPopup('Adverse Audit Opinions - (Strategic SOEs - Net Profit)')"
+                 onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
+                 title="Adverse - Strategic Profitable: 2 SOEs">2</div>
+            <div class="row-segment seg-strat-loss" style="width: 16.66%; background:#f5baca; color:#000000;"
+                 onclick="openAuditPopup('Adverse Audit Opinions - (Strategic SOEs - Net Loss)')"
+                 onmouseenter="highlightAuditCategory('strat-loss')" onmouseleave="removeAuditHighlight()"
+                 title="Adverse - Strategic Loss: 1 SOEs">1</div>
+            <div class="row-segment seg-nonstrat-prof" style="width: 33.33%; background:#c7dbf2; color:#000000;"
+                 onclick="openAuditPopup('Adverse Audit Opinions - (Non-Strategic SOEs - Net Profit)')"
+                 onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
+                 title="Adverse - Non-Strategic Profitable: 2 SOEs">2</div>
+            <div class="row-segment seg-nonstrat-loss" style="width: 16.66%; background:#e8d1ac; color:#000000;"
+                 onclick="openAuditPopup('Adverse Audit Opinions - (Non-Strategic SOEs - Net Loss)')"
+                 onmouseenter="highlightAuditCategory('nonstrat-loss')" onmouseleave="removeAuditHighlight()"
+                 title="Adverse - Non-Strategic Loss: 1 SOEs">1</div>
+          </div>
+        </div>
+
+        <!-- Row 4: Disclaimer (5 Total) -->
+        <div class="stacked-row-group">
+          <div class="row-label-container">
+            <span class="row-label">Disclaimer</span>
+            <span class="row-total-badge badge-danger">5</span>
+          </div>
+          <div class="stacked-row-track">
+            <div class="row-segment seg-strat-prof" style="width: 60%; background:#cce8c3; color:#000000;"
+                 onclick="openAuditPopup('Disclaimer Audit Opinions - (Strategic SOEs - Net Profit)')"
+                 onmouseenter="highlightAuditCategory('strat-prof')" onmouseleave="removeAuditHighlight()"
+                 title="Disclaimer - Strategic Profitable: 3 SOEs">3</div>
+            <div class="row-segment seg-nonstrat-prof" style="width: 40%; background:#c7dbf2; color:#000000;"
+                 onclick="openAuditPopup('Disclaimer Audit Opinions - (Non-Strategic SOEs - Net Profit)')"
+                 onmouseenter="highlightAuditCategory('nonstrat-prof')" onmouseleave="removeAuditHighlight()"
+                 title="Disclaimer - Non-Strategic Profitable: 2 SOEs">2</div>
+          </div>
+        </div>
+
+        <!-- Row 5: Unavailable (4 Total) -->
+        <div class="stacked-row-group">
+          <div class="row-label-container">
+            <span class="row-label">Audit Opinion Not Available</span>
             <span class="row-total-badge" style="background:#cbd5e1; color:#334155;">4</span>
           </div>
           <div class="stacked-row-track">
@@ -377,18 +439,19 @@ function openAuditPopup(categoryKey) {
 function renderAuditSegmentPage() {
   const thead = document.getElementById('auditSegmentTableHead');
   const tbody = document.getElementById('auditSegmentTableBody');
-  
+
   tbody.innerHTML = '';
   thead.innerHTML = '';
 
-  const isUnclean = currentAuditCategoryKey.includes('Unclean');
+  const isUnclean = currentAuditCategoryKey.includes('Unavailable');
 
   // Conditional Table Columns based on requirement
   if (isUnclean) {
     thead.innerHTML = `
       <tr>
         <th>SOE Name</th>
-        <th>Specific Audit Opinion</th>
+        <th>Latest Available Audit Year</th>
+        <th>Latest Available Audit Opinion</th>
       </tr>
     `;
   } else {
@@ -407,18 +470,19 @@ function renderAuditSegmentPage() {
 
   pageItems.forEach(item => {
     const tr = document.createElement('tr');
-    
+
     if (isUnclean) {
       tr.innerHTML = `
         <td><strong>${item.name}</strong></td>
-        <td><span class="badge badge-danger">${item.opinion}</span></td>
+        <td><strong>${item.year}</strong></td>
+        <td><strong>${item.opinion}</strong></td>
       `;
     } else {
       tr.innerHTML = `
         <td><strong>${item.name}</strong></td>
       `;
     }
-    
+
     tbody.appendChild(tr);
   });
 
