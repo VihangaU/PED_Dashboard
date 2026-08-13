@@ -299,7 +299,7 @@ function initSOEPerformanceChart(containerId) {
                   <span>1 (-8.5B)</span>
                 </div>
               </div>
-              <span class="soe-col-sublabel">Strat</span>
+              <span class="soe-col-sublabel">Strategic</span>
             </div>
 
             <!-- Column 1B: Non-Strategic Company -->
@@ -318,7 +318,7 @@ function initSOEPerformanceChart(containerId) {
                   <span style="opacity:0.9;">-2.7B</span>
                 </div>
               </div>
-              <span class="soe-col-sublabel">Non-Strat</span>
+              <span class="soe-col-sublabel">Non-Strategic</span>
             </div>
 
           </div>
@@ -327,7 +327,7 @@ function initSOEPerformanceChart(containerId) {
         <!-- Group 2: Commercial Corporation -->
         <div class="soe-group-column">
           <div class="soe-group-rollup-pill">
-            <span class="soe-group-rollup-title">Commercial Corp</span>
+            <span class="soe-group-rollup-title">Commercial Corporation</span>
             <span class="soe-group-rollup-val">17 SOEs | Net +3.8B</span>
           </div>
 
@@ -349,7 +349,7 @@ function initSOEPerformanceChart(containerId) {
                   <span style="opacity:0.9;">-19.1B</span>
                 </div>
               </div>
-              <span class="soe-col-sublabel">Strat</span>
+              <span class="soe-col-sublabel">Strategic</span>
             </div>
 
             <!-- Column 2B: Non-Strategic Commercial Corp -->
@@ -367,7 +367,7 @@ function initSOEPerformanceChart(containerId) {
                   <span>1 (-1.1B)</span>
                 </div>
               </div>
-              <span class="soe-col-sublabel">Non-Strat</span>
+              <span class="soe-col-sublabel">Non-Strategic</span>
             </div>
 
           </div>
@@ -376,7 +376,7 @@ function initSOEPerformanceChart(containerId) {
         <!-- Group 3: Non-Commercial Corporation -->
         <div class="soe-group-column">
           <div class="soe-group-rollup-pill">
-            <span class="soe-group-rollup-title">Non-Commercial Corp</span>
+            <span class="soe-group-rollup-title">Non-Commercial Corporation</span>
             <span class="soe-group-rollup-val">16 SOEs | Net +11.9B</span>
           </div>
 
@@ -397,7 +397,7 @@ function initSOEPerformanceChart(containerId) {
                   <span>1 (-3.1B)</span>
                 </div>
               </div>
-              <span class="soe-col-sublabel">Strat</span>
+              <span class="soe-col-sublabel">Strategic</span>
             </div>
 
             <!-- Column 3B: Non-Strategic Non-Commercial Corp -->
@@ -410,7 +410,7 @@ function initSOEPerformanceChart(containerId) {
                   <span style="opacity:0.9;">+6.5B</span>
                 </div>
               </div>
-              <span class="soe-col-sublabel">Non-Strat</span>
+              <span class="soe-col-sublabel">Non-Strategic</span>
             </div>
 
           </div>
