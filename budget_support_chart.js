@@ -40,6 +40,26 @@ const budgetSupportData = {
   ],
   'Capital Budget Support (Non-Strategic SOEs - Net Loss)': [
     { name: 'Urban Development Authority (Urban Renewal Grant)', value: '3.5B' }
+  ],
+
+  // --- EQUITY SUPPORT (SAMPLE DATA & POPUP TARGETS) ---
+  'Equity Budget Support (Strategic SOEs - Net Profit)': [
+    { name: 'Sri Lanka Telecom PLC (Treasury Rights Issue Participation)', value: '4.5B' },
+    { name: 'Bank of Ceylon (Tier 1 Regulatory Capital Infusion)', value: '2.5B' },
+    { name: 'People\'s Bank (Core Capital Enhancement Grant)', value: '1.0B' }
+  ],
+  'Equity Budget Support (Strategic SOEs - Net Loss)': [
+    { name: 'SriLankan Airlines Ltd (Balance Sheet Debt-to-Equity Conversion)', value: '6.2B' },
+    { name: 'Ceylon Petroleum Corporation (Sapugaskanda Expansion Equity)', value: '2.8B' },
+    { name: 'Ceylon Electricity Board (Renewable Grid Equity Fund)', value: '1.5B' }
+  ],
+  'Equity Budget Support (Non-Strategic SOEs - Net Profit)': [
+    { name: 'Lanka Mineral Sands Ltd (Heavy Minerals Processing Plant Equity)', value: '1.2B' },
+    { name: 'State Pharmaceuticals Manufacturing Corp (Formulation Facility Equity)', value: '0.8B' }
+  ],
+  'Equity Budget Support (Non-Strategic SOEs - Net Loss)': [
+    { name: 'Lanka Sugar Company (Pelwatte & Sevanagala Modernization Equity)', value: '1.2B' },
+    { name: 'National Paper Company (Valachchenai Plant Revival Equity)', value: '0.8B' }
   ]
 };
 
@@ -295,13 +315,71 @@ function initBudgetSupportChart(containerId) {
           </div>
         </div>
 
-      </div>
+        <!-- Stream 3: Equity Support -->
+        <div class="budget-stream-column" id="stream-col-equity">
+          <div class="budget-stream-header">
+            <span class="budget-stream-title">• Equity Support</span>
+            <span class="budget-stream-percentage">(63.4%)</span>
+            <span class="budget-stream-total">70.0B</span>
+          </div>
 
-      <!-- Net Fiscal Impact Banner -->
-      <div class="net-revenue-prominent">
-        <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Net Revenue to Government</span>
-        <h3>+185.0 Billion</h3>
-        <small style="color: var(--text-muted); font-size: 10px;">(Calculated as Total Govt Revenue 295.5B minus Budget Support 110.5B)</small>
+          <div class="budget-sub-grid">
+            <!-- Strategic Profit -->
+            <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Equity Budget Support (Strategic SOEs - Net Profit)')">
+              <div class="budget-cat-meta">
+                <span>Strategic Profit (12.1%)</span>
+                <span class="budget-cat-val">8.5B  </span>
+              </div>
+              <div class="budget-progress-track">
+                <div class="budget-progress-fill" style="width: 12.1%; background: var(--strat-color);"></div>
+              </div>
+            </div>
+
+            <!-- Strategic Loss -->
+            <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Equity Budget Support (Strategic SOEs - Net Loss)')">
+              <div class="budget-cat-meta">
+                <span>Strategic Loss (60.7%)</span>
+                <span class="budget-cat-val">42.5B  </span>
+              </div>
+              <div class="budget-progress-track">
+                <div class="budget-progress-fill" style="width: 60.7%; background: var(--danger-red);"></div>
+              </div>
+            </div>
+
+            <!-- Non-Strategic Profit -->
+            <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Equity Budget Support (Non-Strategic SOEs - Net Profit)')">
+              <div class="budget-cat-meta">
+                <span>Non-Strategic Profit (22.1%)</span>
+                <span class="budget-cat-val">15.5B  </span>
+              </div>
+              <div class="budget-progress-track">
+                <div class="budget-progress-fill" style="width: 22.1%; background: #3b82f6;"></div>
+              </div>
+            </div>
+
+            <!-- Non-Strategic Loss -->
+            <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Equity Budget Support (Non-Strategic SOEs - Net Loss)')">
+              <div class="budget-cat-meta">
+                <span>Non-Strategic Loss (5.1%)</span>
+                <span class="budget-cat-val">3.5B  </span>
+              </div>
+              <div class="budget-progress-track">
+                <div class="budget-progress-fill" style="width: 5.1%; background: var(--nonstrat-color);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stream : Net Fiscal Impact Banner -->
+        <div class="budget-stream-column" id="stream-col-equity">
+          <div class="net-revenue-prominent">
+          <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Net Revenue to Government</span>
+          <h3>+185.0 Billion</h3>
+          <small style="color: var(--text-muted); font-size: 10px;">(Calculated as Total Govt Revenue 295.5B minus Budget Support 110.5B)</small>
+        </div>
+
+        </div>
+
       </div>
 
     </div>
