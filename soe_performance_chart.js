@@ -2,9 +2,9 @@
  * SOE Performance Chart Component for PEDMIS Dashboard
  * 
  * Features:
- * - Grouped & Stacked Column Bar Chart with Summary Roll-ups:
- *   - Total Group SOE Count & Net LKR Position at the top of each entity column
- *   - Stacked segments displaying BOTH SOE Count and total Profit/Loss LKR amounts
+ * - Common Strategic & Non-Strategic Header spanning all entity categories
+ * - Horizontal Stacked Bar Rows for Company, Commercial Corp, and Non-Commercial Corp
+ * - Stacked segments displaying SOE Count and total Profit/Loss LKR amounts
  * - Interactive Modals showing 4-Year Financial Trends (FY 2023 - FY 2026) per SOE
  */
 
@@ -109,7 +109,7 @@ function initSOEPerformanceChart(containerId) {
       .soe-chart-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
       }
       .soe-legend-bar {
         display: flex;
@@ -117,7 +117,7 @@ function initSOEPerformanceChart(containerId) {
         gap: 16px;
         background: #ffffff;
         border: 1px solid var(--border-color);
-        padding: 8px 12px;
+        padding: 6px 12px;
         border-radius: 6px;
         font-size: 11px;
         font-weight: 600;
@@ -134,112 +134,109 @@ function initSOEPerformanceChart(containerId) {
         display: inline-block;
       }
 
-      /* Stacked Grouped Chart Container */
-      .soe-bar-chart-container {
+      /* Common Header for Strategic & Non-Strategic */
+      .soe-common-header-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+        grid-template-columns: 140px 1fr 1fr;
+        gap: 10px;
+        padding: 4px 10px;
+        background: var(--accent-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        align-items: center;
+        text-align: center;
+      }
+      .soe-common-header-title {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Horizontal Rows Container */
+      .soe-rows-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
         background: #ffffff;
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 12px 8px 8px 8px;
-      }
-      .soe-group-column {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
+        padding: 10px;
       }
 
-      /* Group Rollup Top Header */
-      .soe-group-rollup-pill {
-        background: var(--accent-bg);
-        border: 1px solid var(--border-color);
-        padding: 4px 6px;
-        border-radius: 4px;
-        font-size: 10px;
-        text-align: center;
-        width: 100%;
+      .soe-entity-row {
+        display: grid;
+        grid-template-columns: 140px 1fr 1fr;
+        gap: 10px;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px dashed var(--border-color);
+      }
+      .soe-entity-row:last-child {
+        border-bottom: none;
+      }
+
+      /* Entity Info Column */
+      .soe-entity-label-box {
         display: flex;
         flex-direction: column;
         gap: 1px;
       }
-      .soe-group-rollup-title {
+      .soe-entity-name {
+        font-size: 12px;
         font-weight: 800;
         color: var(--text-primary);
-        font-size: 11px;
       }
-      .soe-group-rollup-val {
+      .soe-entity-meta {
+        font-size: 10px;
         font-weight: 700;
         color: var(--primary-blue);
-        font-size: 10px;
       }
 
-      .soe-bars-pair {
-        display: flex;
-        gap: 12px;
-        align-items: flex-end;
-        height: 150px;
-        width: 100%;
-        justify-content: center;
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 4px;
-        margin-top: 4px;
-      }
-
-      /* Single Stacked Bar Column (Wider for Amount labels) */
-      .soe-stacked-bar-wrapper {
+      /* Horizontal Stacked Bar Track */
+      .soe-bar-track-wrapper {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 3px;
-        width: 48px;
-      }
-
-      .soe-stacked-bar {
+        gap: 2px;
         width: 100%;
+      }
+      .soe-horizontal-bar {
+        width: 100%;
+        height: 28px;
         display: flex;
-        flex-direction: column-reverse;
-        border-radius: 4px 4px 0 0;
+        border-radius: 4px;
         overflow: hidden;
         background: #e2e8f0;
         transition: all 0.2s ease;
       }
-      .soe-stacked-bar:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+      .soe-horizontal-bar:hover {
+        transform: scaleY(1.04);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.12);
       }
 
-      /* Stack Segments */
-      .soe-stack-seg {
-        width: 100%;
+      /* Bar Segments */
+      .soe-hbar-seg {
+        height: 100%;
         cursor: pointer;
         transition: opacity 0.15s ease;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
         font-size: 9px;
         font-weight: 800;
         color: #ffffff;
-        line-height: 1.1;
-        padding: 2px 0;
+        padding: 0 4px;
+        white-space: nowrap;
+        overflow: hidden;
       }
-      .soe-stack-seg:hover {
+      .soe-hbar-seg:hover {
         opacity: 0.85;
         filter: brightness(1.1);
       }
-      .soe-stack-seg.prof { background-color: var(--strat-color); }
-      .soe-stack-seg.loss { background-color: var(--danger-red); }
+      .soe-hbar-seg.prof { background-color: var(--strat-color); }
+      .soe-hbar-seg.loss { background-color: var(--danger-red); }
 
-      .soe-col-sublabel {
-        font-size: 10px;
-        font-weight: 700;
-        color: var(--text-muted);
-        text-transform: uppercase;
-      }
-
-      /* Chart Tooltip */
+      /* Floating Tooltip */
       .soe-bar-tooltip {
         display: none;
         position: absolute;
@@ -272,147 +269,128 @@ function initSOEPerformanceChart(containerId) {
         </div>
       </div>
 
-      <!-- 3-Group Multiple Column Stacked Bar Graph -->
-      <div class="soe-bar-chart-container">
+      <!-- Common Header for all charts -->
+      <div class="soe-common-header-grid">
+        <div style="text-align: left; font-size: 11px; font-weight: 800; color: var(--text-muted);">Business Entity</div>
+        <div class="soe-common-header-title" style="color: var(--strat-color);">Strategic</div>
+        <div class="soe-common-header-title" style="color: var(--nonstrat-color);">Non-Strategic</div>
+      </div>
+
+      <!-- Horizontal Stacked Rows Container -->
+      <div class="soe-rows-container">
         
-        <!-- Group 1: Company -->
-        <div class="soe-group-column">
-          <div class="soe-group-rollup-pill">
-            <span class="soe-group-rollup-title">Company</span>
-            <span class="soe-group-rollup-val">24 SOEs | Net +16.0B</span>
+        <!-- Row 1: Company -->
+        <div class="soe-entity-row">
+          <div class="soe-entity-label-box">
+            <span class="soe-entity-name">Company</span>
+            <span class="soe-entity-meta" style="font-size: 12px;">24 SOEs | Net +16.0B</span>
           </div>
 
-          <div class="soe-bars-pair">
-            
-            <!-- Column 1A: Strategic Company -->
-            <div class="soe-stacked-bar-wrapper">
-              <div class="soe-stacked-bar" style="height: 125px;">
-                <div class="soe-stack-seg prof" style="height: 88%;" 
-                     onclick="openSoeTrendModal('Company - Strategic Net Profit SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Company (Strategic Profit): 10 SOEs (+78.0B)')" onmouseleave="hideSoeTooltip()">
-                  <span>10 SOEs</span>
-                  <span style="opacity:0.9;">+78.0B</span>
-                </div>
-                <div class="soe-stack-seg loss" style="height: 12%;" 
-                     onclick="openSoeTrendModal('Company - Strategic Net Loss SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Company (Strategic Loss): 1 SOE (-8.5B)')" onmouseleave="hideSoeTooltip()">
-                  <span>1 (-8.5B)</span>
-                </div>
+          <!-- Strategic Company Bar -->
+          <div class="soe-bar-track-wrapper">
+            <div class="soe-horizontal-bar">
+              <div class="soe-hbar-seg prof" style="width: 88%; font-size: 12px;" 
+                   onclick="openSoeTrendModal('Company - Strategic Net Profit SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Company (Strategic Profit): 10 SOEs (+78.0B)')" onmouseleave="hideSoeTooltip()">
+                10 SOEs (+78.0B)
               </div>
-              <span class="soe-col-sublabel">Strategic</span>
-            </div>
-
-            <!-- Column 1B: Non-Strategic Company -->
-            <div class="soe-stacked-bar-wrapper">
-              <div class="soe-stacked-bar" style="height: 135px;">
-                <div class="soe-stack-seg prof" style="height: 65%;" 
-                     onclick="openSoeTrendModal('Company - Non-Strategic Net Profit SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Company (Non-Strat Profit): 7 SOEs (+11.3B)')" onmouseleave="hideSoeTooltip()">
-                  <span>7 SOEs</span>
-                  <span style="opacity:0.9;">+11.3B</span>
-                </div>
-                <div class="soe-stack-seg loss" style="height: 35%;" 
-                     onclick="openSoeTrendModal('Company - Non-Strategic Net Loss SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Company (Non-Strat Loss): 6 SOEs (-2.7B)')" onmouseleave="hideSoeTooltip()">
-                  <span>6 SOEs</span>
-                  <span style="opacity:0.9;">-2.7B</span>
-                </div>
+              <div class="soe-hbar-seg loss" style="width: 12%; font-size: 10px;" 
+                   onclick="openSoeTrendModal('Company - Strategic Net Loss SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Company (Strategic Loss): 1 SOE (-8.5B)')" onmouseleave="hideSoeTooltip()">
+                1 (-8.5B)
               </div>
-              <span class="soe-col-sublabel">Non-Strategic</span>
             </div>
+          </div>
 
+          <!-- Non-Strategic Company Bar -->
+          <div class="soe-bar-track-wrapper">
+            <div class="soe-horizontal-bar">
+              <div class="soe-hbar-seg prof" style="width: 65%; font-size: 12px;" 
+                   onclick="openSoeTrendModal('Company - Non-Strategic Net Profit SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Company (Non-Strat Profit): 7 SOEs (+11.3B)')" onmouseleave="hideSoeTooltip()">
+                7 SOEs (+11.3B)
+              </div>
+              <div class="soe-hbar-seg loss" style="width: 35%; font-size: 10px;" 
+                   onclick="openSoeTrendModal('Company - Non-Strategic Loss SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Company (Non-Strat Loss): 6 SOEs (-2.7B)')" onmouseleave="hideSoeTooltip()">
+                6 SOEs (-2.7B)
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Group 2: Commercial Corporation -->
-        <div class="soe-group-column">
-          <div class="soe-group-rollup-pill">
-            <span class="soe-group-rollup-title">Commercial Corporation</span>
-            <span class="soe-group-rollup-val">17 SOEs | Net +3.8B</span>
+        <!-- Row 2: Commercial Corporation -->
+        <div class="soe-entity-row">
+          <div class="soe-entity-label-box">
+            <span class="soe-entity-name">Commercial Corp</span>
+            <span class="soe-entity-meta " style="font-size: 12px;">17 SOEs | Net +3.8B</span>
           </div>
 
-          <div class="soe-bars-pair">
-            
-            <!-- Column 2A: Strategic Commercial Corp -->
-            <div class="soe-stacked-bar-wrapper">
-              <div class="soe-stacked-bar" style="height: 120px;">
-                <div class="soe-stack-seg prof" style="height: 60%;" 
-                     onclick="openSoeTrendModal('Commercial Corporation - Strategic Net Profit SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Profit): 5 SOEs (+27.0B)')" onmouseleave="hideSoeTooltip()">
-                  <span>5 SOEs</span>
-                  <span style="opacity:0.9;">+27.0B</span>
-                </div>
-                <div class="soe-stack-seg loss" style="height: 40%;" 
-                     onclick="openSoeTrendModal('Commercial Corporation - Strategic Net Loss SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Loss): 3 SOEs (-19.1B)')" onmouseleave="hideSoeTooltip()">
-                  <span>3 SOEs</span>
-                  <span style="opacity:0.9;">-19.1B</span>
-                </div>
+          <!-- Strategic Commercial Corp Bar -->
+          <div class="soe-bar-track-wrapper">
+            <div class="soe-horizontal-bar">
+              <div class="soe-hbar-seg prof" style="width: 60%; font-size: 12px;" 
+                   onclick="openSoeTrendModal('Commercial Corporation - Strategic Net Profit SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Profit): 5 SOEs (+27.0B)')" onmouseleave="hideSoeTooltip()">
+                5 SOEs (+27.0B)
               </div>
-              <span class="soe-col-sublabel">Strategic</span>
-            </div>
-
-            <!-- Column 2B: Non-Strategic Commercial Corp -->
-            <div class="soe-stacked-bar-wrapper">
-              <div class="soe-stacked-bar" style="height: 95px;">
-                <div class="soe-stack-seg prof" style="height: 85%;" 
-                     onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Net Profit SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Profit): 8 SOEs (+4.3B)')" onmouseleave="hideSoeTooltip()">
-                  <span>8 SOEs</span>
-                  <span style="opacity:0.9;">+4.3B</span>
-                </div>
-                <div class="soe-stack-seg loss" style="height: 15%;" 
-                     onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Net Loss SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Loss): 1 SOE (-1.1B)')" onmouseleave="hideSoeTooltip()">
-                  <span>1 (-1.1B)</span>
-                </div>
+              <div class="soe-hbar-seg loss" style="width: 40%; font-size: 10px;" 
+                   onclick="openSoeTrendModal('Commercial Corporation - Strategic Loss SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Loss): 3 SOEs (-19.1B)')" onmouseleave="hideSoeTooltip()">
+                3 SOEs (-19.1B)
               </div>
-              <span class="soe-col-sublabel">Non-Strategic</span>
             </div>
+          </div>
 
+          <!-- Non-Strategic Commercial Corp Bar -->
+          <div class="soe-bar-track-wrapper">
+            <div class="soe-horizontal-bar">
+              <div class="soe-hbar-seg prof" style="width: 85%; font-size: 12px;" 
+                   onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Net Profit SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Profit): 8 SOEs (+4.3B)')" onmouseleave="hideSoeTooltip()">
+                8 SOEs (+4.3B)
+              </div>
+              <div class="soe-hbar-seg loss" style="width: 15%; font-size: 10px;" 
+                   onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Loss SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Loss): 1 SOE (-1.1B)')" onmouseleave="hideSoeTooltip()">
+                1 (-1.1B)
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Group 3: Non-Commercial Corporation -->
-        <div class="soe-group-column">
-          <div class="soe-group-rollup-pill">
-            <span class="soe-group-rollup-title">Non-Commercial Corporation</span>
-            <span class="soe-group-rollup-val">16 SOEs | Net +11.9B</span>
+        <!-- Row 3: Non-Commercial Corporation -->
+        <div class="soe-entity-row">
+          <div class="soe-entity-label-box">
+            <span class="soe-entity-name">Non-Comm Corp</span>
+            <span class="soe-entity-meta" style="font-size: 12px;">16 SOEs | Net +11.9B</span>
           </div>
 
-          <div class="soe-bars-pair">
-            
-            <!-- Column 3A: Strategic Non-Commercial Corp -->
-            <div class="soe-stacked-bar-wrapper">
-              <div class="soe-stacked-bar" style="height: 110px;">
-                <div class="soe-stack-seg prof" style="height: 80%;" 
-                     onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Profit SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Profit): 10 SOEs (+8.5B)')" onmouseleave="hideSoeTooltip()">
-                  <span>10 SOEs</span>
-                  <span style="opacity:0.9;">+8.5B</span>
-                </div>
-                <div class="soe-stack-seg loss" style="height: 20%;" 
-                     onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Loss SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Loss): 1 SOE (-3.1B)')" onmouseleave="hideSoeTooltip()">
-                  <span>1 (-3.1B)</span>
-                </div>
+          <!-- Strategic Non-Commercial Corp Bar -->
+          <div class="soe-bar-track-wrapper">
+            <div class="soe-horizontal-bar">
+              <div class="soe-hbar-seg prof" style="width: 80%; font-size: 12px;" 
+                   onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Profit SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Profit): 10 SOEs (+8.5B)')" onmouseleave="hideSoeTooltip()">
+                10 SOEs (+8.5B)
               </div>
-              <span class="soe-col-sublabel">Strategic</span>
-            </div>
-
-            <!-- Column 3B: Non-Strategic Non-Commercial Corp -->
-            <div class="soe-stacked-bar-wrapper">
-              <div class="soe-stacked-bar" style="height: 65px;">
-                <div class="soe-stack-seg prof" style="height: 100%;" 
-                     onclick="openSoeTrendModal('Non-Commercial Corporation - Non-Strategic Net Profit SOEs')"
-                     onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Non-Strat Profit): 5 SOEs (+6.5B)')" onmouseleave="hideSoeTooltip()">
-                  <span>5 SOEs</span>
-                  <span style="opacity:0.9;">+6.5B</span>
-                </div>
+              <div class="soe-hbar-seg loss" style="width: 20%; font-size: 10px;" 
+                   onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Loss SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Loss): 1 SOE (-3.1B)')" onmouseleave="hideSoeTooltip()">
+                1 (-3.1B)
               </div>
-              <span class="soe-col-sublabel">Non-Strategic</span>
             </div>
+          </div>
 
+          <!-- Non-Strategic Non-Commercial Corp Bar -->
+          <div class="soe-bar-track-wrapper">
+            <div class="soe-horizontal-bar">
+              <div class="soe-hbar-seg prof" style="width: 100%; font-size: 12px;" 
+                   onclick="openSoeTrendModal('Non-Commercial Corporation - Non-Strategic Net Profit SOEs')"
+                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Non-Strat Profit): 5 SOEs (+6.5B)')" onmouseleave="hideSoeTooltip()">
+                5 SOEs (+6.5B)
+              </div>
+            </div>
           </div>
         </div>
 
