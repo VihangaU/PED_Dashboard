@@ -670,7 +670,7 @@
           <td><strong>295.5B</strong></td>
         </tr>
         <tr>
-          <td class="text-left">e - 2024 Budget Funded</td>
+          <td class="text-left">e - Budget Funded</td>
           <td>13.3B</td>
           <td>73.0B</td>
           <td>86.3B</td>
@@ -859,7 +859,7 @@
           onclick="closeNonFunctionalModal()">&times;</button>
       </div>
       <p style="color: var(--text-muted); font-size:11px;">This section presents the list of SOEs officially categorized
-        as Non‑Functioning, in line with guidelines established by PED.</p>
+        as Non-Functioning, in line with guidelines established by PED.</p>
       <table>
         <thead>
           <tr>
@@ -947,11 +947,25 @@
               td { border: 1px solid #000000; text-align: center; padding: 5px; }
               td.text-left { text-align: left; font-weight: bold; background-color: #f1f5f9; }
               td.sub-header { background-color: #e2e8f0; font-weight: bold; font-size: 10px; }
+              .meta-banner { background-color: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 8px; font-weight: bold; font-size: 12px; margin-bottom: 12px; }
             </style>
           </head>
           <body>
             <h2>PEDMIS Executive Financial Performance Matrix Report (${selectedYear})</h2>
             <p>Active Timeframe: FY ${selectedYear} | Currency: LKR (Sri Lankan Rupee)</p>
+            
+            <!-- Total Registered SOEs Metric Block -->
+            <table style="width: auto; margin-bottom: 12px; border: 1px solid #1e40af;">
+              <tr>
+                <td style="background-color: #1e40af; color: #ffffff; font-weight: bold; padding: 6px 12px; text-align: left;">
+                  Total Registered SOEs:
+                </td>
+                <td style="background-color: #eff6ff; color: #1e40af; font-weight: bold; padding: 6px 12px; text-align: left;">
+                  61 Entities (57 Functioning + 4 Non-Functioning)
+                </td>
+              </tr>
+            </table>
+
             ${tableHTML}
           </body>
         </html>
@@ -983,7 +997,18 @@
             <style>
               body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; color: #0f172a; }
               h2 { font-size: 16px; margin-bottom: 4px; color: #0f172a; }
-              p { font-size: 11px; color: #64748b; margin-top: 0; margin-bottom: 16px; }
+              p { font-size: 11px; color: #64748b; margin-top: 0; margin-bottom: 12px; }
+              .soe-total-badge {
+                display: inline-block;
+                background: #eff6ff;
+                border: 1px solid #bfdbfe;
+                color: #1e40af;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 700;
+                margin-bottom: 14px;
+              }
               table { width: 100%; border-collapse: collapse; font-size: 10px; }
               th, td { border: 1px solid #94a3b8; padding: 6px 8px; text-align: center; }
               th { background: #f1f5f9; font-weight: 700; color: #0f172a; }
@@ -994,6 +1019,12 @@
           <body>
             <h2>PEDMIS Executive Financial Performance Matrix Report</h2>
             <p>Active Timeframe: FY ${selectedYear} | Currency: LKR (Sri Lankan Rupee)</p>
+            
+            <!-- Total Registered SOEs Metric Block -->
+            <div class="soe-total-badge">
+              Total Registered SOEs: 61 Entities <span style="font-weight: normal; font-size: 11px; color: #3b82f6;">(57 Functioning + 4 Non-Functioning)</span>
+            </div>
+
             ${tableHTML}
           </body>
         </html>
