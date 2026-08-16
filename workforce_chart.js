@@ -203,7 +203,7 @@ function initWorkforceChart(containerId) {
       .wf-progress-labels {
         display: flex;
         justify-content: space-between;
-        font-size: 10px;
+        font-size: 12px;
         color: var(--text-muted);
         margin-top: 4px;
       }
