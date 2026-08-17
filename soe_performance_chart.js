@@ -2,14 +2,84 @@
  * SOE Performance Chart Component for PEDMIS Dashboard
  * 
  * Features:
- * - Common Strategic & Non-Strategic Header spanning all entity categories
- * - Horizontal Stacked Bar Rows for Company, Commercial Corp, and Non-Commercial Corp
- * - Stacked segments displaying SOE Count and total Profit/Loss LKR amounts
- * - Interactive Modals showing 4-Year Financial Trends (FY 2023 - FY 2026) per SOE
+ * - Dedicated popup registers for Pie Chart slices/legends:
+ *   - Company (24 SOEs)
+ *   - Commercial Corporation (17 SOEs)
+ *   - Non-Commercial Corporation (16 SOEs)
+ *   - Non-Functioning Register (4 SOEs)
+ * - Horizontal Stacked Bar Rows with sub-category 4-Year Financial Trends (FY 2023 - FY 2026)
+ * - Dynamic cursor tooltips and synchronized highlight states
  */
 
 const soeStackedData = {
-  // --- COMPANY ---
+  // --- FULL ENTITY REGISTERS FOR PIE CHART LEGENDS ---
+  'Company Register (24 SOEs)': [
+    { name: 'Bank of Ceylon', y2023: '+18.2B', y2024: '+20.1B', y2025: '+22.5B', y2026: '+24.0B' },
+    { name: 'People\'s Bank', y2023: '+14.5B', y2024: '+16.2B', y2025: '+18.0B', y2026: '+19.5B' },
+    { name: 'Sri Lanka Telecom PLC', y2023: '+6.8B', y2024: '+7.5B', y2025: '+8.4B', y2026: '+9.1B' },
+    { name: 'National Savings Bank', y2023: '+4.2B', y2024: '+4.8B', y2025: '+5.5B', y2026: '+6.0B' },
+    { name: 'Sri Lanka Insurance Corp', y2023: '+3.9B', y2024: '+4.2B', y2025: '+4.8B', y2026: '+5.1B' },
+    { name: 'Lanka Electricity Co (LECO)', y2023: '+2.1B', y2024: '+2.5B', y2025: '+2.9B', y2026: '+3.1B' },
+    { name: 'Litro Gas Lanka Ltd', y2023: '+1.8B', y2024: '+2.1B', y2025: '+2.4B', y2026: '+2.7B' },
+    { name: 'Sri Lanka Ports Management Co', y2023: '+1.1B', y2024: '+1.3B', y2025: '+1.5B', y2026: '+1.6B' },
+    { name: 'Lanka IOC Public Share Unit', y2023: '+0.7B', y2024: '+0.8B', y2025: '+0.9B', y2026: '+1.0B' },
+    { name: 'Lanka Phosphate Ltd', y2023: '+0.15B', y2024: '+0.18B', y2025: '+0.2B', y2026: '+0.22B' },
+    { name: 'SriLankan Airlines Ltd', y2023: '-10.2B', y2024: '-9.1B', y2025: '-8.5B', y2026: '-7.8B' },
+    { name: 'Lanka Hospitals PLC', y2023: '+2.8B', y2024: '+3.1B', y2025: '+3.5B', y2026: '+3.8B' },
+    { name: 'Hotel Developers (Lanka) Ltd', y2023: '+1.5B', y2024: '+1.8B', y2025: '+2.1B', y2026: '+2.4B' },
+    { name: 'BCI Campus Ltd', y2023: '+0.8B', y2024: '+1.0B', y2025: '+1.2B', y2026: '+1.3B' },
+    { name: 'Lanka Mineral Sands Ltd', y2023: '+0.7B', y2024: '+0.9B', y2025: '+1.0B', y2026: '+1.1B' },
+    { name: 'Lanka Sugar Company (Pvt) Ltd', y2023: '+0.6B', y2024: '+0.8B', y2025: '+0.9B', y2026: '+1.0B' },
+    { name: 'Lanka Coal Company (Pvt) Ltd', y2023: '+0.2B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.5B' },
+    { name: 'Lanka Cement PLC', y2023: '+0.1B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' },
+    { name: 'Kahawatte Plantations Entity', y2023: '-1.2B', y2024: '-1.0B', y2025: '-0.9B', y2026: '-0.8B' },
+    { name: 'Elpitiya Plantations Entity', y2023: '-0.9B', y2024: '-0.8B', y2025: '-0.7B', y2026: '-0.6B' },
+    { name: 'Kurunegala Plantations Ltd', y2023: '-0.7B', y2024: '-0.6B', y2025: '-0.5B', y2026: '-0.4B' },
+    { name: 'Chilaw Plantations Ltd', y2023: '-0.4B', y2024: '-0.35B', y2025: '-0.3B', y2026: '-0.25B' },
+    { name: 'National Paper Company Entity', y2023: '-0.3B', y2024: '-0.25B', y2025: '-0.2B', y2026: '-0.15B' },
+    { name: 'Ceylon Fertilizer Co Ltd', y2023: '-0.2B', y2024: '-0.15B', y2025: '-0.1B', y2026: '-0.08B' }
+  ],
+
+  'Commercial Corporation Register (17 SOEs)': [
+    { name: 'Sri Lanka Ports Authority', y2023: '+11.5B', y2024: '+12.8B', y2025: '+14.2B', y2026: '+15.5B' },
+    { name: 'Airport & Aviation Services Ltd', y2023: '+4.8B', y2024: '+5.5B', y2025: '+6.1B', y2026: '+6.8B' },
+    { name: 'State Pharmaceuticals Corporation', y2023: '+2.5B', y2024: '+2.8B', y2025: '+3.2B', y2026: '+3.5B' },
+    { name: 'State Timber Corporation', y2023: '+0.25B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.45B' },
+    { name: 'State Printing Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
+    { name: 'Ceylon Petroleum Corporation (CPC)', y2023: '-18.5B', y2024: '-15.2B', y2025: '-12.1B', y2026: '-9.5B' },
+    { name: 'Ceylon Electricity Board (CEB)', y2023: '-9.8B', y2024: '-7.1B', y2025: '-5.2B', y2026: '-3.8B' },
+    { name: 'Sri Lanka Transport Board (SLTB)', y2023: '-2.8B', y2024: '-2.2B', y2025: '-1.8B', y2026: '-1.4B' },
+    { name: 'Sri Lanka State Trading Corp', y2023: '+1.2B', y2024: '+1.5B', y2025: '+1.8B', y2026: '+2.0B' },
+    { name: 'State Engineering Corporation', y2023: '+0.5B', y2024: '+0.65B', y2025: '+0.8B', y2026: '+0.95B' },
+    { name: 'State Fertilizer Corporation', y2023: '+0.2B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.45B' },
+    { name: 'State Gem & Jewellery Corporation', y2023: '+0.1B', y2024: '+0.15B', y2025: '+0.2B', y2026: '+0.22B' },
+    { name: 'Sri Lanka Rubber Manufacturing Corp', y2023: '+0.1B', y2024: '+0.15B', y2025: '+0.2B', y2026: '+0.22B' },
+    { name: 'Ceylon Fisheries Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
+    { name: 'Ceylon Fishery Harbours Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
+    { name: 'Building Materials Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
+    { name: 'Spices & Allied Products Board', y2023: '-1.5B', y2024: '-1.3B', y2025: '-1.1B', y2026: '-0.9B' }
+  ],
+
+  'Non-Commercial Corporation Register (16 SOEs)': [
+    { name: 'Development Lotteries Board', y2023: '+1.4B', y2024: '+1.6B', y2025: '+1.9B', y2026: '+2.1B' },
+    { name: 'National Lotteries Board', y2023: '+1.2B', y2024: '+1.4B', y2025: '+1.7B', y2026: '+1.85B' },
+    { name: 'Civil Aviation Authority', y2023: '+0.9B', y2024: '+1.1B', y2025: '+1.3B', y2026: '+1.4B' },
+    { name: 'Marine Environment Protection Auth', y2023: '+0.8B', y2024: '+0.95B', y2025: '+1.1B', y2026: '+1.2B' },
+    { name: 'Export Development Board', y2023: '+0.5B', y2024: '+0.65B', y2025: '+0.8B', y2026: '+0.9B' },
+    { name: 'Sri Lanka Standards Institution', y2023: '+0.4B', y2024: '+0.55B', y2025: '+0.7B', y2026: '+0.8B' },
+    { name: 'Tea Small Holdings Dev Authority', y2023: '+0.3B', y2024: '+0.45B', y2025: '+0.6B', y2026: '+0.7B' },
+    { name: 'Coconut Development Authority', y2023: '+0.2B', y2024: '+0.35B', y2025: '+0.5B', y2026: '+0.6B' },
+    { name: 'Central Engineering Consultancy Bureau', y2023: '+0.15B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' },
+    { name: 'Sri Lanka Handicrafts Board', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
+    { name: 'Sri Lanka Railway Department', y2023: '-4.5B', y2024: '-3.8B', y2025: '-3.1B', y2026: '-2.5B' },
+    { name: 'National Water Supply & Drainage Board', y2023: '+3.1B', y2024: '+3.6B', y2025: '+4.2B', y2026: '+4.7B' },
+    { name: 'Urban Development Authority (UDA)', y2023: '+0.4B', y2024: '+0.55B', y2025: '+0.7B', y2026: '+0.8B' },
+    { name: 'Coast Conservation Department', y2023: '+0.3B', y2024: '+0.45B', y2025: '+0.6B', y2026: '+0.7B' },
+    { name: 'National Design Centre', y2023: '+0.2B', y2024: '+0.35B', y2025: '+0.5B', y2026: '+0.6B' },
+    { name: 'National Livestock Development Board', y2023: '+0.1B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' }
+  ],
+
+  // --- SUB-CATEGORY MODAL DATA (ROW BREAKDOWNS) ---
   'Company - Strategic Net Profit SOEs': [
     { name: 'Bank of Ceylon', y2023: '+18.2B', y2024: '+20.1B', y2025: '+22.5B', y2026: '+24.0B' },
     { name: 'People\'s Bank', y2023: '+14.5B', y2024: '+16.2B', y2025: '+18.0B', y2026: '+19.5B' },
@@ -43,7 +113,6 @@ const soeStackedData = {
     { name: 'Ceylon Fertilizer Co Ltd', y2023: '-0.2B', y2024: '-0.15B', y2025: '-0.1B', y2026: '-0.08B' }
   ],
 
-  // --- COMMERCIAL CORPORATION ---
   'Commercial Corporation - Strategic Net Profit SOEs': [
     { name: 'Sri Lanka Ports Authority', y2023: '+11.5B', y2024: '+12.8B', y2025: '+14.2B', y2026: '+15.5B' },
     { name: 'Airport & Aviation Services Ltd', y2023: '+4.8B', y2024: '+5.5B', y2025: '+6.1B', y2026: '+6.8B' },
@@ -70,7 +139,6 @@ const soeStackedData = {
     { name: 'Spices & Allied Products Board', y2023: '-1.5B', y2024: '-1.3B', y2025: '-1.1B', y2026: '-0.9B' }
   ],
 
-  // --- NON-COMMERCIAL CORPORATION ---
   'Non-Commercial Corporation - Strategic Net Profit SOEs': [
     { name: 'Development Lotteries Board', y2023: '+1.4B', y2024: '+1.6B', y2025: '+1.9B', y2026: '+2.1B' },
     { name: 'National Lotteries Board', y2023: '+1.2B', y2024: '+1.4B', y2025: '+1.7B', y2026: '+1.85B' },
@@ -110,14 +178,79 @@ function initSOEPerformanceChart(containerId) {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        position: relative;
       }
+
+      /* Top Functional Status Breakdown Card */
+      .soe-func-status-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 8px 12px;
+        gap: 12px;
+      }
+      .soe-func-pie-box {
+        width: 72px;
+        height: 72px;
+        flex-shrink: 0;
+      }
+      .soe-func-svg {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+      }
+      .soe-func-svg circle {
+        fill: none;
+        stroke-width: 20;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .soe-func-svg circle:hover, .soe-func-svg circle.highlighted {
+        stroke-width: 26;
+        filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.25));
+      }
+
+      .soe-func-legend-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 8px;
+        flex-grow: 1;
+      }
+      .soe-func-legend-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 4px;
+        background: var(--accent-bg);
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .soe-func-legend-item:hover, .soe-func-legend-item.highlighted {
+        border-color: var(--primary-blue);
+        background: #e2e8f0;
+      }
+      .soe-func-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 4px;
+      }
+
+      /* Profit/Loss Indicators */
       .soe-legend-bar {
         display: flex;
         justify-content: center;
         gap: 16px;
         background: #ffffff;
         border: 1px solid var(--border-color);
-        padding: 6px 12px;
+        padding: 5px 12px;
         border-radius: 6px;
         font-size: 11px;
         font-weight: 600;
@@ -246,18 +379,87 @@ function initSOEPerformanceChart(containerId) {
         border-radius: 4px;
         font-size: 11px;
         font-weight: bold;
-        z-index: 100;
+        z-index: 1000;
         pointer-events: none;
         box-shadow: 0 2px 6px rgba(0,0,0,0.25);
         white-space: nowrap;
+        line-height: 1.4;
       }
     </style>
 
+    <!-- Floating Global Tooltip -->
     <div id="soeBarTooltip" class="soe-bar-tooltip"></div>
 
     <div class="soe-chart-wrapper">
       
-      <!-- Top Legend -->
+      <!-- Top Overview Pie Chart: Functioning vs Non-Functioning (61 Total SOEs) -->
+      <div class="soe-func-status-card">
+        <div class="soe-func-pie-box">
+          <svg viewBox="0 0 100 100" class="soe-func-svg">
+            <!-- Company: 24 SOEs -->
+            <circle id="pie-func-comp" r="24" cx="50" cy="50" stroke="#2563eb" stroke-dasharray="59.4 151" stroke-dashoffset="0"
+                    onclick="openSoeTrendModal('Company Register (24 SOEs)')"
+                    onmouseenter="highlightFuncStatus('comp')"
+                    onmousemove="showSoeTooltip(event, 'Company (Functioning)<br>Count: 24 SOEs (39.3%)<br>Net Impact: +16.0B LKR<br><i>Click to view all 24 Companies</i>')" 
+                    onmouseleave="removeFuncHighlight()" />
+
+            <!-- Commercial Corp: 17 SOEs -->
+            <circle id="pie-func-comm" r="24" cx="50" cy="50" stroke="#059669" stroke-dasharray="42.1 151" stroke-dashoffset="-59.4"
+                    onclick="openSoeTrendModal('Commercial Corporation Register (17 SOEs)')"
+                    onmouseenter="highlightFuncStatus('comm')"
+                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Functioning)<br>Count: 17 SOEs (27.9%)<br>Net Impact: +3.8B LKR<br><i>Click to view all 17 Commercial Corps</i>')" 
+                    onmouseleave="removeFuncHighlight()" />
+
+            <!-- Non-Commercial Corp: 16 SOEs -->
+            <circle id="pie-func-noncomm" r="24" cx="50" cy="50" stroke="#d97706" stroke-dasharray="39.6 151" stroke-dashoffset="-101.5"
+                    onclick="openSoeTrendModal('Non-Commercial Corporation Register (16 SOEs)')"
+                    onmouseenter="highlightFuncStatus('noncomm')"
+                    onmousemove="showSoeTooltip(event, 'Non-Commercial Corp (Functioning)<br>Count: 16 SOEs (26.2%)<br>Net Impact: +11.9B LKR<br><i>Click to view all 16 Non-Comm Corps</i>')" 
+                    onmouseleave="removeFuncHighlight()" />
+
+            <!-- Non-Functioning: 4 SOEs -->
+            <circle id="pie-func-nonfunc" r="24" cx="50" cy="50" stroke="#dc2626" stroke-dasharray="9.9 151" stroke-dashoffset="-141.1"
+                    onclick="openNonFunctionalModal()"
+                    onmouseenter="highlightFuncStatus('nonfunc')"
+                    onmousemove="showSoeTooltip(event, 'Non-Functioning Entities<br>Count: 4 SOEs (6.6%)<br>Status: Officially Inactive<br><i>Click to view Register</i>')" 
+                    onmouseleave="removeFuncHighlight()" />
+          </svg>
+        </div>
+
+        <!-- Legend for the Pie Chart with Dedicated Popups -->
+        <div class="soe-func-legend-grid">
+          <div class="soe-func-legend-item" id="legend-func-comp"
+               onclick="openSoeTrendModal('Company Register (24 SOEs)')"
+               onmouseenter="highlightFuncStatus('comp')" onmouseleave="removeFuncHighlight()"
+               title="Click to view all 24 Companies">
+            <span><span class="soe-func-dot" style="background:#2563eb;"></span>Company</span>
+            <strong>24 (39.3%) ⓘ</strong>
+          </div>
+          <div class="soe-func-legend-item" id="legend-func-comm"
+               onclick="openSoeTrendModal('Commercial Corporation Register (17 SOEs)')"
+               onmouseenter="highlightFuncStatus('comm')" onmouseleave="removeFuncHighlight()"
+               title="Click to view all 17 Commercial Corporations">
+            <span><span class="soe-func-dot" style="background:#059669;"></span>Commercial Corporation</span>
+            <strong>17 (27.9%) ⓘ</strong>
+          </div>
+          <div class="soe-func-legend-item" id="legend-func-noncomm"
+               onclick="openSoeTrendModal('Non-Commercial Corporation Register (16 SOEs)')"
+               onmouseenter="highlightFuncStatus('noncomm')" onmouseleave="removeFuncHighlight()"
+               title="Click to view all 16 Non-Commercial Corporations">
+            <span><span class="soe-func-dot" style="background:#d97706;"></span>Non-Commercial Corporation</span>
+            <strong>16 (26.2%) ⓘ</strong>
+          </div>
+          <div class="soe-func-legend-item" id="legend-func-nonfunc" style="background:#fee2e2; border-color:#fecaca;"
+               onclick="openNonFunctionalModal()"
+               onmouseenter="highlightFuncStatus('nonfunc')" onmouseleave="removeFuncHighlight()"
+               title="Click to view Non-Functioning Register">
+            <span><span class="soe-func-dot" style="background:#dc2626;"></span>Non-Functioning</span>
+            <strong style="color:var(--danger-red);">4 (6.6%) ⓘ</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Profit/Loss Legend -->
       <div class="soe-legend-bar">
         <div class="soe-legend-item-pill">
           <span class="soe-dot" style="background: var(--strat-color);"></span>
@@ -283,18 +485,18 @@ function initSOEPerformanceChart(containerId) {
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
             <span class="soe-entity-name">Company</span>
-            <span class="soe-entity-meta" style="font-size: 12px;">24 SOEs | Net +16.0B</span>
+            <span class="soe-entity-meta">24 SOEs | Net +16.0B</span>
           </div>
 
           <!-- Strategic Company Bar -->
           <div class="soe-bar-track-wrapper">
             <div class="soe-horizontal-bar">
-              <div class="soe-hbar-seg prof" style="width: 88%; font-size: 12px;" 
+              <div class="soe-hbar-seg prof" style="width: 88%;" 
                    onclick="openSoeTrendModal('Company - Strategic Net Profit SOEs')"
                    onmousemove="showSoeTooltip(event, 'Company (Strategic Profit): 10 SOEs (+78.0B)')" onmouseleave="hideSoeTooltip()">
                 10 SOEs (+78.0B)
               </div>
-              <div class="soe-hbar-seg loss" style="width: 12%; font-size: 10px;" 
+              <div class="soe-hbar-seg loss" style="width: 12%;" 
                    onclick="openSoeTrendModal('Company - Strategic Net Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Company (Strategic Loss): 1 SOE (-8.5B)')" onmouseleave="hideSoeTooltip()">
                 1 (-8.5B)
@@ -305,12 +507,12 @@ function initSOEPerformanceChart(containerId) {
           <!-- Non-Strategic Company Bar -->
           <div class="soe-bar-track-wrapper">
             <div class="soe-horizontal-bar">
-              <div class="soe-hbar-seg prof" style="width: 65%; font-size: 12px;" 
+              <div class="soe-hbar-seg prof" style="width: 65%;" 
                    onclick="openSoeTrendModal('Company - Non-Strategic Net Profit SOEs')"
                    onmousemove="showSoeTooltip(event, 'Company (Non-Strat Profit): 7 SOEs (+11.3B)')" onmouseleave="hideSoeTooltip()">
                 7 SOEs (+11.3B)
               </div>
-              <div class="soe-hbar-seg loss" style="width: 35%; font-size: 10px;" 
+              <div class="soe-hbar-seg loss" style="width: 35%;" 
                    onclick="openSoeTrendModal('Company - Non-Strategic Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Company (Non-Strat Loss): 6 SOEs (-2.7B)')" onmouseleave="hideSoeTooltip()">
                 6 SOEs (-2.7B)
@@ -322,19 +524,19 @@ function initSOEPerformanceChart(containerId) {
         <!-- Row 2: Commercial Corporation -->
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
-            <span class="soe-entity-name">Commercial Corp</span>
-            <span class="soe-entity-meta " style="font-size: 12px;">17 SOEs | Net +3.8B</span>
+            <span class="soe-entity-name">Commercial Corporation</span>
+            <span class="soe-entity-meta">17 SOEs | Net +3.8B</span>
           </div>
 
           <!-- Strategic Commercial Corp Bar -->
           <div class="soe-bar-track-wrapper">
             <div class="soe-horizontal-bar">
-              <div class="soe-hbar-seg prof" style="width: 60%; font-size: 12px;" 
+              <div class="soe-hbar-seg prof" style="width: 60%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Strategic Net Profit SOEs')"
                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Profit): 5 SOEs (+27.0B)')" onmouseleave="hideSoeTooltip()">
                 5 SOEs (+27.0B)
               </div>
-              <div class="soe-hbar-seg loss" style="width: 40%; font-size: 10px;" 
+              <div class="soe-hbar-seg loss" style="width: 40%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Strategic Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Loss): 3 SOEs (-19.1B)')" onmouseleave="hideSoeTooltip()">
                 3 SOEs (-19.1B)
@@ -345,12 +547,12 @@ function initSOEPerformanceChart(containerId) {
           <!-- Non-Strategic Commercial Corp Bar -->
           <div class="soe-bar-track-wrapper">
             <div class="soe-horizontal-bar">
-              <div class="soe-hbar-seg prof" style="width: 85%; font-size: 12px;" 
+              <div class="soe-hbar-seg prof" style="width: 85%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Net Profit SOEs')"
                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Profit): 8 SOEs (+4.3B)')" onmouseleave="hideSoeTooltip()">
                 8 SOEs (+4.3B)
               </div>
-              <div class="soe-hbar-seg loss" style="width: 15%; font-size: 10px;" 
+              <div class="soe-hbar-seg loss" style="width: 15%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Loss): 1 SOE (-1.1B)')" onmouseleave="hideSoeTooltip()">
                 1 (-1.1B)
@@ -362,19 +564,19 @@ function initSOEPerformanceChart(containerId) {
         <!-- Row 3: Non-Commercial Corporation -->
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
-            <span class="soe-entity-name">Non-Comm Corp</span>
-            <span class="soe-entity-meta" style="font-size: 12px;">16 SOEs | Net +11.9B</span>
+            <span class="soe-entity-name">Non-Commercial Corporation</span>
+            <span class="soe-entity-meta">16 SOEs | Net +11.9B</span>
           </div>
 
           <!-- Strategic Non-Commercial Corp Bar -->
           <div class="soe-bar-track-wrapper">
             <div class="soe-horizontal-bar">
-              <div class="soe-hbar-seg prof" style="width: 80%; font-size: 12px;" 
+              <div class="soe-hbar-seg prof" style="width: 80%;" 
                    onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Profit SOEs')"
                    onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Profit): 10 SOEs (+8.5B)')" onmouseleave="hideSoeTooltip()">
                 10 SOEs (+8.5B)
               </div>
-              <div class="soe-hbar-seg loss" style="width: 20%; font-size: 10px;" 
+              <div class="soe-hbar-seg loss" style="width: 20%;" 
                    onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Loss): 1 SOE (-3.1B)')" onmouseleave="hideSoeTooltip()">
                 1 (-3.1B)
@@ -385,7 +587,7 @@ function initSOEPerformanceChart(containerId) {
           <!-- Non-Strategic Non-Commercial Corp Bar -->
           <div class="soe-bar-track-wrapper">
             <div class="soe-horizontal-bar">
-              <div class="soe-hbar-seg prof" style="width: 100%; font-size: 12px;" 
+              <div class="soe-hbar-seg prof" style="width: 100%;" 
                    onclick="openSoeTrendModal('Non-Commercial Corporation - Non-Strategic Net Profit SOEs')"
                    onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Non-Strat Profit): 5 SOEs (+6.5B)')" onmouseleave="hideSoeTooltip()">
                 5 SOEs (+6.5B)
@@ -432,14 +634,29 @@ function initSOEPerformanceChart(containerId) {
   `;
 }
 
+// Functioning vs Non-Functioning Pie Highlight Sync
+function highlightFuncStatus(key) {
+  removeFuncHighlight();
+  const arc = document.getElementById(`pie-func-${key}`);
+  const legend = document.getElementById(`legend-func-${key}`);
+  if (arc) arc.classList.add('highlighted');
+  if (legend) legend.classList.add('highlighted');
+}
+
+function removeFuncHighlight() {
+  hideSoeTooltip();
+  document.querySelectorAll('.soe-func-svg circle').forEach(c => c.classList.remove('highlighted'));
+  document.querySelectorAll('.soe-func-legend-item').forEach(l => l.classList.remove('highlighted'));
+}
+
 // Tooltip Handlers
 function showSoeTooltip(evt, text) {
   const tooltip = document.getElementById('soeBarTooltip');
   if (!tooltip) return;
-  tooltip.innerText = text;
+  tooltip.innerHTML = text;
   tooltip.style.display = 'block';
   tooltip.style.left = (evt.pageX + 12) + 'px';
-  tooltip.style.top = (evt.pageY - 28) + 'px';
+  tooltip.style.top = (evt.pageY - 34) + 'px';
 }
 
 function hideSoeTooltip() {

@@ -1,65 +1,59 @@
 /**
  * Budget Support Component for PEDMIS Dashboard
  * Features:
- * - Side-by-Side Recurrent (36.6%) & Capital (63.4%) Support detail columns
- * - Sub-Category cards stretch vertically to eliminate whitespace and align perfectly with left grid section
- * - Direct popups displaying SOE Names and allocated values (SOE Name & Value only)
+ * - Side-by-Side Recurrent (36.6%), Capital (63.4%), and Equity Support detail columns
+ * - Sub-Category cards with explicit percentage and values
+ * - Direct popups displaying SOE Names with 5-Year Historical & Current Allocations (FY 2022 - FY 2026)
  */
 
-// Data Store for Budget Support Allocations per Category
+// Data Store for Budget Support Allocations per Category (5-Year Trends)
 const budgetSupportData = {
   // --- RECURRENT SUPPORT ---
   'Recurrent Budget Support (Strategic SOEs - Net Profit)': [
-    { name: 'National Water Supply Board (Operational Support)', value: '3.0B' },
-    { name: 'Airport & Aviation Services (Regional Airfield Maintenance)', value: '1.8B' }
+    { name: 'National Water Supply Board (Operational Support)', y2022: '2.1B', y2023: '2.4B', y2024: '2.7B', y2025: '2.9B', y2026: '3.0B' },
+    { name: 'Airport & Aviation Services (Regional Airfield Maintenance)', y2022: '1.1B', y2023: '1.3B', y2024: '1.5B', y2025: '1.7B', y2026: '1.8B' }
   ],
   'Recurrent Budget Support (Strategic SOEs - Net Loss)': [
-    { name: 'Sri Lanka Railway Dept (Operational Subsidy)', value: '18.5B' },
-    { name: 'Ceylon Electricity Board (Fuel Subsidy Grant)', value: '12.0B' }
+    { name: 'Sri Lanka Railway Dept (Operational Subsidy)', y2022: '14.0B', y2023: '15.5B', y2024: '16.8B', y2025: '17.5B', y2026: '18.5B' },
+    { name: 'Ceylon Electricity Board (Fuel Subsidy Grant)', y2022: '8.5B', y2023: '9.8B', y2024: '10.5B', y2025: '11.2B', y2026: '12.0B' }
   ],
   'Recurrent Budget Support (Non-Strategic SOEs - Net Profit)': [
-    { name: 'State Engineering Corporation (Restructuring Grant)', value: '1.2B' },
-    { name: 'Ceylon Fisheries Corporation (Cold Chain Support)', value: '0.8B' }
+    { name: 'State Engineering Corporation (Restructuring Grant)', y2022: '0.7B', y2023: '0.8B', y2024: '1.0B', y2025: '1.1B', y2026: '1.2B' },
+    { name: 'Ceylon Fisheries Corporation (Cold Chain Support)', y2022: '0.4B', y2023: '0.5B', y2024: '0.6B', y2025: '0.7B', y2026: '0.8B' }
   ],
   'Recurrent Budget Support (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Sri Lanka Transport Board (SLTB Fleet Subsidy)', value: '5.2B' },
-    { name: 'Spices & Allied Products Board (Admin Support)', value: '0.5B' }
+    { name: 'Sri Lanka Transport Board (SLTB Fleet Subsidy)', y2022: '3.8B', y2023: '4.2B', y2024: '4.6B', y2025: '4.9B', y2026: '5.2B' },
+    { name: 'Spices & Allied Products Board (Admin Support)', y2022: '0.3B', y2023: '0.35B', y2024: '0.4B', y2025: '0.45B', y2026: '0.5B' }
   ],
 
   // --- CAPITAL SUPPORT ---
   'Capital Budget Support (Strategic SOEs - Net Profit)': [
-    { name: 'Ports Authority Infrastructure Expansion', value: '5.0B' },
-    { name: 'Sri Lanka Telecom (Rural Connectivity Project)', value: '3.5B' }
+    { name: 'Ports Authority Infrastructure Expansion', y2022: '3.2B', y2023: '3.8B', y2024: '4.2B', y2025: '4.7B', y2026: '5.0B' },
+    { name: 'Sri Lanka Telecom (Rural Connectivity Project)', y2022: '2.0B', y2023: '2.5B', y2024: '2.9B', y2025: '3.2B', y2026: '3.5B' }
   ],
   'Capital Budget Support (Strategic SOEs - Net Loss)': [
-    { name: 'Road Development Authority (Highway Network Grant)', value: '32.0B' },
-    { name: 'Sri Lanka Railway Dept (Rolling Stock & Track Upgrades)', value: '10.5B' }
+    { name: 'Road Development Authority (Highway Network Grant)', y2022: '24.0B', y2023: '26.5B', y2024: '28.5B', y2025: '30.0B', y2026: '32.0B' },
+    { name: 'Sri Lanka Railway Dept (Rolling Stock & Track Upgrades)', y2022: '7.5B', y2023: '8.2B', y2024: '9.0B', y2025: '9.8B', y2026: '10.5B' }
   ],
   'Capital Budget Support (Non-Strategic SOEs - Net Profit)': [
-    { name: 'National Water Supply Board (Water Treatment Capital Grant)', value: '19.0B' }
+    { name: 'National Water Supply Board (Water Treatment Capital Grant)', y2022: '14.0B', y2023: '15.5B', y2024: '17.0B', y2025: '18.2B', y2026: '19.0B' }
   ],
   'Capital Budget Support (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Urban Development Authority (Urban Renewal Grant)', value: '3.5B' }
+    { name: 'Urban Development Authority (Urban Renewal Grant)', y2022: '2.2B', y2023: '2.5B', y2024: '2.8B', y2025: '3.1B', y2026: '3.5B' }
   ],
 
-  // --- EQUITY SUPPORT (SAMPLE DATA & POPUP TARGETS) ---
+  // --- EQUITY SUPPORT ---
   'Equity Budget Support (Strategic SOEs - Net Profit)': [
-    { name: 'Sri Lanka Telecom PLC (Treasury Rights Issue Participation)', value: '4.5B' },
-    { name: 'Bank of Ceylon (Tier 1 Regulatory Capital Infusion)', value: '2.5B' },
-    { name: 'People\'s Bank (Core Capital Enhancement Grant)', value: '1.0B' }
+    { name: 'Ports Authority (Terminal Expansion Equity)', y2022: '5.8B', y2023: '6.4B', y2024: '7.1B', y2025: '7.8B', y2026: '8.5B' }
   ],
   'Equity Budget Support (Strategic SOEs - Net Loss)': [
-    { name: 'SriLankan Airlines Ltd (Balance Sheet Debt-to-Equity Conversion)', value: '6.2B' },
-    { name: 'Ceylon Petroleum Corporation (Sapugaskanda Expansion Equity)', value: '2.8B' },
-    { name: 'Ceylon Electricity Board (Renewable Grid Equity Fund)', value: '1.5B' }
+    { name: 'Ceylon Petroleum Corporation (Balance Sheet Restructuring)', y2022: '32.0B', y2023: '35.5B', y2024: '38.0B', y2025: '40.5B', y2026: '42.5B' }
   ],
   'Equity Budget Support (Non-Strategic SOEs - Net Profit)': [
-    { name: 'Lanka Mineral Sands Ltd (Heavy Minerals Processing Plant Equity)', value: '1.2B' },
-    { name: 'State Pharmaceuticals Manufacturing Corp (Formulation Facility Equity)', value: '0.8B' }
+    { name: 'National Water Supply Board (Capacity Equity Infusion)', y2022: '11.0B', y2023: '12.5B', y2024: '13.8B', y2025: '14.8B', y2026: '15.5B' }
   ],
   'Equity Budget Support (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Lanka Sugar Company (Pelwatte & Sevanagala Modernization Equity)', value: '1.2B' },
-    { name: 'National Paper Company (Valachchenai Plant Revival Equity)', value: '0.8B' }
+    { name: 'Urban Development Authority (Asset Restructuring Equity)', y2022: '2.2B', y2023: '2.5B', y2024: '2.8B', y2025: '3.1B', y2026: '3.5B' }
   ]
 };
 
@@ -218,7 +212,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Recurrent Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Strategic SOEs - Net Profit (11.9%)</span>
-                <span class="budget-cat-val">4.8B  </span>
+                <span class="budget-cat-val">4.8B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 11.9%; background: var(--strat-color);"></div>
@@ -229,7 +223,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Recurrent Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Strategic SOEs - Net Loss (75.3%)</span>
-                <span class="budget-cat-val">30.5B  </span>
+                <span class="budget-cat-val">30.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 75.3%; background: var(--danger-red);"></div>
@@ -240,7 +234,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Recurrent Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic SOEs - Net Profit (4.9%)</span>
-                <span class="budget-cat-val">2.0B  </span>
+                <span class="budget-cat-val">2.0B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 4.9%; background: #3b82f6;"></div>
@@ -251,7 +245,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Recurrent Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic SOEs - Net Loss (14.1%)</span>
-                <span class="budget-cat-val">5.7B  </span>
+                <span class="budget-cat-val">5.7B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 14.1%; background: var(--nonstrat-color);"></div>
@@ -273,7 +267,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Capital Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Strategic Profit (12.1%)</span>
-                <span class="budget-cat-val">8.5B  </span>
+                <span class="budget-cat-val">8.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 12.1%; background: var(--strat-color);"></div>
@@ -284,7 +278,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Capital Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Strategic Loss (60.7%)</span>
-                <span class="budget-cat-val">42.5B  </span>
+                <span class="budget-cat-val">42.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 60.7%; background: var(--danger-red);"></div>
@@ -295,7 +289,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Capital Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Profit (22.1%)</span>
-                <span class="budget-cat-val">15.5B  </span>
+                <span class="budget-cat-val">15.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 22.1%; background: #3b82f6;"></div>
@@ -306,7 +300,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Capital Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Loss (5.1%)</span>
-                <span class="budget-cat-val">3.5B  </span>
+                <span class="budget-cat-val">3.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 5.1%; background: var(--nonstrat-color);"></div>
@@ -318,7 +312,7 @@ function initBudgetSupportChart(containerId) {
         <!-- Stream 3: Equity Support -->
         <div class="budget-stream-column" id="stream-col-equity">
           <div class="budget-stream-header">
-            <span class="budget-stream-title">• Equity Support</span>
+            <span class="budget-stream-title">• Equity Contribution</span>
             <span class="budget-stream-percentage">(63.4%)</span>
             <span class="budget-stream-total">70.0B</span>
           </div>
@@ -328,7 +322,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-prof" onclick="openBudgetModal('Equity Budget Support (Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Strategic Profit (12.1%)</span>
-                <span class="budget-cat-val">8.5B  </span>
+                <span class="budget-cat-val">8.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 12.1%; background: var(--strat-color);"></div>
@@ -339,7 +333,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card strat-loss" onclick="openBudgetModal('Equity Budget Support (Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Strategic Loss (60.7%)</span>
-                <span class="budget-cat-val">42.5B  </span>
+                <span class="budget-cat-val">42.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 60.7%; background: var(--danger-red);"></div>
@@ -350,7 +344,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-prof" onclick="openBudgetModal('Equity Budget Support (Non-Strategic SOEs - Net Profit)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Profit (22.1%)</span>
-                <span class="budget-cat-val">15.5B  </span>
+                <span class="budget-cat-val">15.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 22.1%; background: #3b82f6;"></div>
@@ -361,7 +355,7 @@ function initBudgetSupportChart(containerId) {
             <div class="budget-cat-card nonstrat-loss" onclick="openBudgetModal('Equity Budget Support (Non-Strategic SOEs - Net Loss)')">
               <div class="budget-cat-meta">
                 <span>Non-Strategic Loss (5.1%)</span>
-                <span class="budget-cat-val">3.5B  </span>
+                <span class="budget-cat-val">3.5B  ⓘ</span>
               </div>
               <div class="budget-progress-track">
                 <div class="budget-progress-fill" style="width: 5.1%; background: var(--nonstrat-color);"></div>
@@ -370,36 +364,39 @@ function initBudgetSupportChart(containerId) {
           </div>
         </div>
 
-        <!-- Stream : Net Fiscal Impact Banner -->
-        <div class="budget-stream-column" id="stream-col-equity">
+        <!-- Stream 4: Net Fiscal Impact Banner -->
+        <div class="budget-stream-column" id="stream-col-net-fiscal">
           <div class="net-revenue-prominent">
-          <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Net Revenue to Government</span>
-          <h3>+185.0 Billion</h3>
-          <small style="color: var(--text-muted); font-size: 10px;">(Calculated as Total Govt Revenue 295.5B minus Budget Support 110.5B)</small>
-        </div>
-
+            <span style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Net Revenue to Government</span>
+            <h3>+185.0 Billion</h3>
+            <small style="color: var(--text-muted); font-size: 10px;">(Calculated as Total Govt Revenue 295.5B minus Budget Support 110.5B)</small>
+          </div>
         </div>
 
       </div>
 
     </div>
 
-    <!-- Modal Popup for Budget Allocations (Clean Two-Column Structure) -->
+    <!-- Modal Popup for Budget Allocations (5-Year Historical & Current Data) -->
     <div class="modal-overlay" id="budgetSupportModal">
-      <div class="modal">
+      <div class="modal" style="width: 780px; max-width: 95%;">
         <div class="modal-header">
           <h3 id="budgetSupportModalTitle" style="margin:0;">Budget Support Register</h3>
           <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeBudgetModal()">&times;</button>
         </div>
         <p style="color: var(--text-muted); font-size: 11px;">
-          Breakdown of individual state-owned entities receiving budget support under this classification.
+          Breakdown of individual state-owned entities and allocated amounts across past 4 financial years and current year.
         </p>
 
         <table>
           <thead>
             <tr>
               <th>SOE Name</th>
-              <th>Allocation Value</th>
+              <th>FY 2022</th>
+              <th>FY 2023</th>
+              <th>FY 2024</th>
+              <th>FY 2025</th>
+              <th>FY 2026 (Current)</th>
             </tr>
           </thead>
           <tbody id="budgetSupportTableBody"></tbody>
@@ -409,10 +406,10 @@ function initBudgetSupportChart(containerId) {
   `;
 }
 
-// Open Budget Support Modal (Only SOE Name & Value columns)
+// Open Budget Support Modal (Populates 5-Year Allocation Trend)
 function openBudgetModal(keyTitle) {
   currentBudgetKey = keyTitle;
-  document.getElementById('budgetSupportModalTitle').innerText = keyTitle;
+  document.getElementById('budgetSupportModalTitle').innerText = keyTitle + ' (5-Year Trend)';
 
   const tbody = document.getElementById('budgetSupportTableBody');
   tbody.innerHTML = '';
@@ -423,7 +420,11 @@ function openBudgetModal(keyTitle) {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><strong>${item.name}</strong></td>
-      <td style="font-weight:700; color:var(--primary-blue);">${item.value}</td>
+      <td>${item.y2022}</td>
+      <td>${item.y2023}</td>
+      <td>${item.y2024}</td>
+      <td>${item.y2025}</td>
+      <td style="font-weight:700; color:var(--primary-blue);">${item.y2026}</td>
     `;
     tbody.appendChild(tr);
   });

@@ -5,6 +5,7 @@
  * 1. Centered "Share of Total State Staff" label.
  * 2. Dynamic arc percentage tooltips following the cursor on hover.
  * 3. Two-way synchronized hover highlighting across Progress Bar Segments, Doughnut Arcs, and Legend items.
+ * 4. Modal popups displaying 5-Year Headcount Trends (FY 2022 - FY 2026) per SOE.
  */
 
 const workforceCategoryData = {
@@ -13,24 +14,24 @@ const workforceCategoryData = {
     count: 78500,
     soePercentage: '42.4%',
     statePercentage: '6.04%',
-    color: '#16a34a',
+    color: '#cce8c3',
     entities: [
-      { name: 'Bank of Ceylon', staff: '12,800' },
-      { name: 'People\'s Bank', staff: '14,000' },
-      { name: 'Ports Authority', staff: '9,500' },
-      { name: 'Sri Lanka Telecom', staff: '7,800' },
-      { name: 'Airport & Aviation Services', staff: '4,200' },
-      { name: 'National Savings Bank', staff: '4,100' },
-      { name: 'Sri Lanka Insurance Corp', staff: '3,800' },
-      { name: 'State Pharmaceuticals Corp', staff: '2,100' },
-      { name: 'Lanka Electricity Co (LECO)', staff: '1,900' },
-      { name: 'Litro Gas Lanka Ltd', staff: '850' },
-      { name: 'Development Lotteries Board', staff: '450' },
-      { name: 'National Lotteries Board', staff: '420' },
-      { name: 'Civil Aviation Authority', staff: '380' },
-      { name: 'State Timber Corporation', staff: '1,200' },
-      { name: 'CECB', staff: '1,100' },
-      { name: 'Other Strategic Profitable SOEs', staff: '14,000' }
+      { name: 'Bank of Ceylon', y2022: '11,900', y2023: '12,200', y2024: '12,500', y2025: '12,700', y2026: '12,800' },
+      { name: 'People\'s Bank', y2022: '13,100', y2023: '13,400', y2024: '13,700', y2025: '13,900', y2026: '14,000' },
+      { name: 'Ports Authority', y2022: '9,100', y2023: '9,250', y2024: '9,350', y2025: '9,450', y2026: '9,500' },
+      { name: 'Sri Lanka Telecom', y2022: '7,200', y2023: '7,400', y2024: '7,600', y2025: '7,700', y2026: '7,800' },
+      { name: 'Airport & Aviation Services', y2022: '3,800', y2023: '3,950', y2024: '4,050', y2025: '4,150', y2026: '4,200' },
+      { name: 'National Savings Bank', y2022: '3,700', y2023: '3,850', y2024: '3,950', y2025: '4,050', y2026: '4,100' },
+      { name: 'Sri Lanka Insurance Corp', y2022: '3,500', y2023: '3,600', y2024: '3,700', y2025: '3,750', y2026: '3,800' },
+      { name: 'State Pharmaceuticals Corp', y2022: '1,900', y2023: '1,950', y2024: '2,000', y2025: '2,050', y2026: '2,100' },
+      { name: 'Lanka Electricity Co (LECO)', y2022: '1,750', y2023: '1,800', y2024: '1,850', y2025: '1,880', y2026: '1,900' },
+      { name: 'Litro Gas Lanka Ltd', y2022: '780', y2023: '800', y2024: '820', y2025: '840', y2026: '850' },
+      { name: 'Development Lotteries Board', y2022: '410', y2023: '420', y2024: '430', y2025: '440', y2026: '450' },
+      { name: 'National Lotteries Board', y2022: '380', y2023: '390', y2024: '400', y2025: '410', y2026: '420' },
+      { name: 'Civil Aviation Authority', y2022: '340', y2023: '350', y2024: '360', y2025: '370', y2026: '380' },
+      { name: 'State Timber Corporation', y2022: '1,100', y2023: '1,120', y2024: '1,150', y2025: '1,180', y2026: '1,200' },
+      { name: 'CECB', y2022: '980', y2023: '1,020', y2024: '1,050', y2025: '1,080', y2026: '1,100' },
+      { name: 'Other Strategic Profitable SOEs', y2022: '12,960', y2023: '13,300', y2024: '13,590', y2025: '13,800', y2026: '14,000' }
     ]
   },
   'Workforce - (Strategic SOEs - Net Loss)': {
@@ -38,11 +39,11 @@ const workforceCategoryData = {
     count: 29500,
     soePercentage: '15.9%',
     statePercentage: '2.27%',
-    color: '#dc2626',
+    color: '#f5baca',
     entities: [
-      { name: 'Ceylon Petroleum Corp', staff: '4,200' },
-      { name: 'SriLankan Airlines', staff: '6,500' },
-      { name: 'Ceylon Electricity Board', staff: '18,800' }
+      { name: 'Ceylon Petroleum Corp', y2022: '4,000', y2023: '4,050', y2024: '4,100', y2025: '4,150', y2026: '4,200' },
+      { name: 'SriLankan Airlines', y2022: '6,100', y2023: '6,250', y2024: '6,350', y2025: '6,450', y2026: '6,500' },
+      { name: 'Ceylon Electricity Board', y2022: '17,800', y2023: '18,100', y2024: '18,400', y2025: '18,650', y2026: '18,800' }
     ]
   },
   'Workforce - (Non-Strategic SOEs - Net Profit)': {
@@ -50,18 +51,18 @@ const workforceCategoryData = {
     count: 42000,
     soePercentage: '22.7%',
     statePercentage: '3.23%',
-    color: '#3b82f6',
+    color: '#c7dbf2',
     entities: [
-      { name: 'National Water Supply Board', staff: '18,500' },
-      { name: 'Lanka Hospitals PLC', staff: '2,400' },
-      { name: 'Sri Lanka State Trading Corp', staff: '1,100' },
-      { name: 'Lanka Sugar Company', staff: '5,200' },
-      { name: 'Urban Development Authority', staff: '3,100' },
-      { name: 'State Engineering Corp', staff: '2,800' },
-      { name: 'Lanka Mineral Sands Ltd', staff: '890' },
-      { name: 'National Livestock Dev Board', staff: '1,450' },
-      { name: 'Ceylon Fisheries Corp', staff: '1,200' },
-      { name: 'Other Non-Strategic Profitable SOEs', staff: '5,360' }
+      { name: 'National Water Supply Board', y2022: '17,200', y2023: '17,600', y2024: '18,000', y2025: '18,300', y2026: '18,500' },
+      { name: 'Lanka Hospitals PLC', y2022: '2,150', y2023: '2,200', y2024: '2,300', y2025: '2,350', y2026: '2,400' },
+      { name: 'Sri Lanka State Trading Corp', y2022: '980', y2023: '1,020', y2024: '1,050', y2025: '1,080', y2026: '1,100' },
+      { name: 'Lanka Sugar Company', y2022: '4,800', y2023: '4,950', y2024: '5,050', y2025: '5,150', y2026: '5,200' },
+      { name: 'Urban Development Authority', y2022: '2,850', y2023: '2,920', y2024: '3,000', y2025: '3,050', y2026: '3,100' },
+      { name: 'State Engineering Corp', y2022: '2,600', y2023: '2,680', y2024: '2,720', y2025: '2,760', y2026: '2,800' },
+      { name: 'Lanka Mineral Sands Ltd', y2022: '810', y2023: '830', y2024: '850', y2025: '870', y2026: '890' },
+      { name: 'National Livestock Dev Board', y2022: '1,320', y2023: '1,360', y2024: '1,400', y2025: '1,420', y2026: '1,450' },
+      { name: 'Ceylon Fisheries Corp', y2022: '1,100', y2023: '1,120', y2024: '1,150', y2025: '1,180', y2026: '1,200' },
+      { name: 'Other Non-Strategic Profitable SOEs', y2022: '4,920', y2023: '5,080', y2024: '5,180', y2025: '5,280', y2026: '5,360' }
     ]
   },
   'Workforce - (Non-Strategic SOEs - Net Loss)': {
@@ -69,14 +70,14 @@ const workforceCategoryData = {
     count: 35000,
     soePercentage: '18.9%',
     statePercentage: '2.69%',
-    color: '#d97706',
+    color: '#e8d1ac',
     entities: [
-      { name: 'Sri Lanka Railway Dept', staff: '11,200' },
-      { name: 'Sri Lanka Transport Board (SLTB)', staff: '18,400' },
-      { name: 'Spices & Allied Products Board', staff: '1,200' },
-      { name: 'Kurunegala Plantations Ltd', staff: '1,800' },
-      { name: 'Chilaw Plantations Ltd', staff: '1,400' },
-      { name: 'Other Non-Strategic Loss SOEs', staff: '1,000' }
+      { name: 'Sri Lanka Railway Dept', y2022: '10,400', y2023: '10,700', y2024: '10,900', y2025: '11,050', y2026: '11,200' },
+      { name: 'Sri Lanka Transport Board (SLTB)', y2022: '17,500', y2023: '17,800', y2024: '18,100', y2025: '18,250', y2026: '18,400' },
+      { name: 'Spices & Allied Products Board', y2022: '1,100', y2023: '1,120', y2024: '1,150', y2025: '1,180', y2026: '1,200' },
+      { name: 'Kurunegala Plantations Ltd', y2022: '1,650', y2023: '1,700', y2024: '1,740', y2025: '1,780', y2026: '1,800' },
+      { name: 'Chilaw Plantations Ltd', y2022: '1,280', y2023: '1,320', y2024: '1,350', y2025: '1,380', y2026: '1,400' },
+      { name: 'Other Non-Strategic Loss SOEs', y2022: '920', y2023: '940', y2024: '960', y2025: '980', y2026: '1,000' }
     ]
   }
 };
@@ -156,7 +157,8 @@ function initWorkforceChart(containerId) {
       .wf-legend-item:hover, .wf-legend-item.highlighted {
         background: #e2e8f0;
         border-color: var(--primary-blue);
-        transform: translateX(2px);
+        transform: translateX(4px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
       .wf-color-dot {
         width: 10px;
@@ -222,12 +224,6 @@ function initWorkforceChart(containerId) {
         pointer-events: none;
         box-shadow: 0 2px 6px rgba(0,0,0,0.25);
         white-space: nowrap;
-      }      
-      .wf-legend-item.highlighted {
-        background: #e2e8f0;
-        border-color: var(--primary-blue);
-        transform: translateX(4px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
     </style>
 
@@ -337,21 +333,25 @@ function initWorkforceChart(containerId) {
       </div>
     </div>
 
-    <!-- Modal Popup for Workforce Details -->
+    <!-- Modal Popup for Workforce Details (5-Year Historical & Current Data) -->
     <div class="modal-overlay" id="workforceModal">
-      <div class="modal">
+      <div class="modal" style="width: 780px; max-width: 95%;">
         <div class="modal-header">
-          <h3 id="workforceModalTitle" style="margin:0;">SOE Workforce Register</h3>
+          <h3 id="workforceModalTitle" style="margin:0;">SOE Workforce Register (5-Year Trend)</h3>
           <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeWorkforceModal()">&times;</button>
         </div>
         <p style="color: var(--text-muted); font-size: 11px;">
-          Headcount breakdown of state-owned enterprises in this category.
+          Headcount breakdown of state-owned enterprises across the past 4 financial years and current year.
         </p>
         <table>
           <thead>
             <tr>
               <th>SOE Name</th>
-              <th>Number of Staff</th>
+              <th>FY 2022</th>
+              <th>FY 2023</th>
+              <th>FY 2024</th>
+              <th>FY 2025</th>
+              <th>FY 2026 (Current)</th>
             </tr>
           </thead>
           <tbody id="workforceTableBody"></tbody>
@@ -405,7 +405,7 @@ function removeHighlight() {
 function openWorkforceModal(categoryTitle) {
   currentWorkforceCategory = categoryTitle;
   currentWorkforcePage = 1;
-  document.getElementById('workforceModalTitle').innerText = categoryTitle;
+  document.getElementById('workforceModalTitle').innerText = categoryTitle + ' (5-Year Trend)';
   renderWorkforcePage();
   document.getElementById('workforceModal').style.display = 'flex';
 }
@@ -425,7 +425,11 @@ function renderWorkforcePage() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><strong>${item.name}</strong></td>
-      <td style="font-weight: 700; color: var(--primary-blue);">${item.staff}</td>
+      <td>${item.y2022}</td>
+      <td>${item.y2023}</td>
+      <td>${item.y2024}</td>
+      <td>${item.y2025}</td>
+      <td style="font-weight: 700; color: var(--primary-blue);">${item.y2026}</td>
     `;
     tbody.appendChild(tr);
   });
