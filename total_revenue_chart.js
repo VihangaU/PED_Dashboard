@@ -2,6 +2,7 @@
  * Total Sector Revenue & GDP Share Component for PEDMIS Dashboard
  * Renders Revenue metrics for Strategic and Non-Strategic SOEs.
  * Features:
+ * - Column-wise stacked cards (Strategic Sector on top, Non-Strategic Sector below).
  * - Sub-category badges show Revenue values for Net Profit / Net Loss SOE groupings.
  * - Drill-down popups display SOE Name with 5-Year Historical & Current Trends (FY 2022 - FY 2026).
  * - Standardized 3-decimal numeric format without repeated 'B' symbols.
@@ -113,9 +114,9 @@ function initTotalRevenueChart(containerId) {
 
   container.innerHTML = `
     <style>
-      .revenue-card-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+      .revenue-card-column-layout {
+        display: flex;
+        flex-direction: column;
         gap: 12px;
         margin-bottom: 12px;
       }
@@ -123,7 +124,7 @@ function initTotalRevenueChart(containerId) {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 12px;
+        padding: 12px 14px;
         transition: all 0.2s ease-in-out;
         display: flex;
         flex-direction: column;
@@ -142,28 +143,37 @@ function initTotalRevenueChart(containerId) {
         cursor: pointer;
       }
       .rev-header-title {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
-        color: var(--text-muted);
+      }
+      .rev-main-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .rev-total-block {
+        cursor: pointer;
+        flex-shrink: 0;
+        min-width: 140px;
       }
       .rev-big-num {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 800;
         color: var(--text-primary);
-        margin: 2px 0;
-        cursor: pointer;
+        line-height: 1.1;
       }
       
       /* Clickable Profit/Loss Revenue Sub-Badges */
       .rev-split-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        margin-top: 2px;
+        gap: 8px;
+        flex-grow: 1;
       }
       .rev-split-badge {
-        padding: 6px 8px;
+        padding: 6px 10px;
         border-radius: 6px;
         font-size: 11px;
         display: flex;
@@ -193,7 +203,7 @@ function initTotalRevenueChart(containerId) {
         opacity: 0.85;
       }
       .rev-split-value {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 800;
       }
       .rev-footer-info {
@@ -207,69 +217,137 @@ function initTotalRevenueChart(containerId) {
         justify-content: space-between;
         align-items: center;
       }
+      .rev-footer-hero {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 1px solid #bbf7d0;
+        border-radius: 10px;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        margin-top: 4px;
+      }
+      .rev-footer-content {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .rev-footer-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: #14532d;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .rev-footer-sub {
+        font-size: 11px;
+        color: #166534;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+      .rev-footer-stat {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+        background: #ffffff;
+        border: 1px solid #86efac;
+        padding: 6px 14px;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        flex-shrink: 0;
+      }
+      .rev-footer-val {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--strat-color);
+        line-height: 1;
+      }
+      .rev-footer-unit {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
     </style>
 
-    <div class="revenue-card-grid">
+    <div class="revenue-card-column-layout">
       
-      <!-- Strategic Sector Card -->
+      <!-- 1. Strategic Sector Card (Top) -->
       <div class="rev-sector-box strat">
         <div class="rev-header-line" onclick="openRevenueCategoryModal('Strategic SOE Sector Performance')">
           <span class="rev-header-title" style="color: var(--strat-color);">Strategic Sector</span>
         </div>
-        <div onclick="openRevenueCategoryModal('Strategic SOE Sector Performance')">
-          <span style="font-size:10px; color:var(--text-muted); font-weight:600;">Total Revenue:</span>
-          <div class="rev-big-num">1,350.000</div>
-        </div>
-
-        <!-- Profit and Loss Revenue Sub-Badges -->
-        <div class="rev-split-container">
-          <div class="rev-split-badge profit" 
-               onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Profit)')"
-               title="Click to view revenue trend for all 25 Strategic Net Profit SOEs">
-            <span class="rev-split-label">Net Profit SOEs</span>
-            <span class="rev-split-value">950.000</span>
+        
+        <div class="rev-main-row">
+          <div class="rev-total-block" onclick="openRevenueCategoryModal('Strategic SOE Sector Performance')">
+            <span style="font-size:10px; color:var(--text-muted); font-weight:600; display:block;">Total Revenue:</span>
+            <div class="rev-big-num">1,350.000</div>
           </div>
-          <div class="rev-split-badge loss" 
-               onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Loss)')"
-               title="Click to view revenue trend for all 5 Strategic Net Loss SOEs">
-            <span class="rev-split-label">Net Loss SOEs</span>
-            <span class="rev-split-value">400.000</span>
+
+          <!-- Profit and Loss Revenue Sub-Badges -->
+          <div class="rev-split-container">
+            <div class="rev-split-badge profit" 
+                 onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Profit)')"
+                 title="Click to view revenue trend for all 25 Strategic Net Profit SOEs">
+              <span class="rev-split-label">Net Profit SOEs</span>
+              <span class="rev-split-value">950.000 ⓘ</span>
+            </div>
+            <div class="rev-split-badge loss" 
+                 onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Loss)')"
+                 title="Click to view revenue trend for all 5 Strategic Net Loss SOEs">
+              <span class="rev-split-label">Net Loss SOEs</span>
+              <span class="rev-split-value">400.000 ⓘ</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Non-Strategic Sector Card -->
+      <!-- 2. Non-Strategic Sector Card (Bottom) -->
       <div class="rev-sector-box nonstrat">
         <div class="rev-header-line" onclick="openRevenueCategoryModal('Non-Strategic SOE Sector Performance')">
           <span class="rev-header-title" style="color: var(--nonstrat-color);">Non-Strategic Sector</span>
         </div>
-        <div onclick="openRevenueCategoryModal('Non-Strategic SOE Sector Performance')">
-          <span style="font-size:10px; color:var(--text-muted); font-weight:600;">Total Revenue:</span>
-          <div class="rev-big-num">710.000</div>
-        </div>
-
-        <!-- Profit and Loss Revenue Sub-Badges -->
-        <div class="rev-split-container">
-          <div class="rev-split-badge profit" 
-               onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Profit)')"
-               title="Click to view revenue trend for all 20 Non-Strategic Net Profit SOEs">
-            <span class="rev-split-label">Net Profit SOEs</span>
-            <span class="rev-split-value">680.000</span>
+        
+        <div class="rev-main-row">
+          <div class="rev-total-block" onclick="openRevenueCategoryModal('Non-Strategic SOE Sector Performance')">
+            <span style="font-size:10px; color:var(--text-muted); font-weight:600; display:block;">Total Revenue:</span>
+            <div class="rev-big-num">710.000</div>
           </div>
-          <div class="rev-split-badge loss" 
-               onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Loss)')"
-               title="Click to view revenue trend for all 7 Non-Strategic Net Loss SOEs">
-            <span class="rev-split-label">Net Loss SOEs</span>
-            <span class="rev-split-value">30.000</span>
+
+          <!-- Profit and Loss Revenue Sub-Badges -->
+          <div class="rev-split-container">
+            <div class="rev-split-badge profit" 
+                 onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Profit)')"
+                 title="Click to view revenue trend for all 20 Non-Strategic Net Profit SOEs">
+              <span class="rev-split-label">Net Profit SOEs</span>
+              <span class="rev-split-value">680.000 ⓘ</span>
+            </div>
+            <div class="rev-split-badge loss" 
+                 onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Loss)')"
+                 title="Click to view revenue trend for all 7 Non-Strategic Net Loss SOEs">
+              <span class="rev-split-label">Net Loss SOEs</span>
+              <span class="rev-split-value">30.000 ⓘ</span>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
 
-    <div class="rev-footer-info">
-      <span>Total SOE Revenue to National GDP: <strong>13.20%</strong></span>
-      <span style="font-size: 10px; opacity: 0.8;">(Calculated using latest quarterly GDP)</span>
+    <div class="rev-footer-hero">
+      <div class="rev-footer-content">
+        <span class="rev-footer-title">
+          <span></span>National Economic Contribution
+        </span>
+        <span class="rev-footer-sub">Total SOE Sector Revenue share of Annual National GDP</span>
+      </div>
+      <div class="rev-footer-stat">
+        <span class="rev-footer-val">13.20%</span>
+        <span class="rev-footer-unit">GDP Share</span>
+      </div>
     </div>
 
     <!-- Revenue Drill-Down Modal with 5-Year Revenue Trend & Pagination -->
