@@ -4,101 +4,102 @@
  * Features:
  * - Sub-category badges show Revenue values for Net Profit / Net Loss SOE groupings.
  * - Drill-down popups display SOE Name with 5-Year Historical & Current Trends (FY 2022 - FY 2026).
- * - Pagination controls supporting multi-year table navigation.
+ * - Standardized 3-decimal numeric format without repeated 'B' symbols.
+ * - Unit "(Values in LKR Billions)" stated explicitly in headers & modal titles.
  */
 
 const revenueCategoryData = {
   // Sector Full Overviews
   'Strategic SOE Sector Performance': [
-    { name: 'Ceylon Petroleum Corp (CPC)', y2022: '380.0B', y2023: '410.0B', y2024: '430.0B', y2025: '445.0B', y2026: '450.0B' },
-    { name: 'Ceylon Electricity Board (CEB)', y2022: '310.0B', y2023: '340.0B', y2024: '365.0B', y2025: '380.0B', y2026: '390.0B' },
-    { name: 'SriLankan Airlines Ltd', y2022: '160.0B', y2023: '180.0B', y2024: '195.0B', y2025: '205.0B', y2026: '210.0B' },
-    { name: 'Bank of Ceylon', y2022: '135.0B', y2023: '150.0B', y2024: '165.0B', y2025: '175.0B', y2026: '180.0B' },
-    { name: 'Sri Lanka Telecom PLC', y2022: '92.0B', y2023: '98.5B', y2024: '105.0B', y2025: '110.5B', y2026: '115.2B' },
-    { name: 'Sri Lanka Ports Authority', y2022: '72.0B', y2023: '78.0B', y2024: '85.0B', y2025: '90.5B', y2026: '95.0B' },
-    { name: 'People\'s Bank', y2022: '65.0B', y2023: '70.0B', y2024: '76.0B', y2025: '81.0B', y2026: '85.0B' },
-    { name: 'Airport & Aviation Services Ltd', y2022: '42.0B', y2023: '48.0B', y2024: '54.0B', y2025: '58.5B', y2026: '62.0B' }
+    { name: 'Ceylon Petroleum Corp (CPC)', y2022: '380.000', y2023: '410.000', y2024: '430.000', y2025: '445.000', y2026: '450.000' },
+    { name: 'Ceylon Electricity Board (CEB)', y2022: '310.000', y2023: '340.000', y2024: '365.000', y2025: '380.000', y2026: '390.000' },
+    { name: 'SriLankan Airlines Ltd', y2022: '160.000', y2023: '180.000', y2024: '195.000', y2025: '205.000', y2026: '210.000' },
+    { name: 'Bank of Ceylon', y2022: '135.000', y2023: '150.000', y2024: '165.000', y2025: '175.000', y2026: '180.000' },
+    { name: 'Sri Lanka Telecom PLC', y2022: '92.000', y2023: '98.500', y2024: '105.000', y2025: '110.500', y2026: '115.200' },
+    { name: 'Sri Lanka Ports Authority', y2022: '72.000', y2023: '78.000', y2024: '85.000', y2025: '90.500', y2026: '95.000' },
+    { name: 'People\'s Bank', y2022: '65.000', y2023: '70.000', y2024: '76.000', y2025: '81.000', y2026: '85.000' },
+    { name: 'Airport & Aviation Services Ltd', y2022: '42.000', y2023: '48.000', y2024: '54.000', y2025: '58.500', y2026: '62.000' }
   ],
   'Non-Strategic SOE Sector Performance': [
-    { name: 'National Water Supply & Drainage Board', y2022: '32.0B', y2023: '36.0B', y2024: '40.0B', y2025: '42.5B', y2026: '45.0B' },
-    { name: 'Litro Gas Lanka Ltd', y2022: '24.0B', y2023: '26.5B', y2024: '29.0B', y2025: '30.5B', y2026: '32.0B' },
-    { name: 'State Pharmaceuticals Corp', y2022: '20.0B', y2023: '22.5B', y2024: '25.0B', y2025: '26.8B', y2026: '28.0B' },
-    { name: 'Lanka Hospitals PLC', y2022: '13.0B', y2023: '14.5B', y2024: '16.0B', y2025: '17.2B', y2026: '18.5B' },
-    { name: 'Sri Lanka Railway Dept', y2022: '10.5B', y2023: '12.0B', y2024: '13.2B', y2025: '14.0B', y2026: '15.0B' },
-    { name: 'Sri Lanka Transport Board (SLTB)', y2022: '9.0B', y2023: '10.2B', y2024: '11.5B', y2025: '12.0B', y2026: '12.8B' }
+    { name: 'National Water Supply & Drainage Board', y2022: '32.000', y2023: '36.000', y2024: '40.000', y2025: '42.500', y2026: '45.000' },
+    { name: 'Litro Gas Lanka Ltd', y2022: '24.000', y2023: '26.500', y2024: '29.000', y2025: '30.500', y2026: '32.000' },
+    { name: 'State Pharmaceuticals Corp', y2022: '20.000', y2023: '22.500', y2024: '25.000', y2025: '26.800', y2026: '28.000' },
+    { name: 'Lanka Hospitals PLC', y2022: '13.000', y2023: '14.500', y2024: '16.000', y2025: '17.200', y2026: '18.500' },
+    { name: 'Sri Lanka Railway Dept', y2022: '10.500', y2023: '12.000', y2024: '13.200', y2025: '14.000', y2026: '15.000' },
+    { name: 'Sri Lanka Transport Board (SLTB)', y2022: '9.000', y2023: '10.200', y2024: '11.500', y2025: '12.000', y2026: '12.800' }
   ],
 
   // --- STRATEGIC NET PROFIT SOEs (25 SOEs) ---
   'Total Revenue (Strategic SOEs - Net Profit)': [
-    { name: '1. Bank of Ceylon', y2022: '135.0B', y2023: '150.0B', y2024: '165.0B', y2025: '175.0B', y2026: '180.0B' },
-    { name: '2. People\'s Bank', y2022: '110.0B', y2023: '122.0B', y2024: '132.0B', y2025: '140.0B', y2026: '145.0B' },
-    { name: '3. Sri Lanka Telecom PLC', y2022: '92.0B', y2023: '98.5B', y2024: '105.0B', y2025: '110.5B', y2026: '115.2B' },
-    { name: '4. Sri Lanka Ports Authority', y2022: '72.0B', y2023: '78.0B', y2024: '85.0B', y2025: '90.5B', y2026: '95.0B' },
-    { name: '5. Airport & Aviation Services Ltd', y2022: '42.0B', y2023: '48.0B', y2024: '54.0B', y2025: '58.5B', y2026: '62.0B' },
-    { name: '6. National Savings Bank', y2022: '41.0B', y2023: '46.0B', y2024: '50.5B', y2025: '55.0B', y2026: '58.0B' },
-    { name: '7. Sri Lanka Insurance Corporation', y2022: '35.0B', y2023: '38.5B', y2024: '42.0B', y2025: '45.0B', y2026: '48.0B' },
-    { name: '8. Litro Gas Lanka Ltd', y2022: '24.0B', y2023: '26.5B', y2024: '29.0B', y2025: '30.5B', y2026: '32.0B' },
-    { name: '9. State Pharmaceuticals Corporation', y2022: '20.0B', y2023: '22.5B', y2024: '25.0B', y2025: '26.8B', y2026: '28.0B' },
-    { name: '10. Lanka Electricity Co (LECO)', y2022: '17.5B', y2023: '19.0B', y2024: '21.0B', y2025: '22.5B', y2026: '24.0B' },
-    { name: '11. Development Lotteries Board', y2022: '13.5B', y2023: '15.0B', y2024: '16.5B', y2025: '17.5B', y2026: '18.5B' },
-    { name: '12. National Lotteries Board', y2022: '12.0B', y2023: '13.2B', y2024: '14.5B', y2025: '15.5B', y2026: '16.2B' },
-    { name: '13. Sri Lanka Ports Management Co', y2022: '10.0B', y2023: '11.2B', y2024: '12.5B', y2025: '13.2B', y2026: '14.0B' },
-    { name: '14. Civil Aviation Authority of Sri Lanka', y2022: '8.5B', y2023: '9.5B', y2024: '10.5B', y2025: '11.2B', y2026: '12.1B' },
-    { name: '15. Marine Environment Protection Authority', y2022: '7.0B', y2023: '7.8B', y2024: '8.5B', y2025: '9.2B', y2026: '9.8B' },
-    { name: '16. Lanka IOC Public Share Unit', y2022: '6.2B', y2023: '6.8B', y2024: '7.5B', y2025: '8.0B', y2026: '8.5B' },
-    { name: '17. Export Development Board', y2022: '5.0B', y2023: '5.6B', y2024: '6.2B', y2025: '6.8B', y2026: '7.2B' },
-    { name: '18. Sri Lanka Standards Institution', y2022: '4.2B', y2023: '4.8B', y2024: '5.2B', y2025: '5.7B', y2026: '6.1B' },
-    { name: '19. Tea Small Holdings Dev Authority', y2022: '3.8B', y2023: '4.2B', y2024: '4.6B', y2025: '5.0B', y2026: '5.4B' },
-    { name: '20. Coconut Development Authority', y2022: '3.2B', y2023: '3.6B', y2024: '4.0B', y2025: '4.4B', y2026: '4.8B' },
-    { name: '21. State Timber Corporation', y2022: '2.8B', y2023: '3.1B', y2024: '3.5B', y2025: '3.8B', y2026: '4.1B' },
-    { name: '22. Central Engineering Consultancy Bureau', y2022: '2.4B', y2023: '2.7B', y2024: '3.0B', y2025: '3.2B', y2026: '3.5B' },
-    { name: '23. Lanka Phosphate Ltd', y2022: '1.9B', y2023: '2.1B', y2024: '2.4B', y2025: '2.6B', y2026: '2.8B' },
-    { name: '24. Sri Lanka Handicrafts Board (Laksala)', y2022: '1.2B', y2023: '1.4B', y2024: '1.6B', y2025: '1.8B', y2026: '1.9B' },
-    { name: '25. State Printing Corporation', y2022: '0.8B', y2023: '0.9B', y2024: '1.0B', y2025: '1.1B', y2026: '1.2B' }
+    { name: '1. Bank of Ceylon', y2022: '135.000', y2023: '150.000', y2024: '165.000', y2025: '175.000', y2026: '180.000' },
+    { name: '2. People\'s Bank', y2022: '110.000', y2023: '122.000', y2024: '132.000', y2025: '140.000', y2026: '145.000' },
+    { name: '3. Sri Lanka Telecom PLC', y2022: '92.000', y2023: '98.500', y2024: '105.000', y2025: '110.500', y2026: '115.200' },
+    { name: '4. Sri Lanka Ports Authority', y2022: '72.000', y2023: '78.000', y2024: '85.000', y2025: '90.500', y2026: '95.000' },
+    { name: '5. Airport & Aviation Services Ltd', y2022: '42.000', y2023: '48.000', y2024: '54.000', y2025: '58.500', y2026: '62.000' },
+    { name: '6. National Savings Bank', y2022: '41.000', y2023: '46.000', y2024: '50.500', y2025: '55.000', y2026: '58.000' },
+    { name: '7. Sri Lanka Insurance Corporation', y2022: '35.000', y2023: '38.500', y2024: '42.000', y2025: '45.000', y2026: '48.000' },
+    { name: '8. Litro Gas Lanka Ltd', y2022: '24.000', y2023: '26.500', y2024: '29.000', y2025: '30.500', y2026: '32.000' },
+    { name: '9. State Pharmaceuticals Corporation', y2022: '20.000', y2023: '22.500', y2024: '25.000', y2025: '26.800', y2026: '28.000' },
+    { name: '10. Lanka Electricity Co (LECO)', y2022: '17.500', y2023: '19.000', y2024: '21.000', y2025: '22.500', y2026: '24.000' },
+    { name: '11. Development Lotteries Board', y2022: '13.500', y2023: '15.000', y2024: '16.500', y2025: '17.500', y2026: '18.500' },
+    { name: '12. National Lotteries Board', y2022: '12.000', y2023: '13.200', y2024: '14.500', y2025: '15.500', y2026: '16.200' },
+    { name: '13. Sri Lanka Ports Management Co', y2022: '10.000', y2023: '11.200', y2024: '12.500', y2025: '13.200', y2026: '14.000' },
+    { name: '14. Civil Aviation Authority of Sri Lanka', y2022: '8.500', y2023: '9.500', y2024: '10.500', y2025: '11.200', y2026: '12.100' },
+    { name: '15. Marine Environment Protection Authority', y2022: '7.000', y2023: '7.800', y2024: '8.500', y2025: '9.200', y2026: '9.800' },
+    { name: '16. Lanka IOC Public Share Unit', y2022: '6.200', y2023: '6.800', y2024: '7.500', y2025: '8.000', y2026: '8.500' },
+    { name: '17. Export Development Board', y2022: '5.000', y2023: '5.600', y2024: '6.200', y2025: '6.800', y2026: '7.200' },
+    { name: '18. Sri Lanka Standards Institution', y2022: '4.200', y2023: '4.800', y2024: '5.200', y2025: '5.700', y2026: '6.100' },
+    { name: '19. Tea Small Holdings Dev Authority', y2022: '3.800', y2023: '4.200', y2024: '4.600', y2025: '5.000', y2026: '5.400' },
+    { name: '20. Coconut Development Authority', y2022: '3.200', y2023: '3.600', y2024: '4.000', y2025: '4.400', y2026: '4.800' },
+    { name: '21. State Timber Corporation', y2022: '2.800', y2023: '3.100', y2024: '3.500', y2025: '3.800', y2026: '4.100' },
+    { name: '22. Central Engineering Consultancy Bureau', y2022: '2.400', y2023: '2.700', y2024: '3.000', y2025: '3.200', y2026: '3.500' },
+    { name: '23. Lanka Phosphate Ltd', y2022: '1.900', y2023: '2.100', y2024: '2.400', y2025: '2.600', y2026: '2.800' },
+    { name: '24. Sri Lanka Handicrafts Board (Laksala)', y2022: '1.200', y2023: '1.400', y2024: '1.600', y2025: '1.800', y2026: '1.900' },
+    { name: '25. State Printing Corporation', y2022: '0.800', y2023: '0.900', y2024: '1.000', y2025: '1.100', y2026: '1.200' }
   ],
 
   // --- STRATEGIC NET LOSS SOEs (5 SOEs) ---
   'Total Revenue (Strategic SOEs - Net Loss)': [
-    { name: '1. Ceylon Petroleum Corporation (CPC)', y2022: '380.0B', y2023: '410.0B', y2024: '430.0B', y2025: '445.0B', y2026: '450.0B' },
-    { name: '2. Ceylon Electricity Board (CEB)', y2022: '310.0B', y2023: '340.0B', y2024: '365.0B', y2025: '380.0B', y2026: '390.0B' },
-    { name: '3. SriLankan Airlines Ltd', y2022: '160.0B', y2023: '180.0B', y2024: '195.0B', y2025: '205.0B', y2026: '210.0B' },
-    { name: '4. Sri Lanka Railway Department', y2022: '10.5B', y2023: '12.0B', y2024: '13.2B', y2025: '14.0B', y2026: '15.0B' },
-    { name: '5. Sri Lanka Transport Board (SLTB)', y2022: '9.0B', y2023: '10.2B', y2024: '11.5B', y2025: '12.0B', y2026: '12.8B' }
+    { name: '1. Ceylon Petroleum Corporation (CPC)', y2022: '380.000', y2023: '410.000', y2024: '430.000', y2025: '445.000', y2026: '450.000' },
+    { name: '2. Ceylon Electricity Board (CEB)', y2022: '310.000', y2023: '340.000', y2024: '365.000', y2025: '380.000', y2026: '390.000' },
+    { name: '3. SriLankan Airlines Ltd', y2022: '160.000', y2023: '180.000', y2024: '195.000', y2025: '205.000', y2026: '210.000' },
+    { name: '4. Sri Lanka Railway Department', y2022: '10.500', y2023: '12.000', y2024: '13.200', y2025: '14.000', y2026: '15.000' },
+    { name: '5. Sri Lanka Transport Board (SLTB)', y2022: '9.000', y2023: '10.200', y2024: '11.500', y2025: '12.000', y2026: '12.800' }
   ],
 
   // --- NON-STRATEGIC NET PROFIT SOEs (20 SOEs) ---
   'Total Revenue (Non-Strategic SOEs - Net Profit)': [
-    { name: '1. National Water Supply & Drainage Board', y2022: '32.0B', y2023: '36.0B', y2024: '40.0B', y2025: '42.5B', y2026: '45.0B' },
-    { name: '2. Lanka Hospitals PLC', y2022: '13.0B', y2023: '14.5B', y2024: '16.0B', y2025: '17.2B', y2026: '18.5B' },
-    { name: '3. Hotel Developers (Lanka) Ltd', y2022: '8.0B', y2023: '9.2B', y2024: '10.5B', y2025: '11.2B', y2026: '12.0B' },
-    { name: '4. Sri Lanka State Trading Corp', y2022: '6.5B', y2023: '7.2B', y2024: '8.1B', y2025: '8.9B', y2026: '9.5B' },
-    { name: '5. BCI Campus Ltd', y2022: '4.2B', y2023: '4.8B', y2024: '5.3B', y2025: '5.8B', y2026: '6.2B' },
-    { name: '6. Lanka Mineral Sands Ltd', y2022: '3.9B', y2023: '4.5B', y2024: '5.0B', y2025: '5.4B', y2026: '5.8B' },
-    { name: '7. Lanka Sugar Company (Pvt) Ltd', y2022: '3.5B', y2023: '3.9B', y2024: '4.4B', y2025: '4.8B', y2026: '5.1B' },
-    { name: '8. State Engineering Corporation', y2022: '3.1B', y2023: '3.5B', y2024: '3.9B', y2025: '4.2B', y2026: '4.6B' },
-    { name: '9. Urban Development Authority (UDA)', y2022: '2.8B', y2023: '3.2B', y2024: '3.6B', y2025: '3.9B', y2026: '4.2B' },
-    { name: '10. Coast Conservation Department', y2022: '2.5B', y2023: '2.9B', y2024: '3.2B', y2025: '3.5B', y2026: '3.8B' },
-    { name: '11. National Design Centre', y2022: '2.1B', y2023: '2.4B', y2024: '2.7B', y2025: '3.0B', y2026: '3.2B' },
-    { name: '12. Lanka Coal Company (Pvt) Ltd', y2022: '1.9B', y2023: '2.2B', y2024: '2.5B', y2025: '2.7B', y2026: '2.9B' },
-    { name: '13. State Fertilizer Corporation', y2022: '1.6B', y2023: '1.9B', y2024: '2.1B', y2025: '2.3B', y2026: '2.5B' },
-    { name: '14. National Livestock Development Board', y2022: '1.4B', y2023: '1.6B', y2024: '1.8B', y2025: '1.9B', y2026: '2.1B' },
-    { name: '15. Lanka Cement PLC', y2022: '1.2B', y2023: '1.3B', y2024: '1.5B', y2025: '1.6B', y2026: '1.8B' },
-    { name: '16. State Gem & Jewellery Corporation', y2022: '1.0B', y2023: '1.1B', y2024: '1.3B', y2025: '1.4B', y2026: '1.5B' },
-    { name: '17. Sri Lanka Rubber Manufacturing Corp', y2022: '0.8B', y2023: '0.9B', y2024: '1.0B', y2025: '1.1B', y2026: '1.2B' },
-    { name: '18. Ceylon Fisheries Corporation', y2022: '0.6B', y2023: '0.7B', y2024: '0.8B', y2025: '0.85B', y2026: '0.9B' },
-    { name: '19. Ceylon Fishery Harbours Corporation', y2022: '0.4B', y2023: '0.5B', y2024: '0.6B', y2025: '0.65B', y2026: '0.7B' },
-    { name: '20. Building Materials Corporation', y2022: '0.3B', y2023: '0.35B', y2024: '0.4B', y2025: '0.45B', y2026: '0.5B' }
+    { name: '1. National Water Supply & Drainage Board', y2022: '32.000', y2023: '36.000', y2024: '40.000', y2025: '42.500', y2026: '45.000' },
+    { name: '2. Lanka Hospitals PLC', y2022: '13.000', y2023: '14.500', y2024: '16.000', y2025: '17.200', y2026: '18.500' },
+    { name: '3. Hotel Developers (Lanka) Ltd', y2022: '8.000', y2023: '9.200', y2024: '10.500', y2025: '11.200', y2026: '12.000' },
+    { name: '4. Sri Lanka State Trading Corp', y2022: '6.500', y2023: '7.200', y2024: '8.100', y2025: '8.900', y2026: '9.500' },
+    { name: '5. BCI Campus Ltd', y2022: '4.200', y2023: '4.800', y2024: '5.300', y2025: '5.800', y2026: '6.200' },
+    { name: '6. Lanka Mineral Sands Ltd', y2022: '3.900', y2023: '4.500', y2024: '5.000', y2025: '5.400', y2026: '5.800' },
+    { name: '7. Lanka Sugar Company (Pvt) Ltd', y2022: '3.500', y2023: '3.900', y2024: '4.400', y2025: '4.800', y2026: '5.100' },
+    { name: '8. State Engineering Corporation', y2022: '3.100', y2023: '3.500', y2024: '3.900', y2025: '4.200', y2026: '4.600' },
+    { name: '9. Urban Development Authority (UDA)', y2022: '2.800', y2023: '3.200', y2024: '3.600', y2025: '3.900', y2026: '4.200' },
+    { name: '10. Coast Conservation Department', y2022: '2.500', y2023: '2.900', y2024: '3.200', y2025: '3.500', y2026: '3.800' },
+    { name: '11. National Design Centre', y2022: '2.100', y2023: '2.400', y2024: '2.700', y2025: '3.000', y2026: '3.200' },
+    { name: '12. Lanka Coal Company (Pvt) Ltd', y2022: '1.900', y2023: '2.200', y2024: '2.500', y2025: '2.700', y2026: '2.900' },
+    { name: '13. State Fertilizer Corporation', y2022: '1.600', y2023: '1.900', y2024: '2.100', y2025: '2.300', y2026: '2.500' },
+    { name: '14. National Livestock Development Board', y2022: '1.400', y2023: '1.600', y2024: '1.800', y2025: '1.900', y2026: '2.100' },
+    { name: '15. Lanka Cement PLC', y2022: '1.200', y2023: '1.300', y2024: '1.500', y2025: '1.600', y2026: '1.800' },
+    { name: '16. State Gem & Jewellery Corporation', y2022: '1.000', y2023: '1.100', y2024: '1.300', y2025: '1.400', y2026: '1.500' },
+    { name: '17. Sri Lanka Rubber Manufacturing Corp', y2022: '0.800', y2023: '0.900', y2024: '1.000', y2025: '1.100', y2026: '1.200' },
+    { name: '18. Ceylon Fisheries Corporation', y2022: '0.600', y2023: '0.700', y2024: '0.800', y2025: '0.850', y2026: '0.900' },
+    { name: '19. Ceylon Fishery Harbours Corporation', y2022: '0.400', y2023: '0.500', y2024: '0.600', y2025: '0.650', y2026: '0.700' },
+    { name: '20. Building Materials Corporation', y2022: '0.300', y2023: '0.350', y2024: '0.400', y2025: '0.450', y2026: '0.500' }
   ],
 
   // --- NON-STRATEGIC NET LOSS SOEs (7 SOEs) ---
   'Total Revenue (Non-Strategic SOEs - Net Loss)': [
-    { name: '1. Spices & Allied Products Marketing Board', y2022: '2.8B', y2023: '3.2B', y2024: '3.6B', y2025: '3.9B', y2026: '4.2B' },
-    { name: '2. Kahawatte Plantations Entity', y2022: '2.5B', y2023: '2.9B', y2024: '3.2B', y2025: '3.5B', y2026: '3.8B' },
-    { name: '3. Elpitiya Plantations Entity', y2022: '2.1B', y2023: '2.4B', y2024: '2.7B', y2025: '2.9B', y2026: '3.1B' },
-    { name: '4. Kurunegala Plantations Ltd', y2022: '1.6B', y2023: '1.9B', y2024: '2.1B', y2025: '2.3B', y2026: '2.5B' },
-    { name: '5. Chilaw Plantations Ltd', y2022: '1.2B', y2023: '1.4B', y2024: '1.5B', y2025: '1.6B', y2026: '1.8B' },
-    { name: '6. National Paper Company Entity', y2022: '0.8B', y2023: '0.9B', y2024: '1.0B', y2025: '1.1B', y2026: '1.2B' },
-    { name: '7. Ceylon Fertilizer Co Ltd', y2022: '0.6B', y2023: '0.7B', y2024: '0.8B', y2025: '0.85B', y2026: '0.9B' }
+    { name: '1. Spices & Allied Products Marketing Board', y2022: '2.800', y2023: '3.200', y2024: '3.600', y2025: '3.900', y2026: '4.200' },
+    { name: '2. Kahawatte Plantations Entity', y2022: '2.500', y2023: '2.900', y2024: '3.200', y2025: '3.500', y2026: '3.800' },
+    { name: '3. Elpitiya Plantations Entity', y2022: '2.100', y2023: '2.400', y2024: '2.700', y2025: '2.900', y2026: '3.100' },
+    { name: '4. Kurunegala Plantations Ltd', y2022: '1.600', y2023: '1.900', y2024: '2.100', y2025: '2.300', y2026: '2.500' },
+    { name: '5. Chilaw Plantations Ltd', y2022: '1.200', y2023: '1.400', y2024: '1.500', y2025: '1.600', y2026: '1.800' },
+    { name: '6. National Paper Company Entity', y2022: '0.800', y2023: '0.900', y2024: '1.000', y2025: '1.100', y2026: '1.200' },
+    { name: '7. Ceylon Fertilizer Co Ltd', y2022: '0.600', y2023: '0.700', y2024: '0.800', y2025: '0.850', y2026: '0.900' }
   ]
 };
 
@@ -152,14 +153,6 @@ function initTotalRevenueChart(containerId) {
         color: var(--text-primary);
         margin: 2px 0;
         cursor: pointer;
-      }
-      .rev-gdp-pill {
-        font-size: 10px;
-        font-weight: 700;
-        background: var(--accent-bg);
-        color: var(--primary-blue);
-        padding: 2px 6px;
-        border-radius: 10px;
       }
       
       /* Clickable Profit/Loss Revenue Sub-Badges */
@@ -225,7 +218,7 @@ function initTotalRevenueChart(containerId) {
         </div>
         <div onclick="openRevenueCategoryModal('Strategic SOE Sector Performance')">
           <span style="font-size:10px; color:var(--text-muted); font-weight:600;">Total Revenue:</span>
-          <div class="rev-big-num">1,350.0B</div>
+          <div class="rev-big-num">1,350.000</div>
         </div>
 
         <!-- Profit and Loss Revenue Sub-Badges -->
@@ -234,13 +227,13 @@ function initTotalRevenueChart(containerId) {
                onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Profit)')"
                title="Click to view revenue trend for all 25 Strategic Net Profit SOEs">
             <span class="rev-split-label">Net Profit SOEs</span>
-            <span class="rev-split-value">950.0B</span>
+            <span class="rev-split-value">950.000</span>
           </div>
           <div class="rev-split-badge loss" 
                onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Loss)')"
                title="Click to view revenue trend for all 5 Strategic Net Loss SOEs">
             <span class="rev-split-label">Net Loss SOEs</span>
-            <span class="rev-split-value">400.0B</span>
+            <span class="rev-split-value">400.000</span>
           </div>
         </div>
       </div>
@@ -252,7 +245,7 @@ function initTotalRevenueChart(containerId) {
         </div>
         <div onclick="openRevenueCategoryModal('Non-Strategic SOE Sector Performance')">
           <span style="font-size:10px; color:var(--text-muted); font-weight:600;">Total Revenue:</span>
-          <div class="rev-big-num">710.0B</div>
+          <div class="rev-big-num">710.000</div>
         </div>
 
         <!-- Profit and Loss Revenue Sub-Badges -->
@@ -261,13 +254,13 @@ function initTotalRevenueChart(containerId) {
                onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Profit)')"
                title="Click to view revenue trend for all 20 Non-Strategic Net Profit SOEs">
             <span class="rev-split-label">Net Profit SOEs</span>
-            <span class="rev-split-value">680.0B</span>
+            <span class="rev-split-value">680.000</span>
           </div>
           <div class="rev-split-badge loss" 
                onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Loss)')"
                title="Click to view revenue trend for all 7 Non-Strategic Net Loss SOEs">
             <span class="rev-split-label">Net Loss SOEs</span>
-            <span class="rev-split-value">30.0B</span>
+            <span class="rev-split-value">30.000</span>
           </div>
         </div>
       </div>
@@ -275,7 +268,7 @@ function initTotalRevenueChart(containerId) {
     </div>
 
     <div class="rev-footer-info">
-      <span>Total SOE Revenue to National GDP: <strong>13.2%</strong></span>
+      <span>Total SOE Revenue to National GDP: <strong>13.20%</strong></span>
       <span style="font-size: 10px; opacity: 0.8;">(Calculated using latest quarterly GDP)</span>
     </div>
 
@@ -283,11 +276,11 @@ function initTotalRevenueChart(containerId) {
     <div class="modal-overlay" id="revenueCategoryModal">
       <div class="modal" style="width: 750px; max-width: 95%;">
         <div class="modal-header">
-          <h3 id="revenueCategoryModalTitle" style="margin:0;">Sector Revenue Register (5-Year Trend)</h3>
+          <h3 id="revenueCategoryModalTitle" style="margin:0;">Sector Revenue Register (Values in LKR Billions)</h3>
           <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeRevenueCategoryModal()">&times;</button>
         </div>
         <p style="color: var(--text-muted); font-size: 11px;">
-          Comprehensive breakdown of entities and annual revenue contributions across the past 4 financial years and current year.
+          Comprehensive breakdown of entities and annual revenue contributions across the past 4 financial years and current year (Values in LKR Billions).
         </p>
 
         <table>
@@ -318,7 +311,7 @@ function initTotalRevenueChart(containerId) {
 function openRevenueCategoryModal(sectorKey) {
   currentRevenueCategoryKey = sectorKey;
   currentRevenuePage = 1;
-  document.getElementById('revenueCategoryModalTitle').innerText = sectorKey;
+  document.getElementById('revenueCategoryModalTitle').innerText = `${sectorKey} (Values in LKR Billions)`;
   renderRevenuePage();
   document.getElementById('revenueCategoryModal').style.display = 'flex';
 }

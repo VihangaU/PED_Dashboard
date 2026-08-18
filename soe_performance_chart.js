@@ -8,158 +8,159 @@
  *   - Non-Commercial Corporation (16 SOEs)
  *   - Non-Functioning Register (4 SOEs)
  * - Horizontal Stacked Bar Rows with sub-category 4-Year Financial Trends (FY 2023 - FY 2026)
- * - Dynamic cursor tooltips and synchronized highlight states
+ * - Standardized 3-decimal numeric format without repeated 'B' symbols
+ * - Unit "(Values in LKR Billions)" stated explicitly in headers & modal titles
  */
 
 const soeStackedData = {
   // --- FULL ENTITY REGISTERS FOR PIE CHART LEGENDS ---
   'Company Register (24 SOEs)': [
-    { name: 'Bank of Ceylon', y2023: '+18.2B', y2024: '+20.1B', y2025: '+22.5B', y2026: '+24.0B' },
-    { name: 'People\'s Bank', y2023: '+14.5B', y2024: '+16.2B', y2025: '+18.0B', y2026: '+19.5B' },
-    { name: 'Sri Lanka Telecom PLC', y2023: '+6.8B', y2024: '+7.5B', y2025: '+8.4B', y2026: '+9.1B' },
-    { name: 'National Savings Bank', y2023: '+4.2B', y2024: '+4.8B', y2025: '+5.5B', y2026: '+6.0B' },
-    { name: 'Sri Lanka Insurance Corp', y2023: '+3.9B', y2024: '+4.2B', y2025: '+4.8B', y2026: '+5.1B' },
-    { name: 'Lanka Electricity Co (LECO)', y2023: '+2.1B', y2024: '+2.5B', y2025: '+2.9B', y2026: '+3.1B' },
-    { name: 'Litro Gas Lanka Ltd', y2023: '+1.8B', y2024: '+2.1B', y2025: '+2.4B', y2026: '+2.7B' },
-    { name: 'Sri Lanka Ports Management Co', y2023: '+1.1B', y2024: '+1.3B', y2025: '+1.5B', y2026: '+1.6B' },
-    { name: 'Lanka IOC Public Share Unit', y2023: '+0.7B', y2024: '+0.8B', y2025: '+0.9B', y2026: '+1.0B' },
-    { name: 'Lanka Phosphate Ltd', y2023: '+0.15B', y2024: '+0.18B', y2025: '+0.2B', y2026: '+0.22B' },
-    { name: 'SriLankan Airlines Ltd', y2023: '-10.2B', y2024: '-9.1B', y2025: '-8.5B', y2026: '-7.8B' },
-    { name: 'Lanka Hospitals PLC', y2023: '+2.8B', y2024: '+3.1B', y2025: '+3.5B', y2026: '+3.8B' },
-    { name: 'Hotel Developers (Lanka) Ltd', y2023: '+1.5B', y2024: '+1.8B', y2025: '+2.1B', y2026: '+2.4B' },
-    { name: 'BCI Campus Ltd', y2023: '+0.8B', y2024: '+1.0B', y2025: '+1.2B', y2026: '+1.3B' },
-    { name: 'Lanka Mineral Sands Ltd', y2023: '+0.7B', y2024: '+0.9B', y2025: '+1.0B', y2026: '+1.1B' },
-    { name: 'Lanka Sugar Company (Pvt) Ltd', y2023: '+0.6B', y2024: '+0.8B', y2025: '+0.9B', y2026: '+1.0B' },
-    { name: 'Lanka Coal Company (Pvt) Ltd', y2023: '+0.2B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.5B' },
-    { name: 'Lanka Cement PLC', y2023: '+0.1B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' },
-    { name: 'Kahawatte Plantations Entity', y2023: '-1.2B', y2024: '-1.0B', y2025: '-0.9B', y2026: '-0.8B' },
-    { name: 'Elpitiya Plantations Entity', y2023: '-0.9B', y2024: '-0.8B', y2025: '-0.7B', y2026: '-0.6B' },
-    { name: 'Kurunegala Plantations Ltd', y2023: '-0.7B', y2024: '-0.6B', y2025: '-0.5B', y2026: '-0.4B' },
-    { name: 'Chilaw Plantations Ltd', y2023: '-0.4B', y2024: '-0.35B', y2025: '-0.3B', y2026: '-0.25B' },
-    { name: 'National Paper Company Entity', y2023: '-0.3B', y2024: '-0.25B', y2025: '-0.2B', y2026: '-0.15B' },
-    { name: 'Ceylon Fertilizer Co Ltd', y2023: '-0.2B', y2024: '-0.15B', y2025: '-0.1B', y2026: '-0.08B' }
+    { name: 'Bank of Ceylon', y2023: '+18.200', y2024: '+20.100', y2025: '+22.500', y2026: '+24.000' },
+    { name: 'People\'s Bank', y2023: '+14.500', y2024: '+16.200', y2025: '+18.000', y2026: '+19.500' },
+    { name: 'Sri Lanka Telecom PLC', y2023: '+6.800', y2024: '+7.500', y2025: '+8.400', y2026: '+9.100' },
+    { name: 'National Savings Bank', y2023: '+4.200', y2024: '+4.800', y2025: '+5.500', y2026: '+6.000' },
+    { name: 'Sri Lanka Insurance Corp', y2023: '+3.900', y2024: '+4.200', y2025: '+4.800', y2026: '+5.100' },
+    { name: 'Lanka Electricity Co (LECO)', y2023: '+2.100', y2024: '+2.500', y2025: '+2.900', y2026: '+3.100' },
+    { name: 'Litro Gas Lanka Ltd', y2023: '+1.800', y2024: '+2.100', y2025: '+2.400', y2026: '+2.700' },
+    { name: 'Sri Lanka Ports Management Co', y2023: '+1.100', y2024: '+1.300', y2025: '+1.500', y2026: '+1.600' },
+    { name: 'Lanka IOC Public Share Unit', y2023: '+0.700', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
+    { name: 'Lanka Phosphate Ltd', y2023: '+0.150', y2024: '+0.180', y2025: '+0.200', y2026: '+0.220' },
+    { name: 'SriLankan Airlines Ltd', y2023: '-10.200', y2024: '-9.100', y2025: '-8.500', y2026: '-7.800' },
+    { name: 'Lanka Hospitals PLC', y2023: '+2.800', y2024: '+3.100', y2025: '+3.500', y2026: '+3.800' },
+    { name: 'Hotel Developers (Lanka) Ltd', y2023: '+1.500', y2024: '+1.800', y2025: '+2.100', y2026: '+2.400' },
+    { name: 'BCI Campus Ltd', y2023: '+0.800', y2024: '+1.000', y2025: '+1.200', y2026: '+1.300' },
+    { name: 'Lanka Mineral Sands Ltd', y2023: '+0.700', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
+    { name: 'Lanka Sugar Company (Pvt) Ltd', y2023: '+0.600', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
+    { name: 'Lanka Coal Company (Pvt) Ltd', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.500' },
+    { name: 'Lanka Cement PLC', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' },
+    { name: 'Kahawatte Plantations Entity', y2023: '-1.200', y2024: '-1.000', y2025: '-0.900', y2026: '-0.800' },
+    { name: 'Elpitiya Plantations Entity', y2023: '-0.900', y2024: '-0.800', y2025: '-0.700', y2026: '-0.600' },
+    { name: 'Kurunegala Plantations Ltd', y2023: '-0.700', y2024: '-0.600', y2025: '-0.500', y2026: '-0.400' },
+    { name: 'Chilaw Plantations Ltd', y2023: '-0.400', y2024: '-0.350', y2025: '-0.300', y2026: '-0.250' },
+    { name: 'National Paper Company Entity', y2023: '-0.300', y2024: '-0.250', y2025: '-0.200', y2026: '-0.150' },
+    { name: 'Ceylon Fertilizer Co Ltd', y2023: '-0.200', y2024: '-0.150', y2025: '-0.100', y2026: '-0.080' }
   ],
 
   'Commercial Corporation Register (17 SOEs)': [
-    { name: 'Sri Lanka Ports Authority', y2023: '+11.5B', y2024: '+12.8B', y2025: '+14.2B', y2026: '+15.5B' },
-    { name: 'Airport & Aviation Services Ltd', y2023: '+4.8B', y2024: '+5.5B', y2025: '+6.1B', y2026: '+6.8B' },
-    { name: 'State Pharmaceuticals Corporation', y2023: '+2.5B', y2024: '+2.8B', y2025: '+3.2B', y2026: '+3.5B' },
-    { name: 'State Timber Corporation', y2023: '+0.25B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.45B' },
-    { name: 'State Printing Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Ceylon Petroleum Corporation (CPC)', y2023: '-18.5B', y2024: '-15.2B', y2025: '-12.1B', y2026: '-9.5B' },
-    { name: 'Ceylon Electricity Board (CEB)', y2023: '-9.8B', y2024: '-7.1B', y2025: '-5.2B', y2026: '-3.8B' },
-    { name: 'Sri Lanka Transport Board (SLTB)', y2023: '-2.8B', y2024: '-2.2B', y2025: '-1.8B', y2026: '-1.4B' },
-    { name: 'Sri Lanka State Trading Corp', y2023: '+1.2B', y2024: '+1.5B', y2025: '+1.8B', y2026: '+2.0B' },
-    { name: 'State Engineering Corporation', y2023: '+0.5B', y2024: '+0.65B', y2025: '+0.8B', y2026: '+0.95B' },
-    { name: 'State Fertilizer Corporation', y2023: '+0.2B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.45B' },
-    { name: 'State Gem & Jewellery Corporation', y2023: '+0.1B', y2024: '+0.15B', y2025: '+0.2B', y2026: '+0.22B' },
-    { name: 'Sri Lanka Rubber Manufacturing Corp', y2023: '+0.1B', y2024: '+0.15B', y2025: '+0.2B', y2026: '+0.22B' },
-    { name: 'Ceylon Fisheries Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Ceylon Fishery Harbours Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Building Materials Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Spices & Allied Products Board', y2023: '-1.5B', y2024: '-1.3B', y2025: '-1.1B', y2026: '-0.9B' }
+    { name: 'Sri Lanka Ports Authority', y2023: '+11.500', y2024: '+12.800', y2025: '+14.200', y2026: '+15.500' },
+    { name: 'Airport & Aviation Services Ltd', y2023: '+4.800', y2024: '+5.500', y2025: '+6.100', y2026: '+6.800' },
+    { name: 'State Pharmaceuticals Corporation', y2023: '+2.500', y2024: '+2.800', y2025: '+3.200', y2026: '+3.500' },
+    { name: 'State Timber Corporation', y2023: '+0.250', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
+    { name: 'State Printing Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Ceylon Petroleum Corporation (CPC)', y2023: '-18.500', y2024: '-15.200', y2025: '-12.100', y2026: '-9.500' },
+    { name: 'Ceylon Electricity Board (CEB)', y2023: '-9.800', y2024: '-7.100', y2025: '-5.200', y2026: '-3.800' },
+    { name: 'Sri Lanka Transport Board (SLTB)', y2023: '-2.800', y2024: '-2.200', y2025: '-1.800', y2026: '-1.400' },
+    { name: 'Sri Lanka State Trading Corp', y2023: '+1.200', y2024: '+1.500', y2025: '+1.800', y2026: '+2.000' },
+    { name: 'State Engineering Corporation', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.950' },
+    { name: 'State Fertilizer Corporation', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
+    { name: 'State Gem & Jewellery Corporation', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
+    { name: 'Sri Lanka Rubber Manufacturing Corp', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
+    { name: 'Ceylon Fisheries Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Ceylon Fishery Harbours Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Building Materials Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Spices & Allied Products Board', y2023: '-1.500', y2024: '-1.300', y2025: '-1.100', y2026: '-0.900' }
   ],
 
   'Non-Commercial Corporation Register (16 SOEs)': [
-    { name: 'Development Lotteries Board', y2023: '+1.4B', y2024: '+1.6B', y2025: '+1.9B', y2026: '+2.1B' },
-    { name: 'National Lotteries Board', y2023: '+1.2B', y2024: '+1.4B', y2025: '+1.7B', y2026: '+1.85B' },
-    { name: 'Civil Aviation Authority', y2023: '+0.9B', y2024: '+1.1B', y2025: '+1.3B', y2026: '+1.4B' },
-    { name: 'Marine Environment Protection Auth', y2023: '+0.8B', y2024: '+0.95B', y2025: '+1.1B', y2026: '+1.2B' },
-    { name: 'Export Development Board', y2023: '+0.5B', y2024: '+0.65B', y2025: '+0.8B', y2026: '+0.9B' },
-    { name: 'Sri Lanka Standards Institution', y2023: '+0.4B', y2024: '+0.55B', y2025: '+0.7B', y2026: '+0.8B' },
-    { name: 'Tea Small Holdings Dev Authority', y2023: '+0.3B', y2024: '+0.45B', y2025: '+0.6B', y2026: '+0.7B' },
-    { name: 'Coconut Development Authority', y2023: '+0.2B', y2024: '+0.35B', y2025: '+0.5B', y2026: '+0.6B' },
-    { name: 'Central Engineering Consultancy Bureau', y2023: '+0.15B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' },
-    { name: 'Sri Lanka Handicrafts Board', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Sri Lanka Railway Department', y2023: '-4.5B', y2024: '-3.8B', y2025: '-3.1B', y2026: '-2.5B' },
-    { name: 'National Water Supply & Drainage Board', y2023: '+3.1B', y2024: '+3.6B', y2025: '+4.2B', y2026: '+4.7B' },
-    { name: 'Urban Development Authority (UDA)', y2023: '+0.4B', y2024: '+0.55B', y2025: '+0.7B', y2026: '+0.8B' },
-    { name: 'Coast Conservation Department', y2023: '+0.3B', y2024: '+0.45B', y2025: '+0.6B', y2026: '+0.7B' },
-    { name: 'National Design Centre', y2023: '+0.2B', y2024: '+0.35B', y2025: '+0.5B', y2026: '+0.6B' },
-    { name: 'National Livestock Development Board', y2023: '+0.1B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' }
+    { name: 'Development Lotteries Board', y2023: '+1.400', y2024: '+1.600', y2025: '+1.900', y2026: '+2.100' },
+    { name: 'National Lotteries Board', y2023: '+1.200', y2024: '+1.400', y2025: '+1.700', y2026: '+1.850' },
+    { name: 'Civil Aviation Authority', y2023: '+0.900', y2024: '+1.100', y2025: '+1.300', y2026: '+1.400' },
+    { name: 'Marine Environment Protection Auth', y2023: '+0.800', y2024: '+0.950', y2025: '+1.100', y2026: '+1.200' },
+    { name: 'Export Development Board', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.900' },
+    { name: 'Sri Lanka Standards Institution', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
+    { name: 'Tea Small Holdings Dev Authority', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
+    { name: 'Coconut Development Authority', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
+    { name: 'Central Engineering Consultancy Bureau', y2023: '+0.150', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' },
+    { name: 'Sri Lanka Handicrafts Board', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Sri Lanka Railway Department', y2023: '-4.500', y2024: '-3.800', y2025: '-3.100', y2026: '-2.500' },
+    { name: 'National Water Supply & Drainage Board', y2023: '+3.100', y2024: '+3.600', y2025: '+4.200', y2026: '+4.700' },
+    { name: 'Urban Development Authority (UDA)', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
+    { name: 'Coast Conservation Department', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
+    { name: 'National Design Centre', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
+    { name: 'National Livestock Development Board', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' }
   ],
 
   // --- SUB-CATEGORY MODAL DATA (ROW BREAKDOWNS) ---
   'Company - Strategic Net Profit SOEs': [
-    { name: 'Bank of Ceylon', y2023: '+18.2B', y2024: '+20.1B', y2025: '+22.5B', y2026: '+24.0B' },
-    { name: 'People\'s Bank', y2023: '+14.5B', y2024: '+16.2B', y2025: '+18.0B', y2026: '+19.5B' },
-    { name: 'Sri Lanka Telecom PLC', y2023: '+6.8B', y2024: '+7.5B', y2025: '+8.4B', y2026: '+9.1B' },
-    { name: 'National Savings Bank', y2023: '+4.2B', y2024: '+4.8B', y2025: '+5.5B', y2026: '+6.0B' },
-    { name: 'Sri Lanka Insurance Corp', y2023: '+3.9B', y2024: '+4.2B', y2025: '+4.8B', y2026: '+5.1B' },
-    { name: 'Lanka Electricity Co (LECO)', y2023: '+2.1B', y2024: '+2.5B', y2025: '+2.9B', y2026: '+3.1B' },
-    { name: 'Litro Gas Lanka Ltd', y2023: '+1.8B', y2024: '+2.1B', y2025: '+2.4B', y2026: '+2.7B' },
-    { name: 'Sri Lanka Ports Management Co', y2023: '+1.1B', y2024: '+1.3B', y2025: '+1.5B', y2026: '+1.6B' },
-    { name: 'Lanka IOC Public Share Unit', y2023: '+0.7B', y2024: '+0.8B', y2025: '+0.9B', y2026: '+1.0B' },
-    { name: 'Lanka Phosphate Ltd', y2023: '+0.15B', y2024: '+0.18B', y2025: '+0.2B', y2026: '+0.22B' }
+    { name: 'Bank of Ceylon', y2023: '+18.200', y2024: '+20.100', y2025: '+22.500', y2026: '+24.000' },
+    { name: 'People\'s Bank', y2023: '+14.500', y2024: '+16.200', y2025: '+18.000', y2026: '+19.500' },
+    { name: 'Sri Lanka Telecom PLC', y2023: '+6.800', y2024: '+7.500', y2025: '+8.400', y2026: '+9.100' },
+    { name: 'National Savings Bank', y2023: '+4.200', y2024: '+4.800', y2025: '+5.500', y2026: '+6.000' },
+    { name: 'Sri Lanka Insurance Corp', y2023: '+3.900', y2024: '+4.200', y2025: '+4.800', y2026: '+5.100' },
+    { name: 'Lanka Electricity Co (LECO)', y2023: '+2.100', y2024: '+2.500', y2025: '+2.900', y2026: '+3.100' },
+    { name: 'Litro Gas Lanka Ltd', y2023: '+1.800', y2024: '+2.100', y2025: '+2.400', y2026: '+2.700' },
+    { name: 'Sri Lanka Ports Management Co', y2023: '+1.100', y2024: '+1.300', y2025: '+1.500', y2026: '+1.600' },
+    { name: 'Lanka IOC Public Share Unit', y2023: '+0.700', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
+    { name: 'Lanka Phosphate Ltd', y2023: '+0.150', y2024: '+0.180', y2025: '+0.200', y2026: '+0.220' }
   ],
   'Company - Strategic Net Loss SOEs': [
-    { name: 'SriLankan Airlines Ltd', y2023: '-10.2B', y2024: '-9.1B', y2025: '-8.5B', y2026: '-7.8B' }
+    { name: 'SriLankan Airlines Ltd', y2023: '-10.200', y2024: '-9.100', y2025: '-8.500', y2026: '-7.800' }
   ],
   'Company - Non-Strategic Net Profit SOEs': [
-    { name: 'Lanka Hospitals PLC', y2023: '+2.8B', y2024: '+3.1B', y2025: '+3.5B', y2026: '+3.8B' },
-    { name: 'Hotel Developers (Lanka) Ltd', y2023: '+1.5B', y2024: '+1.8B', y2025: '+2.1B', y2026: '+2.4B' },
-    { name: 'BCI Campus Ltd', y2023: '+0.8B', y2024: '+1.0B', y2025: '+1.2B', y2026: '+1.3B' },
-    { name: 'Lanka Mineral Sands Ltd', y2023: '+0.7B', y2024: '+0.9B', y2025: '+1.0B', y2026: '+1.1B' },
-    { name: 'Lanka Sugar Company (Pvt) Ltd', y2023: '+0.6B', y2024: '+0.8B', y2025: '+0.9B', y2026: '+1.0B' },
-    { name: 'Lanka Coal Company (Pvt) Ltd', y2023: '+0.2B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.5B' },
-    { name: 'Lanka Cement PLC', y2023: '+0.1B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' }
+    { name: 'Lanka Hospitals PLC', y2023: '+2.800', y2024: '+3.100', y2025: '+3.500', y2026: '+3.800' },
+    { name: 'Hotel Developers (Lanka) Ltd', y2023: '+1.500', y2024: '+1.800', y2025: '+2.100', y2026: '+2.400' },
+    { name: 'BCI Campus Ltd', y2023: '+0.800', y2024: '+1.000', y2025: '+1.200', y2026: '+1.300' },
+    { name: 'Lanka Mineral Sands Ltd', y2023: '+0.700', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
+    { name: 'Lanka Sugar Company (Pvt) Ltd', y2023: '+0.600', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
+    { name: 'Lanka Coal Company (Pvt) Ltd', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.500' },
+    { name: 'Lanka Cement PLC', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' }
   ],
   'Company - Non-Strategic Net Loss SOEs': [
-    { name: 'Kahawatte Plantations Entity', y2023: '-1.2B', y2024: '-1.0B', y2025: '-0.9B', y2026: '-0.8B' },
-    { name: 'Elpitiya Plantations Entity', y2023: '-0.9B', y2024: '-0.8B', y2025: '-0.7B', y2026: '-0.6B' },
-    { name: 'Kurunegala Plantations Ltd', y2023: '-0.7B', y2024: '-0.6B', y2025: '-0.5B', y2026: '-0.4B' },
-    { name: 'Chilaw Plantations Ltd', y2023: '-0.4B', y2024: '-0.35B', y2025: '-0.3B', y2026: '-0.25B' },
-    { name: 'National Paper Company Entity', y2023: '-0.3B', y2024: '-0.25B', y2025: '-0.2B', y2026: '-0.15B' },
-    { name: 'Ceylon Fertilizer Co Ltd', y2023: '-0.2B', y2024: '-0.15B', y2025: '-0.1B', y2026: '-0.08B' }
+    { name: 'Kahawatte Plantations Entity', y2023: '-1.200', y2024: '-1.000', y2025: '-0.900', y2026: '-0.800' },
+    { name: 'Elpitiya Plantations Entity', y2023: '-0.900', y2024: '-0.800', y2025: '-0.700', y2026: '-0.600' },
+    { name: 'Kurunegala Plantations Ltd', y2023: '-0.700', y2024: '-0.600', y2025: '-0.500', y2026: '-0.400' },
+    { name: 'Chilaw Plantations Ltd', y2023: '-0.400', y2024: '-0.350', y2025: '-0.300', y2026: '-0.250' },
+    { name: 'National Paper Company Entity', y2023: '-0.300', y2024: '-0.250', y2025: '-0.200', y2026: '-0.150' },
+    { name: 'Ceylon Fertilizer Co Ltd', y2023: '-0.200', y2024: '-0.150', y2025: '-0.100', y2026: '-0.080' }
   ],
 
   'Commercial Corporation - Strategic Net Profit SOEs': [
-    { name: 'Sri Lanka Ports Authority', y2023: '+11.5B', y2024: '+12.8B', y2025: '+14.2B', y2026: '+15.5B' },
-    { name: 'Airport & Aviation Services Ltd', y2023: '+4.8B', y2024: '+5.5B', y2025: '+6.1B', y2026: '+6.8B' },
-    { name: 'State Pharmaceuticals Corporation', y2023: '+2.5B', y2024: '+2.8B', y2025: '+3.2B', y2026: '+3.5B' },
-    { name: 'State Timber Corporation', y2023: '+0.25B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.45B' },
-    { name: 'State Printing Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' }
+    { name: 'Sri Lanka Ports Authority', y2023: '+11.500', y2024: '+12.800', y2025: '+14.200', y2026: '+15.500' },
+    { name: 'Airport & Aviation Services Ltd', y2023: '+4.800', y2024: '+5.500', y2025: '+6.100', y2026: '+6.800' },
+    { name: 'State Pharmaceuticals Corporation', y2023: '+2.500', y2024: '+2.800', y2025: '+3.200', y2026: '+3.500' },
+    { name: 'State Timber Corporation', y2023: '+0.250', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
+    { name: 'State Printing Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' }
   ],
   'Commercial Corporation - Strategic Net Loss SOEs': [
-    { name: 'Ceylon Petroleum Corporation (CPC)', y2023: '-18.5B', y2024: '-15.2B', y2025: '-12.1B', y2026: '-9.5B' },
-    { name: 'Ceylon Electricity Board (CEB)', y2023: '-9.8B', y2024: '-7.1B', y2025: '-5.2B', y2026: '-3.8B' },
-    { name: 'Sri Lanka Transport Board (SLTB)', y2023: '-2.8B', y2024: '-2.2B', y2025: '-1.8B', y2026: '-1.4B' }
+    { name: 'Ceylon Petroleum Corporation (CPC)', y2023: '-18.500', y2024: '-15.200', y2025: '-12.100', y2026: '-9.500' },
+    { name: 'Ceylon Electricity Board (CEB)', y2023: '-9.800', y2024: '-7.100', y2025: '-5.200', y2026: '-3.800' },
+    { name: 'Sri Lanka Transport Board (SLTB)', y2023: '-2.800', y2024: '-2.200', y2025: '-1.800', y2026: '-1.400' }
   ],
   'Commercial Corporation - Non-Strategic Net Profit SOEs': [
-    { name: 'Sri Lanka State Trading Corp', y2023: '+1.2B', y2024: '+1.5B', y2025: '+1.8B', y2026: '+2.0B' },
-    { name: 'State Engineering Corporation', y2023: '+0.5B', y2024: '+0.65B', y2025: '+0.8B', y2026: '+0.95B' },
-    { name: 'State Fertilizer Corporation', y2023: '+0.2B', y2024: '+0.3B', y2025: '+0.4B', y2026: '+0.45B' },
-    { name: 'State Gem & Jewellery Corporation', y2023: '+0.1B', y2024: '+0.15B', y2025: '+0.2B', y2026: '+0.22B' },
-    { name: 'Sri Lanka Rubber Manufacturing Corp', y2023: '+0.1B', y2024: '+0.15B', y2025: '+0.2B', y2026: '+0.22B' },
-    { name: 'Ceylon Fisheries Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Ceylon Fishery Harbours Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' },
-    { name: 'Building Materials Corporation', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' }
+    { name: 'Sri Lanka State Trading Corp', y2023: '+1.200', y2024: '+1.500', y2025: '+1.800', y2026: '+2.000' },
+    { name: 'State Engineering Corporation', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.950' },
+    { name: 'State Fertilizer Corporation', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
+    { name: 'State Gem & Jewellery Corporation', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
+    { name: 'Sri Lanka Rubber Manufacturing Corp', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
+    { name: 'Ceylon Fisheries Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Ceylon Fishery Harbours Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
+    { name: 'Building Materials Corporation', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' }
   ],
   'Commercial Corporation - Non-Strategic Net Loss SOEs': [
-    { name: 'Spices & Allied Products Board', y2023: '-1.5B', y2024: '-1.3B', y2025: '-1.1B', y2026: '-0.9B' }
+    { name: 'Spices & Allied Products Board', y2023: '-1.500', y2024: '-1.300', y2025: '-1.100', y2026: '-0.900' }
   ],
 
   'Non-Commercial Corporation - Strategic Net Profit SOEs': [
-    { name: 'Development Lotteries Board', y2023: '+1.4B', y2024: '+1.6B', y2025: '+1.9B', y2026: '+2.1B' },
-    { name: 'National Lotteries Board', y2023: '+1.2B', y2024: '+1.4B', y2025: '+1.7B', y2026: '+1.85B' },
-    { name: 'Civil Aviation Authority', y2023: '+0.9B', y2024: '+1.1B', y2025: '+1.3B', y2026: '+1.4B' },
-    { name: 'Marine Environment Protection Auth', y2023: '+0.8B', y2024: '+0.95B', y2025: '+1.1B', y2026: '+1.2B' },
-    { name: 'Export Development Board', y2023: '+0.5B', y2024: '+0.65B', y2025: '+0.8B', y2026: '+0.9B' },
-    { name: 'Sri Lanka Standards Institution', y2023: '+0.4B', y2024: '+0.55B', y2025: '+0.7B', y2026: '+0.8B' },
-    { name: 'Tea Small Holdings Dev Authority', y2023: '+0.3B', y2024: '+0.45B', y2025: '+0.6B', y2026: '+0.7B' },
-    { name: 'Coconut Development Authority', y2023: '+0.2B', y2024: '+0.35B', y2025: '+0.5B', y2026: '+0.6B' },
-    { name: 'Central Engineering Consultancy Bureau', y2023: '+0.15B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' },
-    { name: 'Sri Lanka Handicrafts Board', y2023: '+0.05B', y2024: '+0.08B', y2025: '+0.1B', y2026: '+0.12B' }
+    { name: 'Development Lotteries Board', y2023: '+1.400', y2024: '+1.600', y2025: '+1.900', y2026: '+2.100' },
+    { name: 'National Lotteries Board', y2023: '+1.200', y2024: '+1.400', y2025: '+1.700', y2026: '+1.850' },
+    { name: 'Civil Aviation Authority', y2023: '+0.900', y2024: '+1.100', y2025: '+1.300', y2026: '+1.400' },
+    { name: 'Marine Environment Protection Auth', y2023: '+0.800', y2024: '+0.950', y2025: '+1.100', y2026: '+1.200' },
+    { name: 'Export Development Board', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.900' },
+    { name: 'Sri Lanka Standards Institution', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
+    { name: 'Tea Small Holdings Dev Authority', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
+    { name: 'Coconut Development Authority', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
+    { name: 'Central Engineering Consultancy Bureau', y2023: '+0.150', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' },
+    { name: 'Sri Lanka Handicrafts Board', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' }
   ],
   'Non-Commercial Corporation - Strategic Net Loss SOEs': [
-    { name: 'Sri Lanka Railway Department', y2023: '-4.5B', y2024: '-3.8B', y2025: '-3.1B', y2026: '-2.5B' }
+    { name: 'Sri Lanka Railway Department', y2023: '-4.500', y2024: '-3.800', y2025: '-3.100', y2026: '-2.500' }
   ],
   'Non-Commercial Corporation - Non-Strategic Net Profit SOEs': [
-    { name: 'National Water Supply & Drainage Board', y2023: '+3.1B', y2024: '+3.6B', y2025: '+4.2B', y2026: '+4.7B' },
-    { name: 'Urban Development Authority (UDA)', y2023: '+0.4B', y2024: '+0.55B', y2025: '+0.7B', y2026: '+0.8B' },
-    { name: 'Coast Conservation Department', y2023: '+0.3B', y2024: '+0.45B', y2025: '+0.6B', y2026: '+0.7B' },
-    { name: 'National Design Centre', y2023: '+0.2B', y2024: '+0.35B', y2025: '+0.5B', y2026: '+0.6B' },
-    { name: 'National Livestock Development Board', y2023: '+0.1B', y2024: '+0.2B', y2025: '+0.3B', y2026: '+0.35B' }
+    { name: 'National Water Supply & Drainage Board', y2023: '+3.100', y2024: '+3.600', y2025: '+4.200', y2026: '+4.700' },
+    { name: 'Urban Development Authority (UDA)', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
+    { name: 'Coast Conservation Department', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
+    { name: 'National Design Centre', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
+    { name: 'National Livestock Development Board', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' }
   ],
   'Non-Commercial Corporation - Non-Strategic Net Loss SOEs': []
 };
@@ -400,21 +401,21 @@ function initSOEPerformanceChart(containerId) {
             <circle id="pie-func-comp" r="24" cx="50" cy="50" stroke="#2563eb" stroke-dasharray="59.4 151" stroke-dashoffset="0"
                     onclick="openSoeTrendModal('Company Register (24 SOEs)')"
                     onmouseenter="highlightFuncStatus('comp')"
-                    onmousemove="showSoeTooltip(event, 'Company (Functioning)<br>Count: 24 SOEs (39.3%)<br>Net Impact: +16.0B LKR<br><i>Click to view all 24 Companies</i>')" 
+                    onmousemove="showSoeTooltip(event, 'Company (Functioning)<br>Count: 24 SOEs (39.3%)<br>Net Impact: +16.000<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
 
             <!-- Commercial Corp: 17 SOEs -->
             <circle id="pie-func-comm" r="24" cx="50" cy="50" stroke="#059669" stroke-dasharray="42.1 151" stroke-dashoffset="-59.4"
                     onclick="openSoeTrendModal('Commercial Corporation Register (17 SOEs)')"
                     onmouseenter="highlightFuncStatus('comm')"
-                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Functioning)<br>Count: 17 SOEs (27.9%)<br>Net Impact: +3.8B LKR<br><i>Click to view all 17 Commercial Corps</i>')" 
+                    onmousemove="showSoeTooltip(event, 'Commercial Corporation (Functioning)<br>Count: 17 SOEs (27.9%)<br>Net Impact: +3.800<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
 
             <!-- Non-Commercial Corp: 16 SOEs -->
             <circle id="pie-func-noncomm" r="24" cx="50" cy="50" stroke="#d97706" stroke-dasharray="39.6 151" stroke-dashoffset="-101.5"
                     onclick="openSoeTrendModal('Non-Commercial Corporation Register (16 SOEs)')"
                     onmouseenter="highlightFuncStatus('noncomm')"
-                    onmousemove="showSoeTooltip(event, 'Non-Commercial Corp (Functioning)<br>Count: 16 SOEs (26.2%)<br>Net Impact: +11.9B LKR<br><i>Click to view all 16 Non-Comm Corps</i>')" 
+                    onmousemove="showSoeTooltip(event, 'Non-Commercial Corporation (Functioning)<br>Count: 16 SOEs (26.2%)<br>Net Impact: +11.900<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
 
             <!-- Non-Functioning: 4 SOEs -->
@@ -433,28 +434,28 @@ function initSOEPerformanceChart(containerId) {
                onmouseenter="highlightFuncStatus('comp')" onmouseleave="removeFuncHighlight()"
                title="Click to view all 24 Companies">
             <span><span class="soe-func-dot" style="background:#2563eb;"></span>Company</span>
-            <strong>24 (39.3%) ⓘ</strong>
+            <strong>24 (39.3%)</strong>
           </div>
           <div class="soe-func-legend-item" id="legend-func-comm"
                onclick="openSoeTrendModal('Commercial Corporation Register (17 SOEs)')"
                onmouseenter="highlightFuncStatus('comm')" onmouseleave="removeFuncHighlight()"
                title="Click to view all 17 Commercial Corporations">
-            <span><span class="soe-func-dot" style="background:#059669;"></span>Commercial Corporation</span>
-            <strong>17 (27.9%) ⓘ</strong>
+            <span><span class="soe-func-dot" style="background:#059669;"></span>Commercial Corp</span>
+            <strong>17 (27.9%)</strong>
           </div>
           <div class="soe-func-legend-item" id="legend-func-noncomm"
                onclick="openSoeTrendModal('Non-Commercial Corporation Register (16 SOEs)')"
                onmouseenter="highlightFuncStatus('noncomm')" onmouseleave="removeFuncHighlight()"
                title="Click to view all 16 Non-Commercial Corporations">
-            <span><span class="soe-func-dot" style="background:#d97706;"></span>Non-Commercial Corporation</span>
-            <strong>16 (26.2%) ⓘ</strong>
+            <span><span class="soe-func-dot" style="background:#d97706;"></span>Non-Comm Corp</span>
+            <strong>16 (26.2%)</strong>
           </div>
           <div class="soe-func-legend-item" id="legend-func-nonfunc" style="background:#fee2e2; border-color:#fecaca;"
                onclick="openNonFunctionalModal()"
                onmouseenter="highlightFuncStatus('nonfunc')" onmouseleave="removeFuncHighlight()"
                title="Click to view Non-Functioning Register">
             <span><span class="soe-func-dot" style="background:#dc2626;"></span>Non-Functioning</span>
-            <strong style="color:var(--danger-red);">4 (6.6%) ⓘ</strong>
+            <strong style="color:var(--danger-red);">4 (6.6%)</strong>
           </div>
         </div>
       </div>
@@ -485,7 +486,7 @@ function initSOEPerformanceChart(containerId) {
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
             <span class="soe-entity-name">Company</span>
-            <span class="soe-entity-meta">24 SOEs | Net +16.0B</span>
+            <span class="soe-entity-meta">24 SOEs | Net +16.000</span>
           </div>
 
           <!-- Strategic Company Bar -->
@@ -493,13 +494,13 @@ function initSOEPerformanceChart(containerId) {
             <div class="soe-horizontal-bar">
               <div class="soe-hbar-seg prof" style="width: 88%;" 
                    onclick="openSoeTrendModal('Company - Strategic Net Profit SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Company (Strategic Profit): 10 SOEs (+78.0B)')" onmouseleave="hideSoeTooltip()">
-                10 SOEs (+78.0B)
+                   onmousemove="showSoeTooltip(event, 'Company (Strategic Profit): 10 SOEs (+78.000)')" onmouseleave="hideSoeTooltip()">
+                10 SOEs (+78.000)
               </div>
               <div class="soe-hbar-seg loss" style="width: 12%;" 
                    onclick="openSoeTrendModal('Company - Strategic Net Loss SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Company (Strategic Loss): 1 SOE (-8.5B)')" onmouseleave="hideSoeTooltip()">
-                1 (-8.5B)
+                   onmousemove="showSoeTooltip(event, 'Company (Strategic Loss): 1 SOE (-8.500)')" onmouseleave="hideSoeTooltip()">
+                1 (-8.500)
               </div>
             </div>
           </div>
@@ -509,13 +510,13 @@ function initSOEPerformanceChart(containerId) {
             <div class="soe-horizontal-bar">
               <div class="soe-hbar-seg prof" style="width: 65%;" 
                    onclick="openSoeTrendModal('Company - Non-Strategic Net Profit SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Company (Non-Strat Profit): 7 SOEs (+11.3B)')" onmouseleave="hideSoeTooltip()">
-                7 SOEs (+11.3B)
+                   onmousemove="showSoeTooltip(event, 'Company (Non-Strat Profit): 7 SOEs (+11.300)')" onmouseleave="hideSoeTooltip()">
+                7 SOEs (+11.300)
               </div>
               <div class="soe-hbar-seg loss" style="width: 35%;" 
                    onclick="openSoeTrendModal('Company - Non-Strategic Loss SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Company (Non-Strat Loss): 6 SOEs (-2.7B)')" onmouseleave="hideSoeTooltip()">
-                6 SOEs (-2.7B)
+                   onmousemove="showSoeTooltip(event, 'Company (Non-Strat Loss): 6 SOEs (-2.700)')" onmouseleave="hideSoeTooltip()">
+                6 SOEs (-2.700)
               </div>
             </div>
           </div>
@@ -524,8 +525,8 @@ function initSOEPerformanceChart(containerId) {
         <!-- Row 2: Commercial Corporation -->
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
-            <span class="soe-entity-name">Commercial Corporation</span>
-            <span class="soe-entity-meta">17 SOEs | Net +3.8B</span>
+            <span class="soe-entity-name">Commercial Corp</span>
+            <span class="soe-entity-meta">17 SOEs | Net +3.800</span>
           </div>
 
           <!-- Strategic Commercial Corp Bar -->
@@ -533,13 +534,13 @@ function initSOEPerformanceChart(containerId) {
             <div class="soe-horizontal-bar">
               <div class="soe-hbar-seg prof" style="width: 60%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Strategic Net Profit SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Profit): 5 SOEs (+27.0B)')" onmouseleave="hideSoeTooltip()">
-                5 SOEs (+27.0B)
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Profit): 5 SOEs (+27.000)')" onmouseleave="hideSoeTooltip()">
+                5 SOEs (+27.000)
               </div>
               <div class="soe-hbar-seg loss" style="width: 40%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Strategic Loss SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Loss): 3 SOEs (-19.1B)')" onmouseleave="hideSoeTooltip()">
-                3 SOEs (-19.1B)
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Loss): 3 SOEs (-19.100)')" onmouseleave="hideSoeTooltip()">
+                3 SOEs (-19.100)
               </div>
             </div>
           </div>
@@ -549,13 +550,13 @@ function initSOEPerformanceChart(containerId) {
             <div class="soe-horizontal-bar">
               <div class="soe-hbar-seg prof" style="width: 85%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Net Profit SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Profit): 8 SOEs (+4.3B)')" onmouseleave="hideSoeTooltip()">
-                8 SOEs (+4.3B)
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Profit): 8 SOEs (+4.300)')" onmouseleave="hideSoeTooltip()">
+                8 SOEs (+4.300)
               </div>
               <div class="soe-hbar-seg loss" style="width: 15%;" 
                    onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Loss SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Loss): 1 SOE (-1.1B)')" onmouseleave="hideSoeTooltip()">
-                1 (-1.1B)
+                   onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Loss): 1 SOE (-1.100)')" onmouseleave="hideSoeTooltip()">
+                1 (-1.100)
               </div>
             </div>
           </div>
@@ -564,8 +565,8 @@ function initSOEPerformanceChart(containerId) {
         <!-- Row 3: Non-Commercial Corporation -->
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
-            <span class="soe-entity-name">Non-Commercial Corporation</span>
-            <span class="soe-entity-meta">16 SOEs | Net +11.9B</span>
+            <span class="soe-entity-name">Non-Commercial Corp</span>
+            <span class="soe-entity-meta">16 SOEs | Net +11.900</span>
           </div>
 
           <!-- Strategic Non-Commercial Corp Bar -->
@@ -573,13 +574,13 @@ function initSOEPerformanceChart(containerId) {
             <div class="soe-horizontal-bar">
               <div class="soe-hbar-seg prof" style="width: 80%;" 
                    onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Profit SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Profit): 10 SOEs (+8.5B)')" onmouseleave="hideSoeTooltip()">
-                10 SOEs (+8.5B)
+                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Profit): 10 SOEs (+8.500)')" onmouseleave="hideSoeTooltip()">
+                10 SOEs (+8.500)
               </div>
               <div class="soe-hbar-seg loss" style="width: 20%;" 
                    onclick="openSoeTrendModal('Non-Commercial Corporation - Strategic Net Loss SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Loss): 1 SOE (-3.1B)')" onmouseleave="hideSoeTooltip()">
-                1 (-3.1B)
+                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Strat Loss): 1 SOE (-3.100)')" onmouseleave="hideSoeTooltip()">
+                1 (-3.100)
               </div>
             </div>
           </div>
@@ -589,8 +590,8 @@ function initSOEPerformanceChart(containerId) {
             <div class="soe-horizontal-bar">
               <div class="soe-hbar-seg prof" style="width: 100%;" 
                    onclick="openSoeTrendModal('Non-Commercial Corporation - Non-Strategic Net Profit SOEs')"
-                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Non-Strat Profit): 5 SOEs (+6.5B)')" onmouseleave="hideSoeTooltip()">
-                5 SOEs (+6.5B)
+                   onmousemove="showSoeTooltip(event, 'Non-Comm Corp (Non-Strat Profit): 5 SOEs (+6.500)')" onmouseleave="hideSoeTooltip()">
+                5 SOEs (+6.500)
               </div>
             </div>
           </div>
@@ -604,11 +605,11 @@ function initSOEPerformanceChart(containerId) {
     <div class="modal-overlay" id="soeTrendModal">
       <div class="modal" style="width: 720px;">
         <div class="modal-header">
-          <h3 id="soeTrendModalTitle" style="margin:0;">SOE Financial Trend (Last 4 Years)</h3>
+          <h3 id="soeTrendModalTitle" style="margin:0;">SOE Financial Trend (Values in LKR Billions)</h3>
           <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeSoeTrendModal()">&times;</button>
         </div>
         <p style="color: var(--text-muted); font-size: 11px;">
-          Historical net profitability performance breakdown for SOEs in this group.
+          Historical net profitability performance breakdown for SOEs in this group (Values in LKR Billions).
         </p>
 
         <table>
@@ -668,7 +669,7 @@ function hideSoeTooltip() {
 function openSoeTrendModal(categoryKey) {
   currentSoeKey = categoryKey;
   currentSoePage = 1;
-  document.getElementById('soeTrendModalTitle').innerText = categoryKey;
+  document.getElementById('soeTrendModalTitle').innerText = `${categoryKey} (Values in LKR Billions)`;
   renderSoePage();
   document.getElementById('soeTrendModal').style.display = 'flex';
 }

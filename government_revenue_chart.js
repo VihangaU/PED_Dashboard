@@ -2,111 +2,116 @@
  * Government Revenue & Contributions Component for PEDMIS Dashboard
  * Renders VAT/Duties, CIT, Levy, and Dividend streams.
  * Features:
+ * - Classification divided into 2 separate columns:
+ *   1. Strategic Classification (Strategic vs Non-Strategic)
+ *   2. Performance Status (Net Profit vs Net Loss)
  * - 5-Year Historical & Current Performance Trends (FY 2022 - FY 2026) for all modal popups.
- * - Target vs Actual Variance breakdowns across all 5 financial years.
- * - Multi-sheet Excel Workbook generator (4 Sheets: VAT, CIT, Levy, Dividend) with full 5-year data.
+ * - Standardized 3-decimal numeric format without repeated 'B' symbols.
+ * - Explicit "(Values in LKR Billions)" stated in headers, popups, and export titles.
+ * - 6-Sheet XML-based .xlsx Workbook export (VAT, CIT, Levy, Levy Deficit, Dividend, Dividend Surplus).
+ * - Dynamic file naming: MetricTitle_DDMMYYYY_HHMMSS.xlsx.
  */
 
 // Comprehensive Data Store for Government Revenue Streams & Variances (5-Year Trends)
 const govtRevenueData = {
   // --- VAT, DUTIES & OTHER ---
   'VAT,Duties & Others (Strategic SOEs -Net Profit)': [
-    { name: 'Bank of Ceylon', category: 'Strategic Profitable', y2022: '18.0B', y2023: '20.5B', y2024: '22.0B', y2025: '23.5B', y2026: '24.5B' },
-    { name: 'People\'s Bank', category: 'Strategic Profitable', y2022: '14.0B', y2023: '16.2B', y2024: '17.8B', y2025: '19.0B', y2026: '20.0B' },
-    { name: 'Airport & Aviation Services Ltd', category: 'Strategic Profitable', y2022: '12.0B', y2023: '14.0B', y2024: '15.5B', y2025: '17.0B', y2026: '18.0B' },
-    { name: 'Sri Lanka Telecom PLC', category: 'Strategic Profitable', y2022: '9.0B', y2023: '10.2B', y2024: '11.0B', y2025: '11.8B', y2026: '12.5B' },
-    { name: 'National Savings Bank', category: 'Strategic Profitable', y2022: '7.5B', y2023: '8.2B', y2024: '9.0B', y2025: '9.5B', y2026: '10.0B' }
+    { name: 'Bank of Ceylon', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '18.000', y2023: '20.500', y2024: '22.000', y2025: '23.500', y2026: '24.500' },
+    { name: 'People\'s Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '14.000', y2023: '16.200', y2024: '17.800', y2025: '19.000', y2026: '20.000' },
+    { name: 'Airport & Aviation Services Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '12.000', y2023: '14.000', y2024: '15.500', y2025: '17.000', y2026: '18.000' },
+    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '9.000', y2023: '10.200', y2024: '11.000', y2025: '11.800', y2026: '12.500' },
+    { name: 'National Savings Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '7.500', y2023: '8.200', y2024: '9.000', y2025: '9.500', y2026: '10.000' }
   ],
   'VAT,Duties & Others (Strategic SOEs -Net Loss)': [
-    { name: 'Ceylon Petroleum Corporation (CPC)', category: 'Strategic Loss', y2022: '48.0B', y2023: '54.0B', y2024: '59.0B', y2025: '62.5B', y2026: '65.0B' },
-    { name: 'Ceylon Electricity Board (CEB)', category: 'Strategic Loss', y2022: '5.5B', y2023: '6.5B', y2024: '7.2B', y2025: '8.0B', y2026: '8.5B' }
+    { name: 'Ceylon Petroleum Corporation (CPC)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '48.000', y2023: '54.000', y2024: '59.000', y2025: '62.500', y2026: '65.000' },
+    { name: 'Ceylon Electricity Board (CEB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '5.500', y2023: '6.500', y2024: '7.200', y2025: '8.000', y2026: '8.500' }
   ],
   'VAT,Duties & Others (Non-Strategic SOEs -Net Profit)': [
-    { name: 'National Water Supply & Drainage Board', category: 'Non-Strategic Profitable', y2022: '2.8B', y2023: '3.2B', y2024: '3.6B', y2025: '4.0B', y2026: '4.2B' },
-    { name: 'Lanka Hospitals PLC', category: 'Non-Strategic Profitable', y2022: '1.5B', y2023: '1.8B', y2024: '2.0B', y2025: '2.1B', y2026: '2.3B' },
-    { name: 'Litro Gas Lanka Ltd', category: 'Non-Strategic Profitable', y2022: '0.6B', y2023: '0.7B', y2024: '0.8B', y2025: '0.9B', y2026: '1.0B' }
+    { name: 'National Water Supply & Drainage Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '2.800', y2023: '3.200', y2024: '3.600', y2025: '4.000', y2026: '4.200' },
+    { name: 'Lanka Hospitals PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '1.500', y2023: '1.800', y2024: '2.000', y2025: '2.100', y2026: '2.300' },
+    { name: 'Litro Gas Lanka Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '0.600', y2023: '0.700', y2024: '0.800', y2025: '0.900', y2026: '1.000' }
   ],
   'VAT,Duties & Others (Non-Strategic SOEs -Net Loss)': [
-    { name: 'Sri Lanka Transport Board (SLTB)', category: 'Non-Strategic Loss', y2022: '0.6B', y2023: '0.7B', y2024: '0.8B', y2025: '0.9B', y2026: '1.0B' }
+    { name: 'Sri Lanka Transport Board (SLTB)', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '0.600', y2023: '0.700', y2024: '0.800', y2025: '0.900', y2026: '1.000' }
   ],
 
   // --- CORPORATE INCOME TAX (CIT) ---
   'Corporate Income Tax (CIT)  (Strategic SOEs -Net Profit)': [
-    { name: 'Bank of Ceylon', category: 'Strategic Profitable', y2022: '28.0B', y2023: '31.5B', y2024: '34.0B', y2025: '36.5B', y2026: '38.5B' },
-    { name: 'People\'s Bank', category: 'Strategic Profitable', y2022: '21.0B', y2023: '23.5B', y2024: '25.8B', y2025: '27.5B', y2026: '29.0B' },
-    { name: 'National Savings Bank', category: 'Strategic Profitable', y2022: '14.0B', y2023: '15.8B', y2024: '17.2B', y2025: '18.5B', y2026: '19.5B' },
-    { name: 'Sri Lanka Insurance Corporation', category: 'Strategic Profitable', y2022: '10.0B', y2023: '11.2B', y2024: '12.4B', y2025: '13.2B', y2026: '14.0B' }
+    { name: 'Bank of Ceylon', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '28.000', y2023: '31.500', y2024: '34.000', y2025: '36.500', y2026: '38.500' },
+    { name: 'People\'s Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '21.000', y2023: '23.500', y2024: '25.800', y2025: '27.500', y2026: '29.000' },
+    { name: 'National Savings Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '14.000', y2023: '15.800', y2024: '17.200', y2025: '18.500', y2026: '19.500' },
+    { name: 'Sri Lanka Insurance Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '10.000', y2023: '11.200', y2024: '12.400', y2025: '13.200', y2026: '14.000' }
   ],
   'Corporate Income Tax (CIT)  (Strategic SOEs -Net Loss)': [
-    { name: 'SriLankan Airlines (Withholding & Adjustments)', category: 'Strategic Loss', y2022: '0.5B', y2023: '0.6B', y2024: '0.8B', y2025: '0.9B', y2026: '1.0B' }
+    { name: 'SriLankan Airlines (Withholding & Adjustments)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '0.500', y2023: '0.600', y2024: '0.800', y2025: '0.900', y2026: '1.000' }
   ],
   'Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Profit)': [
-    { name: 'Sri Lanka Ports Authority', category: 'Non-Strategic Profitable', y2022: '6.5B', y2023: '7.2B', y2024: '8.0B', y2025: '8.5B', y2026: '9.0B' },
-    { name: 'Litro Gas Lanka Ltd', category: 'Non-Strategic Profitable', y2022: '2.2B', y2023: '2.6B', y2024: '3.0B', y2025: '3.2B', y2026: '3.5B' }
+    { name: 'Sri Lanka Ports Authority', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '6.500', y2023: '7.200', y2024: '8.000', y2025: '8.500', y2026: '9.000' },
+    { name: 'Litro Gas Lanka Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '2.200', y2023: '2.600', y2024: '3.000', y2025: '3.200', y2026: '3.500' }
   ],
   'Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Loss)': [
-    { name: 'Spices & Allied Products Board', category: 'Non-Strategic Loss', y2022: '0.4B', y2023: '0.5B', y2024: '0.7B', y2025: '0.8B', y2026: '1.0B' }
+    { name: 'Spices & Allied Products Board', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '0.400', y2023: '0.500', y2024: '0.700', y2025: '0.800', y2026: '1.000' }
   ],
 
   // --- LEVY STREAM REVENUE ---
   'Levy  (Strategic SOEs -Net Profit)': [
-    { name: 'Airport & Aviation Services Ltd', category: 'Strategic Profitable', y2022: '6.0B', y2023: '6.8B', y2024: '7.4B', y2025: '8.0B', y2026: '8.5B' },
-    { name: 'Development Lotteries Board', category: 'Strategic Profitable', y2022: '3.0B', y2023: '3.4B', y2024: '3.8B', y2025: '4.0B', y2026: '4.2B' },
-    { name: 'National Lotteries Board', category: 'Strategic Profitable', y2022: '2.4B', y2023: '2.7B', y2024: '2.9B', y2025: '3.1B', y2026: '3.3B' }
+    { name: 'Airport & Aviation Services Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '6.000', y2023: '6.800', y2024: '7.400', y2025: '8.000', y2026: '8.500' },
+    { name: 'Development Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '3.000', y2023: '3.400', y2024: '3.800', y2025: '4.000', y2026: '4.200' },
+    { name: 'National Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '2.400', y2023: '2.700', y2024: '2.900', y2025: '3.100', y2026: '3.300' }
   ],
   'Levy  (Strategic SOEs -Net Loss)': [
-    { name: 'Ceylon Electricity Board', category: 'Strategic Loss', y2022: '1.2B', y2023: '1.4B', y2024: '1.6B', y2025: '1.8B', y2026: '2.0B' }
+    { name: 'Ceylon Electricity Board', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '1.200', y2023: '1.400', y2024: '1.600', y2025: '1.800', y2026: '2.000' }
   ],
   'Levy  (Non-Strategic SOEs -Net Profit)': [
-    { name: 'Ports Authority (Levy Share)', category: 'Non-Strategic Profitable', y2022: '4.2B', y2023: '4.8B', y2024: '5.2B', y2025: '5.6B', y2026: '6.0B' }
+    { name: 'Ports Authority (Levy Share)', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '4.200', y2023: '4.800', y2024: '5.200', y2025: '5.600', y2026: '6.000' }
   ],
   'Levy  (Non-Strategic SOEs -Net Loss)': [
-    { name: 'State Engineering Corporation', category: 'Non-Strategic Loss', y2022: '0.6B', y2023: '0.7B', y2024: '0.8B', y2025: '0.9B', y2026: '1.0B' }
+    { name: 'State Engineering Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '0.600', y2023: '0.700', y2024: '0.800', y2025: '0.900', y2026: '1.000' }
   ],
 
   // --- LEVY DEFICITS PER SUB-CATEGORY (5-Year Variance Data) ---
   'Levy Deficit (Strategic SOEs - Net Profit)': [
-    { name: 'Civil Aviation Authority of Sri Lanka', y2022: '0.6B Deficit', y2023: '0.8B Deficit', y2024: '0.9B Deficit', y2025: '1.0B Deficit', y2026: '1.0B Deficit' }
+    { name: 'Civil Aviation Authority of Sri Lanka', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '0.600', y2023: '0.800', y2024: '0.900', y2025: '1.000', y2026: '1.000' }
   ],
   'Levy Deficit (Strategic SOEs - Net Loss)': [
-    { name: 'Water Resources Board', y2022: '1.2B Deficit', y2023: '1.5B Deficit', y2024: '1.8B Deficit', y2025: '1.9B Deficit', y2026: '2.0B Deficit' }
+    { name: 'Water Resources Board', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '1.200', y2023: '1.500', y2024: '1.800', y2025: '1.900', y2026: '2.000' }
   ],
   'Levy Deficit (Non-Strategic SOEs - Net Profit)': [
-    { name: 'State Pharmaceuticals Corporation', y2022: '0.4B Deficit', y2023: '0.5B Deficit', y2024: '0.6B Deficit', y2025: '0.65B Deficit', y2026: '0.7B Deficit' }
+    { name: 'State Pharmaceuticals Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '0.400', y2023: '0.500', y2024: '0.600', y2025: '0.650', y2026: '0.700' }
   ],
   'Levy Deficit (Non-Strategic SOEs - Net Loss)': [
-    { name: 'National Transport Commission', y2022: '0.8B Deficit', y2023: '0.9B Deficit', y2024: '1.1B Deficit', y2025: '1.2B Deficit', y2026: '1.3B Deficit' }
+    { name: 'National Transport Commission', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '0.800', y2023: '0.900', y2024: '1.100', y2025: '1.200', y2026: '1.300' }
   ],
 
   // --- DIVIDEND STREAM REVENUE ---
   'Dividend (Strategic SOEs - Net Profit)': [
-    { name: 'Sri Lanka Telecom PLC', category: 'Strategic Profitable', y2022: '4.2B', y2023: '4.8B', y2024: '5.2B', y2025: '5.6B', y2026: '6.0B' },
-    { name: 'Lanka Hospitals PLC', category: 'Strategic Profitable', y2022: '2.4B', y2023: '2.7B', y2024: '3.0B', y2025: '3.2B', y2026: '3.5B' },
-    { name: 'Litro Gas Lanka Ltd', category: 'Strategic Profitable', y2022: '1.2B', y2023: '1.4B', y2024: '1.6B', y2025: '1.8B', y2026: '2.0B' }
+    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '4.200', y2023: '4.800', y2024: '5.200', y2025: '5.600', y2026: '6.000' },
+    { name: 'Lanka Hospitals PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '2.400', y2023: '2.700', y2024: '3.000', y2025: '3.200', y2026: '3.500' },
+    { name: 'Litro Gas Lanka Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '1.200', y2023: '1.400', y2024: '1.600', y2025: '1.800', y2026: '2.000' }
   ],
   'Dividend (Strategic SOEs - Net Loss)': [
-    { name: 'Ceylon Petroleum Corporation (Residual Unit)', category: 'Strategic Loss', y2022: '0.4B', y2023: '0.5B', y2024: '0.7B', y2025: '0.8B', y2026: '1.0B' }
+    { name: 'Ceylon Petroleum Corporation (Residual Unit)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '0.400', y2023: '0.500', y2024: '0.700', y2025: '0.800', y2026: '1.000' }
   ],
   'Dividend (Non-Strategic SOEs - Net Profit)': [
-    { name: 'Ceylon Electricity Board (LECO Share)', category: 'Non-Strategic Profitable', y2022: '1.1B', y2023: '1.3B', y2024: '1.5B', y2025: '1.6B', y2026: '1.8B' },
-    { name: 'Milco (Pvt) Ltd', category: 'Non-Strategic Profitable', y2022: '0.1B', y2023: '0.12B', y2024: '0.15B', y2025: '0.18B', y2026: '0.2B' }
+    { name: 'Ceylon Electricity Board (LECO Share)', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '1.100', y2023: '1.300', y2024: '1.500', y2025: '1.600', y2026: '1.800' },
+    { name: 'Milco (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '0.100', y2023: '0.120', y2024: '0.150', y2025: '0.180', y2026: '0.200' }
   ],
   'Dividend (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Kurunegala Plantations Ltd', category: 'Non-Strategic Loss', y2022: '0.5B', y2023: '0.6B', y2024: '0.7B', y2025: '0.85B', y2026: '1.0B' }
+    { name: 'Kurunegala Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '0.500', y2023: '0.600', y2024: '0.700', y2025: '0.850', y2026: '1.000' }
   ],
 
   // --- DIVIDEND SURPLUSES PER SUB-CATEGORY (5-Year Variance Data) ---
   'Dividend Surplus (Strategic SOEs - Net Profit)': [
-    { name: 'Sri Lanka Telecom PLC', y2022: '0.5B Surplus', y2023: '0.6B Surplus', y2024: '0.8B Surplus', y2025: '0.9B Surplus', y2026: '1.0B Surplus' }
+    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '0.500', y2023: '0.600', y2024: '0.800', y2025: '0.900', y2026: '1.000' }
   ],
   'Dividend Surplus (Strategic SOEs - Net Loss)': [
-    { name: 'Ceylon Electricity Board Unit', y2022: '0.04B Surplus', y2023: '0.06B Surplus', y2024: '0.08B Surplus', y2025: '0.09B Surplus', y2026: '0.1B Surplus' }
+    { name: 'Ceylon Electricity Board Unit', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '0.040', y2023: '0.060', y2024: '0.080', y2025: '0.090', y2026: '0.100' }
   ],
   'Dividend Surplus (Non-Strategic SOEs - Net Profit)': [
-    { name: 'Lanka Hospitals PLC', y2022: '0.1B Surplus', y2023: '0.12B Surplus', y2024: '0.15B Surplus', y2025: '0.18B Surplus', y2026: '0.2B Surplus' }
+    { name: 'Lanka Hospitals PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '0.100', y2023: '0.120', y2024: '0.150', y2025: '0.180', y2026: '0.200' }
   ],
   'Dividend Surplus (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Chilaw Plantations Ltd', y2022: '0.02B Surplus', y2023: '0.03B Surplus', y2024: '0.04B Surplus', y2025: '0.045B Surplus', y2026: '0.05B Surplus' }
+    { name: 'Chilaw Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '0.020', y2023: '0.030', y2024: '0.040', y2025: '0.045', y2026: '0.050' }
   ]
 };
 
@@ -144,7 +149,7 @@ function initGovtRevenueChart(containerId) {
         transition: background 0.15s ease;
       }
       .btn-export-govt:hover {
-        background: #6866e2;
+        background: #1d4ed8;
       }
       .govt-stream-card {
         background: #ffffff;
@@ -237,10 +242,10 @@ function initGovtRevenueChart(containerId) {
 
     <div class="govt-rev-wrapper">
       
-      <!-- Export Multi-Sheet Excel Toolbar -->
+      <!-- Export 6-Sheet Excel Toolbar -->
       <div class="govt-export-toolbar">
         <button class="btn-export-govt" onclick="exportGovtRevenueMultiSheetExcel()">
-          📥 Export Government Revenue Report (.xls)
+          📥 Export Government Revenue Report (.xlsx)
         </button>
       </div>
 
@@ -248,24 +253,24 @@ function initGovtRevenueChart(containerId) {
       <div class="govt-stream-card active">
         <div class="govt-stream-header">
           <span class="govt-stream-title">• VAT, Duties & Other</span>
-          <span class="govt-stream-big-val">145.0B</span>
+          <span class="govt-stream-big-val">145.000</span>
         </div>
         <div class="govt-sub-badge-grid">
           <div class="govt-sub-badge strat-prof" onclick="openGovtModal('VAT,Duties & Others (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic Profit</span>
-            <span class="govt-badge-val">65.0B ⓘ</span>
+            <span class="govt-badge-val">65.000</span>
           </div>
           <div class="govt-sub-badge strat-loss" onclick="openGovtModal('VAT,Duties & Others (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic Loss</span>
-            <span class="govt-badge-val">73.5B ⓘ</span>
+            <span class="govt-badge-val">73.500</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('VAT,Duties & Others (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strat Profit</span>
-            <span class="govt-badge-val">5.5B ⓘ</span>
+            <span class="govt-badge-val">5.500</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('VAT,Duties & Others (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strat Loss</span>
-            <span class="govt-badge-val">1.0B ⓘ</span>
+            <span class="govt-badge-val">1.000</span>
           </div>
         </div>
       </div>
@@ -274,24 +279,24 @@ function initGovtRevenueChart(containerId) {
       <div class="govt-stream-card">
         <div class="govt-stream-header">
           <span class="govt-stream-title">• Corporate Income Tax (CIT)</span>
-          <span class="govt-stream-big-val">110.0B</span>
+          <span class="govt-stream-big-val">110.000</span>
         </div>
         <div class="govt-sub-badge-grid">
           <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Corporate Income Tax (CIT)  (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic Profit</span>
-            <span class="govt-badge-val">95.5B ⓘ</span>
+            <span class="govt-badge-val">95.500</span>
           </div>
           <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Corporate Income Tax (CIT)  (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic Loss</span>
-            <span class="govt-badge-val">1.0B ⓘ</span>
+            <span class="govt-badge-val">1.000</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strat Profit</span>
-            <span class="govt-badge-val">12.5B ⓘ</span>
+            <span class="govt-badge-val">12.500</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strat Loss</span>
-            <span class="govt-badge-val">1.0B ⓘ</span>
+            <span class="govt-badge-val">1.000</span>
           </div>
         </div>
       </div>
@@ -300,28 +305,28 @@ function initGovtRevenueChart(containerId) {
       <div class="govt-stream-card">
         <div class="govt-stream-header">
           <span class="govt-stream-title">• Levy</span>
-          <span class="govt-stream-big-val">25.0B</span>
+          <span class="govt-stream-big-val">25.000</span>
         </div>
         <div class="govt-sub-badge-grid">
           <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Levy  (Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Strategic Profit</span>
-            <span class="govt-badge-val">16.0B ⓘ</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Profit)', event)">Deficit: 1.0B</span>
+            <span class="govt-badge-val">16.000</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Profit)', event)">Deficit: 1.000</span>
           </div>
           <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Levy  (Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Strategic Loss</span>
-            <span class="govt-badge-val">2.0B ⓘ</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Loss)', event)">Deficit: 2.0B</span>
+            <span class="govt-badge-val">2.000</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Loss)', event)">Deficit: 2.000</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Profit)', event)">
             <span class="govt-badge-label">Non-Strat Profit</span>
-            <span class="govt-badge-val">6.0B ⓘ</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Profit)', event)">Deficit: 0.7B</span>
+            <span class="govt-badge-val">6.000</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Profit)', event)">Deficit: 0.700</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Loss)', event)">
             <span class="govt-badge-label">Non-Strat Loss</span>
-            <span class="govt-badge-val">1.0B ⓘ</span>
-            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Loss)', event)">Deficit: 1.3B</span>
+            <span class="govt-badge-val">1.000</span>
+            <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Loss)', event)">Deficit: 1.300</span>
           </div>
         </div>
       </div>
@@ -330,28 +335,28 @@ function initGovtRevenueChart(containerId) {
       <div class="govt-stream-card">
         <div class="govt-stream-header">
           <span class="govt-stream-title">• Dividend</span>
-          <span class="govt-stream-big-val">15.5B</span>
+          <span class="govt-stream-big-val">15.500</span>
         </div>
         <div class="govt-sub-badge-grid">
           <div class="govt-sub-badge strat-prof" onclick="openGovtModal('Dividend (Strategic SOEs - Net Profit)', event)">
             <span class="govt-badge-label">Strategic Profit</span>
-            <span class="govt-badge-val">11.5B ⓘ</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Profit)', event)">Surplus: 1.0B</span>
+            <span class="govt-badge-val">11.500</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Profit)', event)">Surplus: 1.000</span>
           </div>
           <div class="govt-sub-badge strat-loss" onclick="openGovtModal('Dividend (Strategic SOEs - Net Loss)', event)">
             <span class="govt-badge-label">Strategic Loss</span>
-            <span class="govt-badge-val">1.0B ⓘ</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Loss)', event)">Surplus: 0.1B</span>
+            <span class="govt-badge-val">1.000</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Loss)', event)">Surplus: 0.100</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Profit)', event)">
             <span class="govt-badge-label">Non-Strat Profit</span>
-            <span class="govt-badge-val">2.0B ⓘ</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Profit)', event)">Surplus: 0.2B</span>
+            <span class="govt-badge-val">2.000</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Profit)', event)">Surplus: 0.200</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Loss)', event)">
             <span class="govt-badge-label">Non-Strat Loss</span>
-            <span class="govt-badge-val">1.0B ⓘ</span>
-            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Loss)', event)">Surplus: 0.05B</span>
+            <span class="govt-badge-val">1.000</span>
+            <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Loss)', event)">Surplus: 0.050</span>
           </div>
         </div>
       </div>
@@ -360,13 +365,13 @@ function initGovtRevenueChart(containerId) {
 
     <!-- Government Revenue Dedicated Popup Modal (5-Year Trend View) -->
     <div class="modal-overlay" id="govtRevenueModal">
-      <div class="modal" style="width: 780px; max-width: 95%;">
+      <div class="modal" style="width: 820px; max-width: 95%;">
         <div class="modal-header">
-          <h3 id="govtRevenueModalTitle" style="margin:0;">Government Revenue Register (5-Year Trend)</h3>
+          <h3 id="govtRevenueModalTitle" style="margin:0;">Government Revenue Register (Values in LKR Billions)</h3>
           <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeGovtModal()">&times;</button>
         </div>
         <p style="color: var(--text-muted); font-size: 11px;">
-          Comprehensive breakdown of entities and contribution values across past 4 financial years and current year.
+          Comprehensive breakdown of entities and contribution values across past 4 financial years and current year (Values in LKR Billions).
         </p>
 
         <table>
@@ -378,12 +383,12 @@ function initGovtRevenueChart(containerId) {
   `;
 }
 
-// Open Govt Popup Modal with 5-Year Data
+// Open Govt Popup Modal with Divided Classification Columns
 function openGovtModal(keyTitle, event) {
   if (event) event.stopPropagation();
 
   currentGovtKey = keyTitle;
-  document.getElementById('govtRevenueModalTitle').innerText = keyTitle + ' (5-Year Trend)';
+  document.getElementById('govtRevenueModalTitle').innerText = `${keyTitle} (Values in LKR Billions)`;
 
   const thead = document.getElementById('govtRevenueTableHead');
   const tbody = document.getElementById('govtRevenueTableBody');
@@ -396,6 +401,8 @@ function openGovtModal(keyTitle, event) {
     thead.innerHTML = `
       <tr>
         <th>SOE Name</th>
+        <th>Strategic Classification</th>
+        <th>Performance Status</th>
         <th>FY 2022</th>
         <th>FY 2023</th>
         <th>FY 2024</th>
@@ -408,6 +415,8 @@ function openGovtModal(keyTitle, event) {
       const badgeClass = keyTitle.includes('Deficit') ? 'badge-danger' : 'badge-success';
       tr.innerHTML = `
         <td><strong>${item.name}</strong></td>
+        <td>${item.stratCat}</td>
+        <td><span class="badge ${item.perfStatus === 'Net Profit' ? 'badge-success' : 'badge-danger'}">${item.perfStatus}</span></td>
         <td><span class="badge ${badgeClass}">${item.y2022}</span></td>
         <td><span class="badge ${badgeClass}">${item.y2023}</span></td>
         <td><span class="badge ${badgeClass}">${item.y2024}</span></td>
@@ -420,7 +429,8 @@ function openGovtModal(keyTitle, event) {
     thead.innerHTML = `
       <tr>
         <th>SOE Name</th>
-        <th>Classification</th>
+        <th>Strategic Classification</th>
+        <th>Performance Status</th>
         <th>FY 2022</th>
         <th>FY 2023</th>
         <th>FY 2024</th>
@@ -432,7 +442,8 @@ function openGovtModal(keyTitle, event) {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><strong>${item.name}</strong></td>
-        <td style="color: var(--text-muted);">${item.category}</td>
+        <td>${item.stratCat}</td>
+        <td><span class="badge ${item.perfStatus === 'Net Profit' ? 'badge-success' : 'badge-danger'}">${item.perfStatus}</span></td>
         <td>${item.y2022}</td>
         <td>${item.y2023}</td>
         <td>${item.y2024}</td>
@@ -450,97 +461,131 @@ function closeGovtModal() {
   document.getElementById('govtRevenueModal').style.display = 'none';
 }
 
-// Multi-Worksheet XML Excel Generator (Sheet 1: VAT, Sheet 2: CIT, Sheet 3: Levy, Sheet 4: Dividend) with 5-Year Trends
-function exportGovtRevenueMultiSheetExcel() {
+// Multi-Worksheet XML-based .xlsx Generator across 6 dedicated sheets with 2-column classification
+async function exportGovtRevenueMultiSheetExcel() {
   const currentYear = typeof selectedYear !== 'undefined' ? selectedYear : '2025';
 
-  const generateSimple5YearRows = (keys) => {
-    let rowsXML = `
-      <Row ss:StyleID="HeaderStyle">
-        <Cell><Data ss:Type="String">SOE Name</Data></Cell>
-        <Cell><Data ss:Type="String">Classification Group</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2022</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2023</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2024</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2025</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2026 (Current)</Data></Cell>
-      </Row>`;
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yyyy = now.getFullYear();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+  const timestamp = `${dd}${mm}${yyyy}_${hh}${min}${ss}`;
+  const filename = `GovernmentRevenue_${timestamp}.xlsx`;
+
+  const escapeXML = (str) => String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // Sheet XML builder for regular revenue streams
+  const buildSimpleSheetXML = (title, subtitle, keys) => {
+    let rows = [];
+    let r = 1;
+
+    // Title & Subtitle
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="1"><is><t>${escapeXML(title)}</t></is></c></row>`);
+    r++;
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="2"><is><t>${escapeXML(subtitle)}</t></is></c></row>`);
+    r += 2;
+
+    // Header Row with Divided Classification Columns
+    rows.push(`
+      <row r="${r}">
+        <c r="A${r}" t="inlineStr" s="3"><is><t>SOE Name</t></is></c>
+        <c r="B${r}" t="inlineStr" s="3"><is><t>Strategic Classification</t></is></c>
+        <c r="C${r}" t="inlineStr" s="3"><is><t>Performance Status</t></is></c>
+        <c r="D${r}" t="inlineStr" s="3"><is><t>FY 2022</t></is></c>
+        <c r="E${r}" t="inlineStr" s="3"><is><t>FY 2023</t></is></c>
+        <c r="F${r}" t="inlineStr" s="3"><is><t>FY 2024</t></is></c>
+        <c r="G${r}" t="inlineStr" s="3"><is><t>FY 2025</t></is></c>
+        <c r="H${r}" t="inlineStr" s="3"><is><t>FY 2026 (Current)</t></is></c>
+      </row>`);
+    r++;
+
+    // Data Rows
+    keys.forEach(k => {
+      const items = govtRevenueData[k] || [];
+      items.forEach(item => {
+        rows.push(`
+          <row r="${r}">
+            <c r="A${r}" t="inlineStr" s="4"><is><t>${escapeXML(item.name)}</t></is></c>
+            <c r="B${r}" t="inlineStr"><is><t>${escapeXML(item.stratCat)}</t></is></c>
+            <c r="C${r}" t="inlineStr"><is><t>${escapeXML(item.perfStatus)}</t></is></c>
+            <c r="D${r}" s="5"><v>${parseFloat(item.y2022) || 0}</v></c>
+            <c r="E${r}" s="5"><v>${parseFloat(item.y2023) || 0}</v></c>
+            <c r="F${r}" s="5"><v>${parseFloat(item.y2024) || 0}</v></c>
+            <c r="G${r}" s="5"><v>${parseFloat(item.y2025) || 0}</v></c>
+            <c r="H${r}" s="5"><v>${parseFloat(item.y2026) || 0}</v></c>
+          </row>`);
+        r++;
+      });
+    });
+
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+        <cols>
+          <col min="1" max="1" width="38" customWidth="1"/>
+          <col min="2" max="2" width="24" customWidth="1"/>
+          <col min="3" max="3" width="20" customWidth="1"/>
+          <col min="4" max="8" width="16" customWidth="1"/>
+        </cols>
+        <sheetData>${rows.join('')}</sheetData>
+      </worksheet>`;
+  };
+
+  // Sheet XML builder for variance streams
+  const buildVarianceSheetXML = (title, subtitle, keys, isDeficit) => {
+    let rows = [];
+    let r = 1;
+
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="1"><is><t>${escapeXML(title)}</t></is></c></row>`);
+    r++;
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="2"><is><t>${escapeXML(subtitle)}</t></is></c></row>`);
+    r += 2;
+
+    rows.push(`
+      <row r="${r}">
+        <c r="A${r}" t="inlineStr" s="3"><is><t>SOE Name</t></is></c>
+        <c r="B${r}" t="inlineStr" s="3"><is><t>Strategic Classification</t></is></c>
+        <c r="C${r}" t="inlineStr" s="3"><is><t>Performance Status</t></is></c>
+        <c r="D${r}" t="inlineStr" s="3"><is><t>FY 2022</t></is></c>
+        <c r="E${r}" t="inlineStr" s="3"><is><t>FY 2023</t></is></c>
+        <c r="F${r}" t="inlineStr" s="3"><is><t>FY 2024</t></is></c>
+        <c r="G${r}" t="inlineStr" s="3"><is><t>FY 2025</t></is></c>
+        <c r="H${r}" t="inlineStr" s="3"><is><t>FY 2026 (Current)</t></is></c>
+      </row>`);
+    r++;
+
+    const valStyle = isDeficit ? '6' : '7';
 
     keys.forEach(k => {
       const items = govtRevenueData[k] || [];
       items.forEach(item => {
-        rowsXML += `
-          <Row>
-            <Cell ss:StyleID="BoldCell"><Data ss:Type="String">${item.name}</Data></Cell>
-            <Cell><Data ss:Type="String">${item.category}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2022}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2023}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2024}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2025}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2026}</Data></Cell>
-          </Row>`;
-      });
-    });
-    return rowsXML;
-  };
-
-  const generateVariance5YearRows = (revKeys, varianceKeys, isDeficit) => {
-    let rowsXML = `
-      <Row ss:StyleID="SectionStyle"><Cell ss:MergeAcross="6"><Data ss:Type="String">1. 5-YEAR REVENUE CONTRIBUTIONS BY SOE</Data></Cell></Row>
-      <Row ss:StyleID="HeaderStyle">
-        <Cell><Data ss:Type="String">SOE Name</Data></Cell>
-        <Cell><Data ss:Type="String">Classification Group</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2022</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2023</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2024</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2025</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2026 (Current)</Data></Cell>
-      </Row>`;
-
-    revKeys.forEach(k => {
-      const items = govtRevenueData[k] || [];
-      items.forEach(item => {
-        rowsXML += `
-          <Row>
-            <Cell ss:StyleID="BoldCell"><Data ss:Type="String">${item.name}</Data></Cell>
-            <Cell><Data ss:Type="String">${item.category}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2022}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2023}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2024}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2025}</Data></Cell>
-            <Cell ss:StyleID="NumberCell"><Data ss:Type="String">${item.y2026}</Data></Cell>
-          </Row>`;
+        rows.push(`
+          <row r="${r}">
+            <c r="A${r}" t="inlineStr" s="4"><is><t>${escapeXML(item.name)}</t></is></c>
+            <c r="B${r}" t="inlineStr"><is><t>${escapeXML(item.stratCat)}</t></is></c>
+            <c r="C${r}" t="inlineStr"><is><t>${escapeXML(item.perfStatus)}</t></is></c>
+            <c r="D${r}" s="${valStyle}"><v>${parseFloat(item.y2022) || 0}</v></c>
+            <c r="E${r}" s="${valStyle}"><v>${parseFloat(item.y2023) || 0}</v></c>
+            <c r="F${r}" s="${valStyle}"><v>${parseFloat(item.y2024) || 0}</v></c>
+            <c r="G${r}" s="${valStyle}"><v>${parseFloat(item.y2025) || 0}</v></c>
+            <c r="H${r}" s="${valStyle}"><v>${parseFloat(item.y2026) || 0}</v></c>
+          </row>`);
+        r++;
       });
     });
 
-    rowsXML += `
-      <Row></Row>
-      <Row ss:StyleID="SectionStyle"><Cell ss:MergeAcross="5"><Data ss:Type="String">2. 5-YEAR ${isDeficit ? 'ESTIMATED DEFICIT' : 'SURPLUS'} VARIANCE BREAKDOWN</Data></Cell></Row>
-      <Row ss:StyleID="HeaderStyle">
-        <Cell><Data ss:Type="String">SOE Name</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2022</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2023</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2024</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2025</Data></Cell>
-        <Cell><Data ss:Type="String">FY 2026 (Current)</Data></Cell>
-      </Row>`;
-
-    varianceKeys.forEach(k => {
-      const items = govtRevenueData[k] || [];
-      items.forEach(item => {
-        rowsXML += `
-          <Row>
-            <Cell ss:StyleID="BoldCell"><Data ss:Type="String">${item.name}</Data></Cell>
-            <Cell ss:StyleID="${isDeficit ? 'DeficitCell' : 'SurplusCell'}"><Data ss:Type="String">${item.y2022}</Data></Cell>
-            <Cell ss:StyleID="${isDeficit ? 'DeficitCell' : 'SurplusCell'}"><Data ss:Type="String">${item.y2023}</Data></Cell>
-            <Cell ss:StyleID="${isDeficit ? 'DeficitCell' : 'SurplusCell'}"><Data ss:Type="String">${item.y2024}</Data></Cell>
-            <Cell ss:StyleID="${isDeficit ? 'DeficitCell' : 'SurplusCell'}"><Data ss:Type="String">${item.y2025}</Data></Cell>
-            <Cell ss:StyleID="${isDeficit ? 'DeficitCell' : 'SurplusCell'}"><Data ss:Type="String">${item.y2026}</Data></Cell>
-          </Row>`;
-      });
-    });
-
-    return rowsXML;
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+        <cols>
+          <col min="1" max="1" width="38" customWidth="1"/>
+          <col min="2" max="2" width="24" customWidth="1"/>
+          <col min="3" max="3" width="20" customWidth="1"/>
+          <col min="4" max="8" width="16" customWidth="1"/>
+        </cols>
+        <sheetData>${rows.join('')}</sheetData>
+      </worksheet>`;
   };
 
   const vatKeys = [
@@ -549,14 +594,12 @@ function exportGovtRevenueMultiSheetExcel() {
     'VAT,Duties & Others (Non-Strategic SOEs -Net Profit)',
     'VAT,Duties & Others (Non-Strategic SOEs -Net Loss)'
   ];
-
   const citKeys = [
     'Corporate Income Tax (CIT)  (Strategic SOEs -Net Profit)',
     'Corporate Income Tax (CIT)  (Strategic SOEs -Net Loss)',
     'Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Profit)',
     'Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Loss)'
   ];
-
   const levyRevKeys = [
     'Levy  (Strategic SOEs -Net Profit)',
     'Levy  (Strategic SOEs -Net Loss)',
@@ -569,7 +612,6 @@ function exportGovtRevenueMultiSheetExcel() {
     'Levy Deficit (Non-Strategic SOEs - Net Profit)',
     'Levy Deficit (Non-Strategic SOEs - Net Loss)'
   ];
-
   const divRevKeys = [
     'Dividend (Strategic SOEs - Net Profit)',
     'Dividend (Strategic SOEs - Net Loss)',
@@ -583,126 +625,202 @@ function exportGovtRevenueMultiSheetExcel() {
     'Dividend Surplus (Non-Strategic SOEs - Net Loss)'
   ];
 
-  const workbookXML = `<?xml version="1.0"?>
-  <?mso-application progid="Excel.Sheet"?>
-  <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-            xmlns:o="urn:schemas-microsoft-com:office:office"
-            xmlns:x="urn:schemas-microsoft-com:office:excel"
-            xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-    <Styles>
-      <Style ss:ID="Default" ss:Name="Normal">
-        <Alignment ss:Vertical="Center"/>
-        <Font ss:FontName="Segoe UI" ss:Size="10"/>
-      </Style>
-      <Style ss:ID="TitleStyle">
-        <Font ss:FontName="Segoe UI" ss:Size="13" ss:Bold="1" ss:Color="#0F172A"/>
-      </Style>
-      <Style ss:ID="SectionStyle">
-        <Font ss:FontName="Segoe UI" ss:Size="11" ss:Bold="1" ss:Color="#1E40AF"/>
-        <Interior ss:Color="#EFF6FF" ss:Pattern="Solid"/>
-      </Style>
-      <Style ss:ID="HeaderStyle">
-        <Font ss:FontName="Segoe UI" ss:Size="10" ss:Bold="1" ss:Color="#FFFFFF"/>
-        <Interior ss:Color="#1E293B" ss:Pattern="Solid"/>
-        <Alignment ss:Horizontal="Center"/>
-      </Style>
-      <Style ss:ID="BoldCell">
-        <Font ss:FontName="Segoe UI" ss:Bold="1"/>
-      </Style>
-      <Style ss:ID="NumberCell">
-        <Alignment ss:Horizontal="Right"/>
-        <Font ss:FontName="Segoe UI" ss:Bold="1" ss:Color="#1E40AF"/>
-      </Style>
-      <Style ss:ID="DeficitCell">
-        <Font ss:FontName="Segoe UI" ss:Bold="1" ss:Color="#DC2626"/>
-        <Interior ss:Color="#FEE2E2" ss:Pattern="Solid"/>
-        <Alignment ss:Horizontal="Center"/>
-      </Style>
-      <Style ss:ID="SurplusCell">
-        <Font ss:FontName="Segoe UI" ss:Bold="1" ss:Color="#16A34A"/>
-        <Interior ss:Color="#DCFCE7" ss:Pattern="Solid"/>
-        <Alignment ss:Horizontal="Center"/>
-      </Style>
-    </Styles>
+  // 6 Sheet Definitions
+  const sheets = [
+    { name: "VAT, Duties and Others", xml: buildSimpleSheetXML("PEDMIS - VAT, Duties & Other Revenue (5-Year Trend)", "Currency Unit: In LKR Billions | Total Stream Revenue: 145.000", vatKeys) },
+    { name: "Corporate Income Tax", xml: buildSimpleSheetXML("PEDMIS - Corporate Income Tax (CIT) Revenue (5-Year Trend)", "Currency Unit: In LKR Billions | Total Stream Revenue: 110.000", citKeys) },
+    { name: "Levy", xml: buildSimpleSheetXML("PEDMIS - Levy Revenue (5-Year Trend)", "Currency Unit: In LKR Billions | Total Stream Revenue: 25.000", levyRevKeys) },
+    { name: "Levy-Outstanding", xml: buildVarianceSheetXML("PEDMIS - Levy Target Deficits (5-Year Trend)", "Currency Unit: In LKR Billions", levyDeficitKeys, true) },
+    { name: "Dividend", xml: buildSimpleSheetXML("PEDMIS - Dividend Revenue (5-Year Trend)", "Currency Unit: In LKR Billions | Total Stream Revenue: 15.500", divRevKeys) },
+    { name: "Dividend-Outstanding", xml: buildVarianceSheetXML("PEDMIS - Dividend Surpluses (5-Year Trend)", "Currency Unit: In LKR Billions", divSurplusKeys, false) }
+  ];
 
-    <!-- Sheet 1: VAT & Duties -->
-    <Worksheet ss:Name="VAT and Duties">
-      <Table ss:DefaultColumnWidth="140">
-        <Column ss:Width="240"/>
-        <Column ss:Width="180"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="120"/>
-        <Row ss:StyleID="TitleStyle"><Cell ss:MergeAcross="6"><Data ss:Type="String">PEDMIS - VAT, Duties &amp; Other Revenue (5-Year Trend: FY 2022 - FY 2026)</Data></Cell></Row>
-        <Row><Cell ss:MergeAcross="6"><Data ss:Type="String">Total Stream Revenue: 145.0B LKR</Data></Cell></Row>
-        <Row></Row>
-        ${generateSimple5YearRows(vatKeys)}
-      </Table>
-    </Worksheet>
+  const stylesXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+      <numFmts count="1">
+        <numFmt numFmtId="164" formatCode="#,##0.000"/>
+      </numFmts>
+      <fonts count="4">
+        <font><name val="Calibri"/><sz val="11"/></font>
+        <font><b/><name val="Calibri"/><sz val="13"/><color rgb="FF0F172A"/></font>
+        <font><i/><name val="Calibri"/><sz val="10"/><color rgb="FF64748B"/></font>
+        <font><b/><name val="Calibri"/><sz val="11"/><color rgb="FFFFFFFF"/></font>
+      </fonts>
+      <fills count="5">
+        <fill><patternFill patternType="none"/></fill>
+        <fill><patternFill patternType="gray125"/></fill>
+        <fill><patternFill patternType="solid"><fgColor rgb="FF1E293B"/></patternFill></fill>
+        <fill><patternFill patternType="solid"><fgColor rgb="FFFEE2E2"/></patternFill></fill>
+        <fill><patternFill patternType="solid"><fgColor rgb="FFDCFCE7"/></patternFill></fill>
+      </fills>
+      <borders count="1">
+        <border><left/><right/><top/><bottom/></border>
+      </borders>
+      <cellXfs count="8">
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="2" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="3" fillId="2" borderId="0" applyAlignment="1"><alignment horizontal="center"/></xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1"><font><b/></font></xf>
+        <xf numFmtId="164" fontId="0" fillId="0" borderId="0" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="right"/></xf>
+        <xf numFmtId="164" fontId="0" fillId="3" borderId="0" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="right"/></xf>
+        <xf numFmtId="164" fontId="0" fillId="4" borderId="0" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="right"/></xf>
+      </cellXfs>
+    </styleSheet>`;
 
-    <!-- Sheet 2: Corporate Income Tax -->
-    <Worksheet ss:Name="Corporate Income Tax">
-      <Table ss:DefaultColumnWidth="140">
-        <Column ss:Width="240"/>
-        <Column ss:Width="180"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="120"/>
-        <Row ss:StyleID="TitleStyle"><Cell ss:MergeAcross="6"><Data ss:Type="String">PEDMIS - Corporate Income Tax (CIT) Revenue (5-Year Trend: FY 2022 - FY 2026)</Data></Cell></Row>
-        <Row><Cell ss:MergeAcross="6"><Data ss:Type="String">Total Stream Revenue: 110.0B LKR</Data></Cell></Row>
-        <Row></Row>
-        ${generateSimple5YearRows(citKeys)}
-      </Table>
-    </Worksheet>
+  const workbookXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+      <sheets>
+        ${sheets.map((s, i) => `<sheet name="${s.name}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('')}
+      </sheets>
+    </workbook>`;
 
-    <!-- Sheet 3: Levy -->
-    <Worksheet ss:Name="Levy and Deficits">
-      <Table ss:DefaultColumnWidth="140">
-        <Column ss:Width="240"/>
-        <Column ss:Width="180"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="120"/>
-        <Row ss:StyleID="TitleStyle"><Cell ss:MergeAcross="6"><Data ss:Type="String">PEDMIS - Levy Revenue &amp; Target Deficits (5-Year Trend: FY 2022 - FY 2026)</Data></Cell></Row>
-        <Row><Cell ss:MergeAcross="6"><Data ss:Type="String">Total Stream Revenue: 25.0B LKR</Data></Cell></Row>
-        <Row></Row>
-        ${generateVariance5YearRows(levyRevKeys, levyDeficitKeys, true)}
-      </Table>
-    </Worksheet>
+  const workbookRelsXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+      ${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('')}
+      <Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+    </Relationships>`;
 
-    <!-- Sheet 4: Dividend -->
-    <Worksheet ss:Name="Dividend and Surpluses">
-      <Table ss:DefaultColumnWidth="140">
-        <Column ss:Width="240"/>
-        <Column ss:Width="180"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="100"/>
-        <Column ss:Width="120"/>
-        <Row ss:StyleID="TitleStyle"><Cell ss:MergeAcross="6"><Data ss:Type="String">PEDMIS - Dividend Revenue &amp; Surpluses (5-Year Trend: FY 2022 - FY 2026)</Data></Cell></Row>
-        <Row><Cell ss:MergeAcross="6"><Data ss:Type="String">Total Stream Revenue: 15.5B LKR</Data></Cell></Row>
-        <Row></Row>
-        ${generateVariance5YearRows(divRevKeys, divSurplusKeys, false)}
-      </Table>
-    </Worksheet>
-  </Workbook>`;
+  const contentTypesXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+      <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+      <Default Extension="xml" ContentType="application/xml"/>
+      <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
+      <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+      ${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}
+    </Types>`;
 
-  const blob = new Blob([workbookXML], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+  const rootRelsXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+      <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
+    </Relationships>`;
+
+  // Pack entries into standard openxml package
+  const zipEntries = [
+    { path: "_rels/.rels", data: rootRelsXML },
+    { path: "[Content_Types].xml", data: contentTypesXML },
+    { path: "xl/workbook.xml", data: workbookXML },
+    { path: "xl/_rels/workbook.xml.rels", data: workbookRelsXML },
+    { path: "xl/styles.xml", data: stylesXML }
+  ];
+
+  sheets.forEach((s, idx) => {
+    zipEntries.push({ path: `xl/worksheets/sheet${idx + 1}.xml`, data: s.xml });
+  });
+
+  const zipBlob = createStandardZipBlob(zipEntries);
+
   const link = document.createElement('a');
-  const url = URL.createObjectURL(blob);
-
+  const url = URL.createObjectURL(zipBlob);
   link.setAttribute('href', url);
-  link.setAttribute('download', `PEDMIS_Govt_Revenue_Detailed_Workbook_${currentYear}.xls`);
+  link.setAttribute('download', filename);
   link.style.visibility = 'hidden';
 
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+// Lightweight PKZip Packager for .xlsx binary generation
+function createStandardZipBlob(entries) {
+  const crcTable = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) {
+      c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    }
+    crcTable[i] = c;
+  }
+
+  function crc32(buf) {
+    let crc = 0xFFFFFFFF;
+    for (let i = 0; i < buf.length; i++) {
+      crc = (crc >>> 8) ^ crcTable[(crc ^ buf[i]) & 0xFF];
+    }
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  const textEncoder = new TextEncoder();
+  const fileRecords = [];
+  let currentOffset = 0;
+  const parts = [];
+
+  entries.forEach(entry => {
+    const filenameBytes = textEncoder.encode(entry.path);
+    const contentBytes = textEncoder.encode(entry.data);
+    const crc = crc32(contentBytes);
+    const size = contentBytes.length;
+
+    // Local Header
+    const localHeader = new Uint8Array(30 + filenameBytes.length);
+    const view = new DataView(localHeader.buffer);
+    view.setUint32(0, 0x04034b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 0, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint32(14, crc, true);
+    view.setUint32(18, size, true);
+    view.setUint32(22, size, true);
+    view.setUint16(26, filenameBytes.length, true);
+    view.setUint16(28, 0, true);
+    localHeader.set(filenameBytes, 30);
+
+    parts.push(localHeader, contentBytes);
+
+    fileRecords.push({
+      filenameBytes,
+      size,
+      crc,
+      offset: currentOffset
+    });
+
+    currentOffset += localHeader.length + size;
+  });
+
+  const centralDirOffset = currentOffset;
+  let centralDirSize = 0;
+
+  fileRecords.forEach(rec => {
+    const cdHeader = new Uint8Array(46 + rec.filenameBytes.length);
+    const view = new DataView(cdHeader.buffer);
+    view.setUint32(0, 0x02014b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 20, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint16(14, 0, true);
+    view.setUint32(16, rec.crc, true);
+    view.setUint32(20, rec.size, true);
+    view.setUint32(24, rec.size, true);
+    view.setUint16(28, rec.filenameBytes.length, true);
+    view.setUint16(30, 0, true);
+    view.setUint16(32, 0, true);
+    view.setUint16(34, 0, true);
+    view.setUint16(36, 0, true);
+    view.setUint32(38, 0, true);
+    view.setUint32(42, rec.offset, true);
+    cdHeader.set(rec.filenameBytes, 46);
+
+    parts.push(cdHeader);
+    centralDirSize += cdHeader.length;
+  });
+
+  // End of Central Directory
+  const eocd = new Uint8Array(22);
+  const eocdView = new DataView(eocd.buffer);
+  eocdView.setUint32(0, 0x06054b50, true);
+  eocdView.setUint16(4, 0, true);
+  eocdView.setUint16(6, 0, true);
+  eocdView.setUint16(8, fileRecords.length, true);
+  eocdView.setUint16(10, fileRecords.length, true);
+  eocdView.setUint32(12, centralDirSize, true);
+  eocdView.setUint32(16, centralDirOffset, true);
+  eocdView.setUint16(20, 0, true);
+
+  parts.push(eocd);
+
+  return new Blob(parts, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 }
