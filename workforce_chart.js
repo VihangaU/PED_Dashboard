@@ -6,6 +6,7 @@
  * 2. Dynamic arc percentage tooltips following the cursor on hover.
  * 3. Two-way synchronized hover highlighting across Progress Bar Segments, Doughnut Arcs, and Legend items.
  * 4. Modal popups displaying 5-Year Headcount Trends (FY 2022 - FY 2026) per SOE.
+ * 5. Multi-sheet Binary OpenXML (.xlsx) Report Generator across 4 performance categories.
  */
 
 const workforceCategoryData = {
@@ -97,6 +98,29 @@ function initWorkforceChart(containerId) {
         flex-direction: column;
         gap: 14px;
         position: relative;
+      }
+      .workforce-export-toolbar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+      .btn-export-workforce {
+        background: var(--primary-blue);
+        color: #ffffff;
+        border: 1px solid var(--border-color);
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.15s ease;
+      }
+      .btn-export-workforce:hover {
+        background: #1d4ed8;
       }
       .chart-section-title {
         font-size: 11px;
@@ -231,6 +255,14 @@ function initWorkforceChart(containerId) {
     <div id="wfPieTooltip" class="wf-pie-tooltip"></div>
 
     <div class="workforce-chart-card">
+      
+      <!-- Export Toolbar -->
+      <div class="workforce-export-toolbar">
+        <button class="btn-export-workforce" onclick="exportWorkforceMultiSheetExcel()">
+          📥 Export Workforce Report (.xlsx)
+        </button>
+      </div>
+
       <div class="wf-summary-bar">
         <div class="chart-section-title">Public Sector Workforce Share</div>
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -455,25 +487,295 @@ function closeWorkforceModal() {
   document.getElementById('workforceModal').style.display = 'none';
 }
 
-// Two-Way Synchronized Hover Highlight Handler
-function highlightCategory(catId) {
-  removeHighlight();
+// Multi-Worksheet XML-based .xlsx Generator for Workforce Analysis
+async function exportWorkforceMultiSheetExcel() {
+  const currentYear = typeof selectedYear !== 'undefined' ? selectedYear : '2025';
 
-  // Select elements by ID
-  const arc = document.getElementById(`arc-${catId}`);
-  const legend = document.getElementById(`legend-${catId}`);
-  const segment = document.getElementById(`segment-${catId}`);
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yyyy = now.getFullYear();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+  const timestamp = `${dd}${mm}${yyyy}_${hh}${min}${ss}`;
+  const filename = `WorkforceAnalysis_${timestamp}.xlsx`;
 
-  // Add highlighted class to arc, legend item, and bar segment
-  if (arc) arc.classList.add('highlighted');
-  if (legend) legend.classList.add('highlighted');
-  if (segment) segment.classList.add('highlighted');
+  const escapeXML = (str) => String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  const buildWorkforceSheetXML = (title, subtitle, categoryKey) => {
+    let rows = [];
+    let r = 1;
+
+    // Title & Subtitle
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="1"><is><t>${escapeXML(title)}</t></is></c></row>`);
+    r++;
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="2"><is><t>${escapeXML(subtitle)}</t></is></c></row>`);
+    r += 2;
+
+    // Header Row
+    rows.push(`
+      <row r="${r}">
+        <c r="A${r}" t="inlineStr" s="3"><is><t>SOE Name</t></is></c>
+        <c r="B${r}" t="inlineStr" s="3"><is><t>FY 2022</t></is></c>
+        <c r="C${r}" t="inlineStr" s="3"><is><t>FY 2023</t></is></c>
+        <c r="D${r}" t="inlineStr" s="3"><is><t>FY 2024</t></is></c>
+        <c r="E${r}" t="inlineStr" s="3"><is><t>FY 2025</t></is></c>
+        <c r="F${r}" t="inlineStr" s="3"><is><t>FY 2026 (Current)</t></is></c>
+      </row>`);
+    r++;
+
+    const catData = workforceCategoryData[categoryKey];
+    const items = catData ? catData.entities : [];
+
+    items.forEach(item => {
+      const cleanNum = (val) => parseInt(String(val).replace(/[^0-9]/g, ''), 10) || 0;
+
+      rows.push(`
+        <row r="${r}">
+          <c r="A${r}" t="inlineStr" s="4"><is><t>${escapeXML(item.name)}</t></is></c>
+          <c r="B${r}" s="5"><v>${cleanNum(item.y2022)}</v></c>
+          <c r="C${r}" s="5"><v>${cleanNum(item.y2023)}</v></c>
+          <c r="D${r}" s="5"><v>${cleanNum(item.y2024)}</v></c>
+          <c r="E${r}" s="5"><v>${cleanNum(item.y2025)}</v></c>
+          <c r="F${r}" s="5"><v>${cleanNum(item.y2026)}</v></c>
+        </row>`);
+      r++;
+    });
+
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+        <cols>
+          <col min="1" max="1" width="40" customWidth="1"/>
+          <col min="2" max="6" width="18" customWidth="1"/>
+        </cols>
+        <sheetData>${rows.join('')}</sheetData>
+      </worksheet>`;
+  };
+
+  const sheets = [
+    {
+      name: "Strategic Profitable",
+      xml: buildWorkforceSheetXML(
+        "PEDMIS - Strategic Profitable SOE Workforce (5-Year Trend)",
+        `Active Timeframe: FY ${currentYear} | Total Headcount: 78,500 (42.4% of SOE Staff)`,
+        "Workforce - (Strategic SOEs - Net Profit)"
+      )
+    },
+    {
+      name: "Strategic Loss",
+      xml: buildWorkforceSheetXML(
+        "PEDMIS - Strategic Loss SOE Workforce (5-Year Trend)",
+        `Active Timeframe: FY ${currentYear} | Total Headcount: 29,500 (15.9% of SOE Staff)`,
+        "Workforce - (Strategic SOEs - Net Loss)"
+      )
+    },
+    {
+      name: "Non-Strategic Profitable",
+      xml: buildWorkforceSheetXML(
+        "PEDMIS - Non-Strategic Profitable SOE Workforce (5-Year Trend)",
+        `Active Timeframe: FY ${currentYear} | Total Headcount: 42,000 (22.7% of SOE Staff)`,
+        "Workforce - (Non-Strategic SOEs - Net Profit)"
+      )
+    },
+    {
+      name: "Non-Strategic Loss",
+      xml: buildWorkforceSheetXML(
+        "PEDMIS - Non-Strategic Loss SOE Workforce (5-Year Trend)",
+        `Active Timeframe: FY ${currentYear} | Total Headcount: 35,000 (18.9% of SOE Staff)`,
+        "Workforce - (Non-Strategic SOEs - Net Loss)"
+      )
+    }
+  ];
+
+  const stylesXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+      <numFmts count="1">
+        <numFmt numFmtId="164" formatCode="#,##0"/>
+      </numFmts>
+      <fonts count="5">
+        <font><name val="Calibri"/><sz val="11"/></font>
+        <font><b/><name val="Calibri"/><sz val="13"/><color rgb="FF0F172A"/></font>
+        <font><i/><name val="Calibri"/><sz val="10"/><color rgb="FF64748B"/></font>
+        <font><b/><name val="Calibri"/><sz val="11"/><color rgb="FFFFFFFF"/></font>
+        <font><b/><name val="Calibri"/><sz val="11"/></font>
+      </fonts>
+      <fills count="3">
+        <fill><patternFill patternType="none"/></fill>
+        <fill><patternFill patternType="gray125"/></fill>
+        <fill><patternFill patternType="solid"><fgColor rgb="FF1E293B"/></patternFill></fill>
+      </fills>
+      <borders count="2">
+        <border><left/><right/><top/><bottom/></border>
+        <border>
+          <left style="thin"><color rgb="FFCBD5E1"/></left>
+          <right style="thin"><color rgb="FFCBD5E1"/></right>
+          <top style="thin"><color rgb="FFCBD5E1"/></top>
+          <bottom style="thin"><color rgb="FFCBD5E1"/></bottom>
+        </border>
+      </borders>
+      <cellXfs count="6">
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="2" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="3" fillId="2" borderId="1" applyAlignment="1"><alignment horizontal="center"/></xf>
+        <xf numFmtId="0" fontId="4" fillId="0" borderId="1"/>
+        <xf numFmtId="164" fontId="0" fillId="0" borderId="1" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="right"/></xf>
+      </cellXfs>
+    </styleSheet>`;
+
+  const workbookXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+      <sheets>
+        ${sheets.map((s, i) => `<sheet name="${s.name}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('')}
+      </sheets>
+    </workbook>`;
+
+  const workbookRelsXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+      ${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('')}
+      <Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+    </Relationships>`;
+
+  const contentTypesXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+      <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+      <Default Extension="xml" ContentType="application/xml"/>
+      <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
+      <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+      ${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}
+    </Types>`;
+
+  const rootRelsXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+      <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
+    </Relationships>`;
+
+  const zipEntries = [
+    { path: "_rels/.rels", data: rootRelsXML },
+    { path: "[Content_Types].xml", data: contentTypesXML },
+    { path: "xl/workbook.xml", data: workbookXML },
+    { path: "xl/_rels/workbook.xml.rels", data: workbookRelsXML },
+    { path: "xl/styles.xml", data: stylesXML }
+  ];
+
+  sheets.forEach((s, idx) => {
+    zipEntries.push({ path: `xl/worksheets/sheet${idx + 1}.xml`, data: s.xml });
+  });
+
+  const zipBlob = createStandardZipBlob(zipEntries);
+
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(zipBlob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', filename);
+  link.style.visibility = 'hidden';
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
-// Reset Highlight State
-function removeHighlight() {
-  hideWfTooltip();
-  document.querySelectorAll('.wf-donut-svg circle').forEach(c => c.classList.remove('highlighted'));
-  document.querySelectorAll('.wf-legend-item').forEach(l => l.classList.remove('highlighted'));
-  document.querySelectorAll('.wf-segment').forEach(s => s.classList.remove('highlighted'));
+// Lightweight PKZip Packager for .xlsx binary generation
+function createStandardZipBlob(entries) {
+  const crcTable = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) {
+      c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    }
+    crcTable[i] = c;
+  }
+
+  function crc32(buf) {
+    let crc = 0xFFFFFFFF;
+    for (let i = 0; i < buf.length; i++) {
+      crc = (crc >>> 8) ^ crcTable[(crc ^ buf[i]) & 0xFF];
+    }
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  const textEncoder = new TextEncoder();
+  const fileRecords = [];
+  let currentOffset = 0;
+  const parts = [];
+
+  entries.forEach(entry => {
+    const filenameBytes = textEncoder.encode(entry.path);
+    const contentBytes = textEncoder.encode(entry.data);
+    const crc = crc32(contentBytes);
+    const size = contentBytes.length;
+
+    // Local Header
+    const localHeader = new Uint8Array(30 + filenameBytes.length);
+    const view = new DataView(localHeader.buffer);
+    view.setUint32(0, 0x04034b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 0, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint32(14, crc, true);
+    view.setUint32(18, size, true);
+    view.setUint32(22, size, true);
+    view.setUint16(26, filenameBytes.length, true);
+    view.setUint16(28, 0, true);
+    localHeader.set(filenameBytes, 30);
+
+    parts.push(localHeader, contentBytes);
+
+    fileRecords.push({
+      filenameBytes,
+      size,
+      crc,
+      offset: currentOffset
+    });
+
+    currentOffset += localHeader.length + size;
+  });
+
+  const centralDirOffset = currentOffset;
+  let centralDirSize = 0;
+
+  fileRecords.forEach(rec => {
+    const cdHeader = new Uint8Array(46 + rec.filenameBytes.length);
+    const view = new DataView(cdHeader.buffer);
+    view.setUint32(0, 0x02014b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 20, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint16(14, 0, true);
+    view.setUint32(16, rec.crc, true);
+    view.setUint32(20, rec.size, true);
+    view.setUint32(24, rec.size, true);
+    view.setUint16(28, rec.filenameBytes.length, true);
+    view.setUint16(30, 0, true);
+    view.setUint16(32, 0, true);
+    view.setUint16(34, 0, true);
+    view.setUint16(36, 0, true);
+    view.setUint32(38, 0, true);
+    view.setUint32(42, rec.offset, true);
+    cdHeader.set(rec.filenameBytes, 46);
+
+    parts.push(cdHeader);
+    centralDirSize += cdHeader.length;
+  });
+
+  // End of Central Directory
+  const eocd = new Uint8Array(22);
+  const eocdView = new DataView(eocd.buffer);
+  eocdView.setUint32(0, 0x06054b50, true);
+  eocdView.setUint16(4, 0, true);
+  eocdView.setUint16(6, 0, true);
+  eocdView.setUint16(8, fileRecords.length, true);
+  eocdView.setUint16(10, fileRecords.length, true);
+  eocdView.setUint32(12, centralDirSize, true);
+  eocdView.setUint32(16, centralDirOffset, true);
+  eocdView.setUint16(20, 0, true);
+
+  parts.push(eocd);
+
+  return new Blob(parts, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 }

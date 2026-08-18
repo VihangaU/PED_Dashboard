@@ -1,17 +1,15 @@
 /**
  * Audit Opinion Chart Component for PEDMIS Dashboard
- * Renders a Horizontal Stacked Row Graph for Clean, Unclean, and Unavailable Audit Statuses
+ * Renders a Horizontal Stacked Row Graph for Clean, Qualified, Adverse, Disclaimer, and Unavailable Audit Statuses
  * 
  * Classifications:
  * - Clean: True and Fair
- * - Unclean: Qualified / Adverse / Disclaimer
- * - Unavailable: Not Uploaded Yet
+ * - Qualified: Qualified Opinion
+ * - Adverse: Adverse Opinion
+ * - Disclaimer: Disclaimer of Opinion
+ * - Unavailable: Not Uploaded Yet (Displays Latest Available Audit Year & Opinion)
  * 
- * Segregated into 4 performance categories:
- * - Strategic Profitable
- * - Strategic Loss
- * - Non-Strategic Profitable
- * - Non-Strategic Loss
+ * Includes native multi-sheet OpenXML (.xlsx) report generation.
  */
 
 const auditCategoryData = {
@@ -59,53 +57,53 @@ const auditCategoryData = {
     { name: 'Kurunegala Plantations Ltd', category: 'Non-Strategic', opinion: 'True and Fair' }
   ],
 
-  // --- Qualified OPINIONS  ---
+  // --- QUALIFIED OPINIONS ---
   'Qualified Audit Opinions - (Strategic SOEs - Net Profit)': [
     { name: 'State Printing Corporation', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Lanka Phosphate Ltd', category: 'Strategic', opinion: 'Qualified' },
-    { name: 'Sri Lanka Handicrafts Board', category: 'Strategic', opinion: 'Adverse' },
+    { name: 'Sri Lanka Handicrafts Board', category: 'Strategic', opinion: 'Qualified' },
     { name: 'Sri Lanka Ports Management', category: 'Strategic', opinion: 'Qualified' },
-    { name: 'Lanka IOC Share Entity', category: 'Strategic', opinion: 'Disclaimer' },
-    { name: 'Sri Lanka Transport Board', category: 'Strategic', opinion: 'Disclaimer' }
+    { name: 'Lanka IOC Share Entity', category: 'Strategic', opinion: 'Qualified' },
+    { name: 'Sri Lanka Transport Board', category: 'Strategic', opinion: 'Qualified' }
   ],
   'Qualified Audit Opinions - (Strategic SOEs - Net Loss)': [
     { name: 'Ceylon Electricity Board', category: 'Strategic', opinion: 'Qualified' },
-    { name: 'Sri Lanka Railway Dept', category: 'Strategic', opinion: 'Adverse' }
+    { name: 'Sri Lanka Railway Dept', category: 'Strategic', opinion: 'Qualified' }
   ],
   'Qualified Audit Opinions - (Non-Strategic SOEs - Net Profit)': [
-    { name: 'Lanka Cement PLC', category: 'Non-Strategic', opinion: 'Disclaimer' },
+    { name: 'Lanka Cement PLC', category: 'Non-Strategic', opinion: 'Qualified' },
     { name: 'Sri Lanka Rubber Manufacturing', category: 'Non-Strategic', opinion: 'Qualified' },
-    { name: 'Ceylon Fishery Harbours Corp', category: 'Non-Strategic', opinion: 'Adverse' }
+    { name: 'Ceylon Fishery Harbours Corp', category: 'Non-Strategic', opinion: 'Qualified' }
   ],
   'Qualified Audit Opinions - (Non-Strategic SOEs - Net Loss)': [
     { name: 'State Fertilizer Corp', category: 'Non-Strategic', opinion: 'Qualified' }
   ],
 
-  // --- Adverse Opinions  ---
+  // --- ADVERSE OPINIONS ---
   'Adverse Audit Opinions - (Strategic SOEs - Net Profit)': [
-    { name: 'National Water Supply Board', category: 'Non-Strategic', opinion: 'Qualified' },
-    { name: 'Sri Lanka State Trading Corp', category: 'Non-Strategic', opinion: 'Adverse' },
+    { name: 'National Water Supply Board', category: 'Strategic', opinion: 'Adverse' },
+    { name: 'Sri Lanka State Trading Corp', category: 'Strategic', opinion: 'Adverse' }
   ],
   'Adverse Audit Opinions - (Strategic SOEs - Net Loss)': [
-    { name: 'Lanka Coal Company', category: 'Non-Strategic', opinion: 'Adverse' },
+    { name: 'Lanka Coal Company', category: 'Strategic', opinion: 'Adverse' }
   ],
   'Adverse Audit Opinions - (Non-Strategic SOEs - Net Profit)': [
-    { name: 'National Livestock Development Board', category: 'Non-Strategic', opinion: 'Disclaimer' },
-    { name: 'Coast Conservation Dept', category: 'Non-Strategic', opinion: 'Qualified' },
+    { name: 'National Livestock Development Board', category: 'Non-Strategic', opinion: 'Adverse' },
+    { name: 'Coast Conservation Dept', category: 'Non-Strategic', opinion: 'Adverse' }
   ],
   'Adverse Audit Opinions - (Non-Strategic SOEs - Net Loss)': [
-    { name: 'Hotel Developers (Lanka) Ltd', category: 'Non-Strategic', opinion: 'Qualified' },
+    { name: 'Hotel Developers (Lanka) Ltd', category: 'Non-Strategic', opinion: 'Adverse' }
   ],
 
-  // --- Disclaimer Opinions  ---
+  // --- DISCLAIMER OPINIONS ---
   'Disclaimer Audit Opinions - (Strategic SOEs - Net Profit)': [
-    { name: 'Kahawatte Plantations Entity', category: 'Non-Strategic', opinion: 'Adverse' },
-    { name: 'Elpitiya Plantations Entity', category: 'Non-Strategic', opinion: 'Qualified' },
-    { name: 'Chilaw Plantations Ltd', category: 'Non-Strategic', opinion: 'Disclaimer' },
+    { name: 'Kahawatte Plantations Entity', category: 'Strategic', opinion: 'Disclaimer' },
+    { name: 'Elpitiya Plantations Entity', category: 'Strategic', opinion: 'Disclaimer' },
+    { name: 'Chilaw Plantations Ltd', category: 'Strategic', opinion: 'Disclaimer' }
   ],
   'Disclaimer Audit Opinions - (Non-Strategic SOEs - Net Profit)': [
-    { name: 'National Paper Company Entity', category: 'Non-Strategic', opinion: 'Adverse' },
-    { name: 'Ceylon Fertilizer Co Ltd', category: 'Non-Strategic', opinion: 'Qualified' }
+    { name: 'National Paper Company Entity', category: 'Non-Strategic', opinion: 'Disclaimer' },
+    { name: 'Ceylon Fertilizer Co Ltd', category: 'Non-Strategic', opinion: 'Disclaimer' }
   ],
 
   // --- UNAVAILABLE (Not Uploaded Yet) ---
@@ -137,14 +135,28 @@ function initAuditChart(containerId) {
         flex-direction: column;
         gap: 12px;
       }
-      .audit-definitions-bar {
-        font-size: 11px;
-        color: var(--text-muted);
-        line-height: 1.6;
-        background: #ffffff;
-        padding: 8px 12px;
-        border-radius: 6px;
+      .audit-export-toolbar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+      .btn-export-audit {
+        background: var(--primary-blue);
+        color: #ffffff;
         border: 1px solid var(--border-color);
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.15s ease;
+      }
+      .btn-export-audit:hover {
+        background: #1d4ed8;
       }
       .audit-legend-container {
         display: flex;
@@ -237,14 +249,13 @@ function initAuditChart(containerId) {
     </style>
 
     <div class="audit-card-wrapper">
-      <!-- Classification Definitions -->
-      <!--
-      <div class="audit-definitions-bar">
-        <div>• <strong>Clean:</strong> True and Fair</div>
-        <div>• <strong>Unclean:</strong> Qualified / Adverse / Disclaimer</div>
-        <div>• <strong>Unavailable:</strong> Audit Opinion Not Issued</div>
+      
+      <!-- Export Toolbar -->
+      <div class="audit-export-toolbar">
+        <button class="btn-export-audit" onclick="exportAuditOpinionMultiSheetExcel()">
+          📥 Export Audit Opinion Report (.xlsx)
+        </button>
       </div>
-      -->
 
       <!-- Interactive Legend -->
       <div class="audit-legend-container">
@@ -368,7 +379,7 @@ function initAuditChart(containerId) {
         <!-- Row 5: Unavailable (4 Total) -->
         <div class="stacked-row-group">
           <div class="row-label-container">
-            <span class="row-label">Audit Opinion Not Available</span>
+            <span class="row-label">Opinion Unavailable</span>
             <span class="row-total-badge" style="background:#cbd5e1; color:#334155;">4</span>
           </div>
           <div class="stacked-row-track">
@@ -388,7 +399,7 @@ function initAuditChart(containerId) {
 
     <!-- Modal Popup Component for Audit Segments -->
     <div class="modal-overlay" id="auditSegmentModal">
-      <div class="modal">
+      <div class="modal" style="width: 680px; max-width: 90%;">
         <div class="modal-header">
           <h3 id="auditSegmentModalTitle" style="margin:0;">Audit Opinion Category Register</h3>
           <button style="border:none; background:none; font-size:18px; cursor:pointer;" onclick="closeAuditSegmentModal()">&times;</button>
@@ -427,7 +438,7 @@ function removeAuditHighlight() {
   document.querySelectorAll('.audit-legend-item').forEach(el => el.classList.remove('highlighted'));
 }
 
-// Open Paginated Modal
+// Open Paginated Modal (Preserving exact popup columns)
 function openAuditPopup(categoryKey) {
   currentAuditCategoryKey = categoryKey;
   currentAuditPage = 1;
@@ -443,10 +454,10 @@ function renderAuditSegmentPage() {
   tbody.innerHTML = '';
   thead.innerHTML = '';
 
-  const isUnclean = currentAuditCategoryKey.includes('Unavailable');
+  const isUnavailable = currentAuditCategoryKey.includes('Unavailable');
 
-  // Conditional Table Columns based on requirement
-  if (isUnclean) {
+  // Conditional Table Columns
+  if (isUnavailable) {
     thead.innerHTML = `
       <tr>
         <th>SOE Name</th>
@@ -471,11 +482,11 @@ function renderAuditSegmentPage() {
   pageItems.forEach(item => {
     const tr = document.createElement('tr');
 
-    if (isUnclean) {
+    if (isUnavailable) {
       tr.innerHTML = `
         <td><strong>${item.name}</strong></td>
-        <td><strong>${item.year}</strong></td>
-        <td><strong>${item.opinion}</strong></td>
+        <td style="font-weight:600;">${item.year}</td>
+        <td><span class="badge badge-danger">${item.opinion}</span></td>
       `;
     } else {
       tr.innerHTML = `
@@ -504,4 +515,331 @@ function changeAuditSegmentPage(direction) {
 
 function closeAuditSegmentModal() {
   document.getElementById('auditSegmentModal').style.display = 'none';
+}
+
+// Multi-Worksheet XML-based .xlsx Generator for Audit Opinions (Matching existing columns)
+async function exportAuditOpinionMultiSheetExcel() {
+  const currentYear = typeof selectedYear !== 'undefined' ? selectedYear : '2025';
+
+  const now = new Date();
+  const dd = String(now.getDate()).padStart(2, '0');
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const yyyy = now.getFullYear();
+  const hh = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+  const timestamp = `${dd}${mm}${yyyy}_${hh}${min}${ss}`;
+  const filename = `AuditOpinion_${timestamp}.xlsx`;
+
+  const escapeXML = (str) => String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  // Sheet XML builder for standard single-column opinion sheets (Clean, Qualified, Adverse, Disclaimer)
+  const buildSimpleOpinionSheetXML = (title, subtitle, keys) => {
+    let rows = [];
+    let r = 1;
+
+    // Title & Subtitle
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="1"><is><t>${escapeXML(title)}</t></is></c></row>`);
+    r++;
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="2"><is><t>${escapeXML(subtitle)}</t></is></c></row>`);
+    r += 2;
+
+    // Header Row (Matches popup's single column)
+    rows.push(`
+      <row r="${r}">
+        <c r="A${r}" t="inlineStr" s="3"><is><t>SOE Name</t></is></c>
+      </row>`);
+    r++;
+
+    // Data Rows
+    keys.forEach(k => {
+      const items = auditCategoryData[k] || [];
+      items.forEach(item => {
+        rows.push(`
+          <row r="${r}">
+            <c r="A${r}" t="inlineStr" s="4"><is><t>${escapeXML(item.name)}</t></is></c>
+          </row>`);
+        r++;
+      });
+    });
+
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+        <cols>
+          <col min="1" max="1" width="46" customWidth="1"/>
+        </cols>
+        <sheetData>${rows.join('')}</sheetData>
+      </worksheet>`;
+  };
+
+  // Sheet XML builder for Unavailable sheet (Matches popup's 3 columns)
+  const buildUnavailableSheetXML = (title, subtitle, keys) => {
+    let rows = [];
+    let r = 1;
+
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="1"><is><t>${escapeXML(title)}</t></is></c></row>`);
+    r++;
+    rows.push(`<row r="${r}"><c r="A${r}" t="inlineStr" s="2"><is><t>${escapeXML(subtitle)}</t></is></c></row>`);
+    r += 2;
+
+    // 3 Columns Header Row
+    rows.push(`
+      <row r="${r}">
+        <c r="A${r}" t="inlineStr" s="3"><is><t>SOE Name</t></is></c>
+        <c r="B${r}" t="inlineStr" s="3"><is><t>Latest Available Audit Year</t></is></c>
+        <c r="C${r}" t="inlineStr" s="3"><is><t>Latest Available Audit Opinion</t></is></c>
+      </row>`);
+    r++;
+
+    // Data Rows
+    keys.forEach(k => {
+      const items = auditCategoryData[k] || [];
+      items.forEach(item => {
+        rows.push(`
+          <row r="${r}">
+            <c r="A${r}" t="inlineStr" s="4"><is><t>${escapeXML(item.name)}</t></is></c>
+            <c r="B${r}" t="inlineStr" s="5"><is><t>${escapeXML(item.year || '')}</t></is></c>
+            <c r="C${r}" t="inlineStr" s="5"><is><t>${escapeXML(item.opinion || '')}</t></is></c>
+          </row>`);
+        r++;
+      });
+    });
+
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+        <cols>
+          <col min="1" max="1" width="46" customWidth="1"/>
+          <col min="2" max="2" width="28" customWidth="1"/>
+          <col min="3" max="3" width="32" customWidth="1"/>
+        </cols>
+        <sheetData>${rows.join('')}</sheetData>
+      </worksheet>`;
+  };
+
+  const cleanKeys = [
+    'Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Profit)',
+    'Clean Audit Opinions (True and Fair) - (Strategic SOEs - Net Loss)',
+    'Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Profit)',
+    'Clean Audit Opinions (True and Fair) - (Non-Strategic SOEs - Net Loss)'
+  ];
+
+  const qualifiedKeys = [
+    'Qualified Audit Opinions - (Strategic SOEs - Net Profit)',
+    'Qualified Audit Opinions - (Strategic SOEs - Net Loss)',
+    'Qualified Audit Opinions - (Non-Strategic SOEs - Net Profit)',
+    'Qualified Audit Opinions - (Non-Strategic SOEs - Net Loss)'
+  ];
+
+  const adverseKeys = [
+    'Adverse Audit Opinions - (Strategic SOEs - Net Profit)',
+    'Adverse Audit Opinions - (Strategic SOEs - Net Loss)',
+    'Adverse Audit Opinions - (Non-Strategic SOEs - Net Profit)',
+    'Adverse Audit Opinions - (Non-Strategic SOEs - Net Loss)'
+  ];
+
+  const disclaimerKeys = [
+    'Disclaimer Audit Opinions - (Strategic SOEs - Net Profit)',
+    'Disclaimer Audit Opinions - (Non-Strategic SOEs - Net Profit)'
+  ];
+
+  const unavailableKeys = [
+    'Audit Opinion Unavailable (Not Uploaded Yet) - (Strategic SOEs - Net Loss)',
+    'Audit Opinion Unavailable (Not Uploaded Yet) - (Non-Strategic SOEs - Net Loss)'
+  ];
+
+  // 5 Sheets Setup
+  const sheets = [
+    { name: "Clean", xml: buildSimpleOpinionSheetXML("PEDMIS - Clean Audit Opinions (True and Fair)", `Timeframe: FY ${currentYear} | Total Entities: 34`, cleanKeys) },
+    { name: "Qualified", xml: buildSimpleOpinionSheetXML("PEDMIS - Qualified Audit Opinions", `Timeframe: FY ${currentYear} | Total Entities: 12`, qualifiedKeys) },
+    { name: "Adverse", xml: buildSimpleOpinionSheetXML("PEDMIS - Adverse Audit Opinions", `Timeframe: FY ${currentYear} | Total Entities: 6`, adverseKeys) },
+    { name: "Disclaimer", xml: buildSimpleOpinionSheetXML("PEDMIS - Disclaimer Audit Opinions", `Timeframe: FY ${currentYear} | Total Entities: 5`, disclaimerKeys) },
+    { name: "Unavailable", xml: buildUnavailableSheetXML("PEDMIS - Audit Opinion Unavailable (Not Uploaded Yet)", `Timeframe: FY ${currentYear} | Total Entities: 4`, unavailableKeys) }
+  ];
+
+  const stylesXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+      <fonts count="4">
+        <font><name val="Calibri"/><sz val="11"/></font>
+        <font><b/><name val="Calibri"/><sz val="13"/><color rgb="FF0F172A"/></font>
+        <font><i/><name val="Calibri"/><sz val="10"/><color rgb="FF64748B"/></font>
+        <font><b/><name val="Calibri"/><sz val="11"/><color rgb="FFFFFFFF"/></font>
+      </fonts>
+      <fills count="3">
+        <fill><patternFill patternType="none"/></fill>
+        <fill><patternFill patternType="gray125"/></fill>
+        <fill><patternFill patternType="solid"><fgColor rgb="FF1E293B"/></patternFill></fill>
+      </fills>
+      <borders count="2">
+        <border><left/><right/><top/><bottom/></border>
+        <border>
+          <left style="thin"><color rgb="FFCBD5E1"/></left>
+          <right style="thin"><color rgb="FFCBD5E1"/></right>
+          <top style="thin"><color rgb="FFCBD5E1"/></top>
+          <bottom style="thin"><color rgb="FFCBD5E1"/></bottom>
+        </border>
+      </borders>
+      <cellXfs count="6">
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="1" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="2" fillId="0" borderId="0"/>
+        <xf numFmtId="0" fontId="3" fillId="2" borderId="1" applyAlignment="1"><alignment horizontal="center"/></xf>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="1"/>
+        <xf numFmtId="0" fontId="0" fillId="0" borderId="1" applyAlignment="1"><alignment horizontal="center"/></xf>
+      </cellXfs>
+    </styleSheet>`;
+
+  const workbookXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+      <sheets>
+        ${sheets.map((s, i) => `<sheet name="${s.name}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('')}
+      </sheets>
+    </workbook>`;
+
+  const workbookRelsXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+      ${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('')}
+      <Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+    </Relationships>`;
+
+  const contentTypesXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+      <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+      <Default Extension="xml" ContentType="application/xml"/>
+      <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
+      <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+      ${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}
+    </Types>`;
+
+  const rootRelsXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+      <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
+    </Relationships>`;
+
+  const zipEntries = [
+    { path: "_rels/.rels", data: rootRelsXML },
+    { path: "[Content_Types].xml", data: contentTypesXML },
+    { path: "xl/workbook.xml", data: workbookXML },
+    { path: "xl/_rels/workbook.xml.rels", data: workbookRelsXML },
+    { path: "xl/styles.xml", data: stylesXML }
+  ];
+
+  sheets.forEach((s, idx) => {
+    zipEntries.push({ path: `xl/worksheets/sheet${idx + 1}.xml`, data: s.xml });
+  });
+
+  const zipBlob = createStandardZipBlob(zipEntries);
+
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(zipBlob);
+  link.setAttribute('href', url);
+  link.setAttribute('download', filename);
+  link.style.visibility = 'hidden';
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// Lightweight PKZip Packager for .xlsx binary generation
+function createStandardZipBlob(entries) {
+  const crcTable = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) {
+      c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    }
+    crcTable[i] = c;
+  }
+
+  function crc32(buf) {
+    let crc = 0xFFFFFFFF;
+    for (let i = 0; i < buf.length; i++) {
+      crc = (crc >>> 8) ^ crcTable[(crc ^ buf[i]) & 0xFF];
+    }
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  const textEncoder = new TextEncoder();
+  const fileRecords = [];
+  let currentOffset = 0;
+  const parts = [];
+
+  entries.forEach(entry => {
+    const filenameBytes = textEncoder.encode(entry.path);
+    const contentBytes = textEncoder.encode(entry.data);
+    const crc = crc32(contentBytes);
+    const size = contentBytes.length;
+
+    // Local Header
+    const localHeader = new Uint8Array(30 + filenameBytes.length);
+    const view = new DataView(localHeader.buffer);
+    view.setUint32(0, 0x04034b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 0, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint32(14, crc, true);
+    view.setUint32(18, size, true);
+    view.setUint32(22, size, true);
+    view.setUint16(26, filenameBytes.length, true);
+    view.setUint16(28, 0, true);
+    localHeader.set(filenameBytes, 30);
+
+    parts.push(localHeader, contentBytes);
+
+    fileRecords.push({
+      filenameBytes,
+      size,
+      crc,
+      offset: currentOffset
+    });
+
+    currentOffset += localHeader.length + size;
+  });
+
+  const centralDirOffset = currentOffset;
+  let centralDirSize = 0;
+
+  fileRecords.forEach(rec => {
+    const cdHeader = new Uint8Array(46 + rec.filenameBytes.length);
+    const view = new DataView(cdHeader.buffer);
+    view.setUint32(0, 0x02014b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint16(6, 20, true);
+    view.setUint16(8, 0, true);
+    view.setUint16(10, 0, true);
+    view.setUint16(12, 0, true);
+    view.setUint16(14, 0, true);
+    view.setUint32(16, rec.crc, true);
+    view.setUint32(20, rec.size, true);
+    view.setUint32(24, rec.size, true);
+    view.setUint16(28, rec.filenameBytes.length, true);
+    view.setUint16(30, 0, true);
+    view.setUint16(32, 0, true);
+    view.setUint16(34, 0, true);
+    view.setUint16(36, 0, true);
+    view.setUint32(38, 0, true);
+    view.setUint32(42, rec.offset, true);
+    cdHeader.set(rec.filenameBytes, 46);
+
+    parts.push(cdHeader);
+    centralDirSize += cdHeader.length;
+  });
+
+  // End of Central Directory
+  const eocd = new Uint8Array(22);
+  const eocdView = new DataView(eocd.buffer);
+  eocdView.setUint32(0, 0x06054b50, true);
+  eocdView.setUint16(4, 0, true);
+  eocdView.setUint16(6, 0, true);
+  eocdView.setUint16(8, fileRecords.length, true);
+  eocdView.setUint16(10, fileRecords.length, true);
+  eocdView.setUint32(12, centralDirSize, true);
+  eocdView.setUint32(16, centralDirOffset, true);
+  eocdView.setUint16(20, 0, true);
+
+  parts.push(eocd);
+
+  return new Blob(parts, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 }
