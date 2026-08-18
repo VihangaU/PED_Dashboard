@@ -2,6 +2,7 @@
  * Government Revenue & Contributions Component for PEDMIS Dashboard
  * Renders VAT/Duties, CIT, Levy, and Dividend streams.
  * Features:
+ * - Enlarged, UX-friendly card layouts with prominent typography & badges.
  * - Classification divided into 2 separate columns:
  *   1. Strategic Classification (Strategic vs Non-Strategic)
  *   2. Performance Status (Net Profit vs Net Loss)
@@ -126,7 +127,7 @@ function initGovtRevenueChart(containerId) {
       .govt-rev-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
       }
       .govt-export-toolbar {
         display: flex;
@@ -138,9 +139,9 @@ function initGovtRevenueChart(containerId) {
         background: var(--primary-blue);
         color: #ffffff;
         border: 1px solid var(--border-color);
-        padding: 5px 12px;
+        padding: 6px 14px;
         border-radius: 6px;
-        font-size: 11px;
+        font-size: 11.5px;
         font-weight: 700;
         cursor: pointer;
         display: flex;
@@ -154,40 +155,43 @@ function initGovtRevenueChart(containerId) {
       .govt-stream-card {
         background: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px 14px;
+        border-radius: 10px;
+        padding: 16px 20px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
         transition: border-color 0.15s ease, box-shadow 0.15s ease;
       }
       .govt-stream-card.active, .govt-stream-card:hover {
         border-color: var(--primary-blue);
-        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.06);
       }
       .govt-stream-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #f1f5f9;
       }
       .govt-stream-title {
-        font-size: 12px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 800;
         color: var(--text-primary);
       }
       .govt-stream-big-val {
         font-size: 15px;
-        font-weight: 800;
+        font-weight: 900;
+        color: var(--text-primary);
       }
       .govt-sub-badge-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
+        gap: 10px;
       }
       .govt-sub-badge {
-        font-size: 11px;
+        font-size: 11.5px;
         padding: 6px 8px;
-        border-radius: 6px;
+        border-radius: 8px;
         background: var(--accent-bg);
         border: 1px solid var(--border-color);
         cursor: pointer;
@@ -195,12 +199,12 @@ function initGovtRevenueChart(containerId) {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 3px;
+        gap: 4px;
         transition: all 0.15s ease;
       }
       .govt-sub-badge:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
         border-color: var(--primary-blue);
       }
       .govt-sub-badge.strat-prof { border-left: 4px solid var(--strat-color); }
@@ -210,21 +214,23 @@ function initGovtRevenueChart(containerId) {
 
       .govt-badge-label {
         font-size: 10px;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text-muted);
+        line-height: 1.2;
       }
       .govt-badge-val {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 800;
         color: var(--text-primary);
+        margin-top: 2px;
       }
 
       .govt-variance-pill {
-        font-size: 9px;
+        font-size: 10.5px;
         font-weight: 700;
-        padding: 2px 6px;
-        border-radius: 4px;
-        margin-top: 2px;
+        padding: 3px 8px;
+        border-radius: 5px;
+        margin-top: 4px;
         cursor: pointer;
         display: inline-block;
       }
