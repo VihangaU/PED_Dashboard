@@ -293,13 +293,13 @@ function initTotalRevenueChart(containerId) {
                  onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Profit)')"
                  title="Click to view revenue trend for all 25 Strategic Net Profit SOEs">
               <span class="rev-split-label">Net Profit SOEs</span>
-              <span class="rev-split-value">950.000 ⓘ</span>
+              <span class="rev-split-value">950.000</span>
             </div>
             <div class="rev-split-badge loss" 
                  onclick="openRevenueCategoryModal('Total Revenue (Strategic SOEs - Net Loss)')"
                  title="Click to view revenue trend for all 5 Strategic Net Loss SOEs">
               <span class="rev-split-label">Net Loss SOEs</span>
-              <span class="rev-split-value">400.000 ⓘ</span>
+              <span class="rev-split-value">400.000</span>
             </div>
           </div>
         </div>
@@ -323,13 +323,13 @@ function initTotalRevenueChart(containerId) {
                  onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Profit)')"
                  title="Click to view revenue trend for all 20 Non-Strategic Net Profit SOEs">
               <span class="rev-split-label">Net Profit SOEs</span>
-              <span class="rev-split-value">680.000 ⓘ</span>
+              <span class="rev-split-value">680.000</span>
             </div>
             <div class="rev-split-badge loss" 
                  onclick="openRevenueCategoryModal('Total Revenue (Non-Strategic SOEs - Net Loss)')"
                  title="Click to view revenue trend for all 7 Non-Strategic Net Loss SOEs">
               <span class="rev-split-label">Net Loss SOEs</span>
-              <span class="rev-split-value">30.000 ⓘ</span>
+              <span class="rev-split-value">30.000</span>
             </div>
           </div>
         </div>
