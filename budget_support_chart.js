@@ -183,7 +183,7 @@ function initBudgetSupportChart(containerId) {
         justify-content: space-between;
         align-items: center;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text-muted);
       }
       .budget-cat-val {

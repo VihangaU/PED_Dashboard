@@ -271,11 +271,11 @@ function initGovtRevenueChart(containerId) {
             <span class="govt-badge-val">73.500</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('VAT,Duties & Others (Non-Strategic SOEs -Net Profit)', event)">
-            <span class="govt-badge-label">Non-Strat Profit</span>
+            <span class="govt-badge-label">Non-Strategic Profit</span>
             <span class="govt-badge-val">5.500</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('VAT,Duties & Others (Non-Strategic SOEs -Net Loss)', event)">
-            <span class="govt-badge-label">Non-Strat Loss</span>
+            <span class="govt-badge-label">Non-Strategic Loss</span>
             <span class="govt-badge-val">1.000</span>
           </div>
         </div>
@@ -297,11 +297,11 @@ function initGovtRevenueChart(containerId) {
             <span class="govt-badge-val">1.000</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Profit)', event)">
-            <span class="govt-badge-label">Non-Strat Profit</span>
+            <span class="govt-badge-label">Non-Strategic Profit</span>
             <span class="govt-badge-val">12.500</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Corporate Income Tax (CIT)  (Non-Strategic SOEs -Net Loss)', event)">
-            <span class="govt-badge-label">Non-Strat Loss</span>
+            <span class="govt-badge-label">Non-Strategic Loss</span>
             <span class="govt-badge-val">1.000</span>
           </div>
         </div>
@@ -325,12 +325,12 @@ function initGovtRevenueChart(containerId) {
             <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Strategic SOEs - Net Loss)', event)">Deficit: 2.000</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Profit)', event)">
-            <span class="govt-badge-label">Non-Strat Profit</span>
+            <span class="govt-badge-label">Non-Strategic Profit</span>
             <span class="govt-badge-val">6.000</span>
             <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Profit)', event)">Deficit: 0.700</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Levy  (Non-Strategic SOEs -Net Loss)', event)">
-            <span class="govt-badge-label">Non-Strat Loss</span>
+            <span class="govt-badge-label">Non-Strategic Loss</span>
             <span class="govt-badge-val">1.000</span>
             <span class="govt-variance-pill deficit" onclick="openGovtModal('Levy Deficit (Non-Strategic SOEs - Net Loss)', event)">Deficit: 1.300</span>
           </div>
@@ -355,12 +355,12 @@ function initGovtRevenueChart(containerId) {
             <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Strategic SOEs - Net Loss)', event)">Surplus: 0.100</span>
           </div>
           <div class="govt-sub-badge nonstrat-prof" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Profit)', event)">
-            <span class="govt-badge-label">Non-Strat Profit</span>
+            <span class="govt-badge-label">Non-Strategic Profit</span>
             <span class="govt-badge-val">2.000</span>
             <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Profit)', event)">Surplus: 0.200</span>
           </div>
           <div class="govt-sub-badge nonstrat-loss" onclick="openGovtModal('Dividend (Non-Strategic SOEs - Net Loss)', event)">
-            <span class="govt-badge-label">Non-Strat Loss</span>
+            <span class="govt-badge-label">Non-Strategic Loss</span>
             <span class="govt-badge-val">1.000</span>
             <span class="govt-variance-pill surplus" onclick="openGovtModal('Dividend Surplus (Non-Strategic SOEs - Net Loss)', event)">Surplus: 0.050</span>
           </div>
