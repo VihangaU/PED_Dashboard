@@ -256,7 +256,7 @@ function initSOEPerformanceChart(containerId) {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 10px;
+        font-size: 12px;
         padding: 3px 6px;
         border-radius: 4px;
         background: var(--accent-bg);
@@ -388,7 +388,7 @@ function initSOEPerformanceChart(containerId) {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 9px;
+        font-size: 10px;
         font-weight: 800;
         color: #ffffff;
         padding: 0 4px;
@@ -479,14 +479,14 @@ function initSOEPerformanceChart(containerId) {
                onclick="openSoeTrendModal('Commercial Corporation Register (17 SOEs)')"
                onmouseenter="highlightFuncStatus('comm')" onmouseleave="removeFuncHighlight()"
                title="Click to view all 17 Commercial Corporations">
-            <span><span class="soe-func-dot" style="background:#059669;"></span>Commercial Corp</span>
+            <span><span class="soe-func-dot" style="background:#059669;"></span>Commercial Corporation</span>
             <strong>17 (27.9%)</strong>
           </div>
           <div class="soe-func-legend-item" id="legend-func-noncomm"
                onclick="openSoeTrendModal('Non-Commercial Corporation Register (16 SOEs)')"
                onmouseenter="highlightFuncStatus('noncomm')" onmouseleave="removeFuncHighlight()"
                title="Click to view all 16 Non-Commercial Corporations">
-            <span><span class="soe-func-dot" style="background:#d97706;"></span>Non-Comm Corp</span>
+            <span><span class="soe-func-dot" style="background:#d97706;"></span>Non-Commercial Corporation</span>
             <strong>16 (26.2%)</strong>
           </div>
           <div class="soe-func-legend-item" id="legend-func-nonfunc" style="background:#fee2e2; border-color:#fecaca;"
