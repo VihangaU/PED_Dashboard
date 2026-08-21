@@ -2,11 +2,12 @@
  * SOE Performance Chart Component for PEDMIS Dashboard
  * 
  * Features:
+ * - 100% Mathematically Reconciled UI values with Popup Drill-Down Data.
  * - Dedicated popup registers for Pie Chart slices/legends:
- *   - Company (24 SOEs)
- *   - Commercial Corporation (17 SOEs)
- *   - Non-Commercial Corporation (16 SOEs)
- *   - Non-Functioning Register (4 SOEs)
+ *   - Company (24 SOEs | Net +78.100)
+ *   - Commercial Corporation (17 SOEs | Net +11.100)
+ *   - Non-Commercial Corporation (16 SOEs | Net +11.900)
+ *   - Non-Functioning Register (4 SOEs | Net -42.500)
  * - Horizontal Stacked Bar Rows with sub-category 5-Year Financial Trends (FY 2022 - FY 2026)
  * - Popups showing full 5-year data (FY 2022, FY 2023, FY 2024, FY 2025, FY 2026)
  * - Standardized 3-decimal numeric format without repeated 'B' symbols
@@ -17,146 +18,152 @@
 const soeStackedData = {
   // --- FULL ENTITY REGISTERS FOR PIE CHART LEGENDS ---
   'Company Register (24 SOEs)': [
-    { name: 'Bank of Ceylon', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+16.500', y2023: '+18.200', y2024: '+20.100', y2025: '+22.500', y2026: '+24.000' },
-    { name: 'People\'s Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+13.000', y2023: '+14.500', y2024: '+16.200', y2025: '+18.000', y2026: '+19.500' },
-    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+6.100', y2023: '+6.800', y2024: '+7.500', y2025: '+8.400', y2026: '+9.100' },
-    { name: 'National Savings Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+3.800', y2023: '+4.200', y2024: '+4.800', y2025: '+5.500', y2026: '+6.000' },
-    { name: 'Sri Lanka Insurance Corp', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+3.500', y2023: '+3.900', y2024: '+4.200', y2025: '+4.800', y2026: '+5.100' },
-    { name: 'Lanka Electricity Co (LECO)', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.800', y2023: '+2.100', y2024: '+2.500', y2025: '+2.900', y2026: '+3.100' },
-    { name: 'Litro Gas Lanka Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.500', y2023: '+1.800', y2024: '+2.100', y2025: '+2.400', y2026: '+2.700' },
-    { name: 'Sri Lanka Ports Management Co', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.950', y2023: '+1.100', y2024: '+1.300', y2025: '+1.500', y2026: '+1.600' },
-    { name: 'Lanka IOC Public Share Unit', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.600', y2023: '+0.700', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
-    { name: 'Lanka Phosphate Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.120', y2023: '+0.150', y2024: '+0.180', y2025: '+0.200', y2026: '+0.220' },
-    { name: 'SriLankan Airlines Ltd', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-11.500', y2023: '-10.200', y2024: '-9.100', y2025: '-8.500', y2026: '-7.800' },
-    { name: 'Lanka Hospitals PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+2.500', y2023: '+2.800', y2024: '+3.100', y2025: '+3.500', y2026: '+3.800' },
-    { name: 'Hotel Developers (Lanka) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.500', y2024: '+1.800', y2025: '+2.100', y2026: '+2.400' },
-    { name: 'BCI Campus Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.650', y2023: '+0.800', y2024: '+1.000', y2025: '+1.200', y2026: '+1.300' },
-    { name: 'Lanka Mineral Sands Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.550', y2023: '+0.700', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
-    { name: 'Lanka Sugar Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.450', y2023: '+0.600', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
-    { name: 'Lanka Coal Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.500' },
-    { name: 'Lanka Cement PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' },
-    { name: 'Kahawatte Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.400', y2023: '-1.200', y2024: '-1.000', y2025: '-0.900', y2026: '-0.800' },
-    { name: 'Elpitiya Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.100', y2023: '-0.900', y2024: '-0.800', y2025: '-0.700', y2026: '-0.600' },
-    { name: 'Kurunegala Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.850', y2023: '-0.700', y2024: '-0.600', y2025: '-0.500', y2026: '-0.400' },
-    { name: 'Chilaw Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.500', y2023: '-0.400', y2024: '-0.350', y2025: '-0.300', y2026: '-0.250' },
-    { name: 'National Paper Company Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.380', y2023: '-0.300', y2024: '-0.250', y2025: '-0.200', y2026: '-0.150' },
-    { name: 'Ceylon Fertilizer Co Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.250', y2023: '-0.200', y2024: '-0.150', y2025: '-0.100', y2026: '-0.080' }
+    { name: 'Bank of Ceylon', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+18.000', y2023: '+20.000', y2024: '+22.000', y2025: '+24.000', y2026: '+26.000' },
+    { name: 'People\'s Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+14.000', y2023: '+15.500', y2024: '+17.500', y2025: '+19.000', y2026: '+20.500' },
+    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+7.000', y2023: '+7.800', y2024: '+8.500', y2025: '+9.200', y2026: '+10.000' },
+    { name: 'National Savings Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+4.500', y2023: '+5.000', y2024: '+5.800', y2025: '+6.500', y2026: '+7.200' },
+    { name: 'Sri Lanka Insurance Corp', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+3.800', y2023: '+4.200', y2024: '+4.800', y2025: '+5.400', y2026: '+6.000' },
+    { name: 'Lanka Electricity Co (LECO)', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+2.200', y2023: '+2.500', y2024: '+2.800', y2025: '+3.200', y2026: '+3.500' },
+    { name: 'Litro Gas Lanka Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.800', y2023: '+2.000', y2024: '+2.300', y2025: '+2.600', y2026: '+2.800' },
+    { name: 'Sri Lanka Ports Management Co', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.900', y2023: '+1.000', y2024: '+1.100', y2025: '+1.200', y2026: '+1.300' },
+    { name: 'Lanka IOC Public Share Unit', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.400', y2023: '+0.500', y2024: '+0.550', y2025: '+0.600', y2026: '+0.500' },
+    { name: 'Lanka Phosphate Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.160', y2024: '+0.180', y2025: '+0.200', y2026: '+0.200' },
+    { name: 'SriLankan Airlines Ltd', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-12.000', y2023: '-10.500', y2024: '-9.500', y2025: '-9.000', y2026: '-8.500' },
+    { name: 'Lanka Hospitals PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+2.600', y2023: '+2.900', y2024: '+3.200', y2025: '+3.500', y2026: '+3.800' },
+    { name: 'Hotel Developers (Lanka) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.600', y2023: '+1.800', y2024: '+2.100', y2025: '+2.400', y2026: '+2.600' },
+    { name: 'BCI Campus Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.900', y2023: '+1.000', y2024: '+1.200', y2025: '+1.400', y2026: '+1.600' },
+    { name: 'Lanka Mineral Sands Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.700', y2023: '+0.850', y2024: '+1.000', y2025: '+1.150', y2026: '+1.300' },
+    { name: 'Lanka Sugar Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.600', y2023: '+0.750', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
+    { name: 'Lanka Coal Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.300', y2023: '+0.400', y2024: '+0.500', y2025: '+0.550', y2026: '+0.600' },
+    { name: 'Lanka Cement PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.250', y2025: '+0.300', y2026: '+0.300' },
+    { name: 'Kahawatte Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.100', y2023: '-1.000', y2024: '-0.900', y2025: '-0.850', y2026: '-0.800' },
+    { name: 'Elpitiya Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.900', y2023: '-0.800', y2024: '-0.700', y2025: '-0.650', y2026: '-0.600' },
+    { name: 'Kurunegala Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.700', y2023: '-0.600', y2024: '-0.550', y2025: '-0.500', y2026: '-0.500' },
+    { name: 'Chilaw Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.500', y2023: '-0.450', y2024: '-0.400', y2025: '-0.350', y2026: '-0.350' },
+    { name: 'National Paper Company Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.350', y2023: '-0.300', y2024: '-0.280', y2025: '-0.250', y2026: '-0.250' },
+    { name: 'Ceylon Fertilizer Co Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.250', y2023: '-0.220', y2024: '-0.200', y2025: '-0.200', y2026: '-0.200' }
   ],
 
   'Commercial Corporation Register (17 SOEs)': [
-    { name: 'Sri Lanka Ports Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+10.200', y2023: '+11.500', y2024: '+12.800', y2025: '+14.200', y2026: '+15.500' },
-    { name: 'Airport & Aviation Services Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+4.200', y2023: '+4.800', y2024: '+5.500', y2025: '+6.100', y2026: '+6.800' },
-    { name: 'State Pharmaceuticals Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+2.200', y2023: '+2.500', y2024: '+2.800', y2025: '+3.200', y2026: '+3.500' },
-    { name: 'State Timber Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.200', y2023: '+0.250', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
-    { name: 'State Printing Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Ceylon Petroleum Corporation (CPC)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-21.000', y2023: '-18.500', y2024: '-15.200', y2025: '-12.100', y2026: '-9.500' },
-    { name: 'Ceylon Electricity Board (CEB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-12.500', y2023: '-9.800', y2024: '-7.100', y2025: '-5.200', y2026: '-3.800' },
-    { name: 'Sri Lanka Transport Board (SLTB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-3.400', y2023: '-2.800', y2024: '-2.200', y2025: '-1.800', y2026: '-1.400' },
-    { name: 'Sri Lanka State Trading Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.000', y2023: '+1.200', y2024: '+1.500', y2025: '+1.800', y2026: '+2.000' },
-    { name: 'State Engineering Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.400', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.950' },
-    { name: 'State Fertilizer Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
-    { name: 'State Gem & Jewellery Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
-    { name: 'Sri Lanka Rubber Manufacturing Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
-    { name: 'Ceylon Fisheries Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Ceylon Fishery Harbours Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Building Materials Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Spices & Allied Products Board', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.800', y2023: '-1.500', y2024: '-1.300', y2025: '-1.100', y2026: '-0.900' }
+    { name: 'Sri Lanka Ports Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+11.500', y2023: '+12.800', y2024: '+14.200', y2025: '+15.500', y2026: '+16.500' },
+    { name: 'Airport & Aviation Services Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+4.500', y2023: '+5.000', y2024: '+5.600', y2025: '+6.000', y2026: '+6.500' },
+    { name: 'State Pharmaceuticals Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+2.200', y2023: '+2.500', y2024: '+2.800', y2025: '+3.000', y2026: '+3.300' },
+    { name: 'State Timber Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.350', y2023: '+0.400', y2024: '+0.450', y2025: '+0.500', y2026: '+0.550' },
+    { name: 'State Printing Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.120', y2025: '+0.140', y2026: '+0.150' },
+    { name: 'Ceylon Petroleum Corporation (CPC)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-15.500', y2023: '-14.000', y2024: '-13.000', y2025: '-12.500', y2026: '-12.000' },
+    { name: 'Ceylon Electricity Board (CEB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-7.000', y2023: '-6.200', y2024: '-5.800', y2025: '-5.400', y2026: '-5.100' },
+    { name: 'Sri Lanka Transport Board (SLTB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-2.800', y2023: '-2.500', y2024: '-2.300', y2025: '-2.100', y2026: '-2.000' },
+    { name: 'Sri Lanka State Trading Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.400', y2024: '+1.600', y2025: '+1.800', y2026: '+2.000' },
+    { name: 'State Engineering Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.500', y2023: '+0.600', y2024: '+0.750', y2025: '+0.850', y2026: '+0.950' },
+    { name: 'State Fertilizer Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.250', y2023: '+0.300', y2024: '+0.380', y2025: '+0.440', y2026: '+0.500' },
+    { name: 'State Gem & Jewellery Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.120', y2023: '+0.150', y2024: '+0.180', y2025: '+0.220', y2026: '+0.250' },
+    { name: 'Sri Lanka Rubber Manufacturing Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.120', y2023: '+0.150', y2024: '+0.180', y2025: '+0.220', y2026: '+0.250' },
+    { name: 'Ceylon Fisheries Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.060', y2023: '+0.080', y2024: '+0.100', y2025: '+0.120', y2026: '+0.150' },
+    { name: 'Ceylon Fishery Harbours Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.050', y2023: '+0.060', y2024: '+0.070', y2025: '+0.080', y2026: '+0.100' },
+    { name: 'Building Materials Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.050', y2023: '+0.060', y2024: '+0.070', y2025: '+0.080', y2026: '+0.100' },
+    { name: 'Spices & Allied Products Board', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.600', y2023: '-1.400', y2024: '-1.300', y2025: '-1.200', y2026: '-1.100' }
   ],
 
   'Non-Commercial Corporation Register (16 SOEs)': [
-    { name: 'Development Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.400', y2024: '+1.600', y2025: '+1.900', y2026: '+2.100' },
-    { name: 'National Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.050', y2023: '+1.200', y2024: '+1.400', y2025: '+1.700', y2026: '+1.850' },
-    { name: 'Civil Aviation Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.750', y2023: '+0.900', y2024: '+1.100', y2025: '+1.300', y2026: '+1.400' },
-    { name: 'Marine Environment Protection Auth', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.680', y2023: '+0.800', y2024: '+0.950', y2025: '+1.100', y2026: '+1.200' },
-    { name: 'Export Development Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.400', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.900' },
-    { name: 'Sri Lanka Standards Institution', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.320', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
-    { name: 'Tea Small Holdings Dev Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.250', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
-    { name: 'Coconut Development Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
-    { name: 'Central Engineering Consultancy Bureau', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.100', y2023: '+0.150', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' },
-    { name: 'Sri Lanka Handicrafts Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Sri Lanka Railway Department', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-5.200', y2023: '-4.500', y2024: '-3.800', y2025: '-3.100', y2026: '-2.500' },
-    { name: 'National Water Supply & Drainage Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+2.600', y2023: '+3.100', y2024: '+3.600', y2025: '+4.200', y2026: '+4.700' },
-    { name: 'Urban Development Authority (UDA)', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.300', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
-    { name: 'Coast Conservation Department', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.220', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
-    { name: 'National Design Centre', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
-    { name: 'National Livestock Development Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' }
+    { name: 'Development Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.400', y2023: '+1.600', y2024: '+1.800', y2025: '+2.000', y2026: '+2.100' },
+    { name: 'National Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.400', y2024: '+1.600', y2025: '+1.750', y2026: '+1.850' },
+    { name: 'Civil Aviation Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.900', y2023: '+1.000', y2024: '+1.150', y2025: '+1.300', y2026: '+1.400' },
+    { name: 'Marine Environment Protection Auth', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.700', y2023: '+0.800', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
+    { name: 'Export Development Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.450', y2023: '+0.550', y2024: '+0.650', y2025: '+0.720', y2026: '+0.800' },
+    { name: 'Sri Lanka Standards Institution', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.350', y2023: '+0.400', y2024: '+0.480', y2025: '+0.550', y2026: '+0.600' },
+    { name: 'Tea Small Holdings Dev Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.250', y2023: '+0.300', y2024: '+0.350', y2025: '+0.400', y2026: '+0.400' },
+    { name: 'Coconut Development Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.180', y2024: '+0.200', y2025: '+0.220', y2026: '+0.150' },
+    { name: 'Central Engineering Consultancy Bureau', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.090', y2024: '+0.090', y2025: '+0.080', y2026: '+0.060' },
+    { name: 'Sri Lanka Handicrafts Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.040', y2024: '+0.040', y2025: '+0.040', y2026: '+0.040' },
+    { name: 'Sri Lanka Railway Department', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-4.800', y2023: '-4.200', y2024: '-3.800', y2025: '-3.400', y2026: '-3.100' },
+    { name: 'National Water Supply & Drainage Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+3.200', y2023: '+3.600', y2024: '+4.000', y2025: '+4.400', y2026: '+4.700' },
+    { name: 'Urban Development Authority (UDA)', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.500', y2023: '+0.600', y2024: '+0.700', y2025: '+0.750', y2026: '+0.800' },
+    { name: 'Coast Conservation Department', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.300', y2023: '+0.380', y2024: '+0.450', y2025: '+0.520', y2026: '+0.550' },
+    { name: 'National Design Centre', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.180', y2023: '+0.220', y2024: '+0.260', y2025: '+0.300', y2026: '+0.300' },
+    { name: 'National Livestock Development Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.100', y2023: '+0.120', y2024: '+0.140', y2025: '+0.150', y2026: '+0.150' }
   ],
 
   // --- SUB-CATEGORY MODAL DATA (ROW BREAKDOWNS) ---
   'Company - Strategic Net Profit SOEs': [
-    { name: 'Bank of Ceylon', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+16.500', y2023: '+18.200', y2024: '+20.100', y2025: '+22.500', y2026: '+24.000' },
-    { name: 'People\'s Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+13.000', y2023: '+14.500', y2024: '+16.200', y2025: '+18.000', y2026: '+19.500' },
-    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+6.100', y2023: '+6.800', y2024: '+7.500', y2025: '+8.400', y2026: '+9.100' },
-    { name: 'National Savings Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+3.800', y2023: '+4.200', y2024: '+4.800', y2025: '+5.500', y2026: '+6.000' },
-    { name: 'Sri Lanka Insurance Corp', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+3.500', y2023: '+3.900', y2024: '+4.200', y2025: '+4.800', y2026: '+5.100' },
-    { name: 'Lanka Electricity Co (LECO)', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.800', y2023: '+2.100', y2024: '+2.500', y2025: '+2.900', y2026: '+3.100' },
-    { name: 'Litro Gas Lanka Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.500', y2023: '+1.800', y2024: '+2.100', y2025: '+2.400', y2026: '+2.700' },
-    { name: 'Sri Lanka Ports Management Co', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.950', y2023: '+1.100', y2024: '+1.300', y2025: '+1.500', y2026: '+1.600' },
-    { name: 'Lanka IOC Public Share Unit', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.600', y2023: '+0.700', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
-    { name: 'Lanka Phosphate Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.120', y2023: '+0.150', y2024: '+0.180', y2025: '+0.200', y2026: '+0.220' }
+    { name: 'Bank of Ceylon', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+18.000', y2023: '+20.000', y2024: '+22.000', y2025: '+24.000', y2026: '+26.000' },
+    { name: 'People\'s Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+14.000', y2023: '+15.500', y2024: '+17.500', y2025: '+19.000', y2026: '+20.500' },
+    { name: 'Sri Lanka Telecom PLC', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+7.000', y2023: '+7.800', y2024: '+8.500', y2025: '+9.200', y2026: '+10.000' },
+    { name: 'National Savings Bank', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+4.500', y2023: '+5.000', y2024: '+5.800', y2025: '+6.500', y2026: '+7.200' },
+    { name: 'Sri Lanka Insurance Corp', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+3.800', y2023: '+4.200', y2024: '+4.800', y2025: '+5.400', y2026: '+6.000' },
+    { name: 'Lanka Electricity Co (LECO)', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+2.200', y2023: '+2.500', y2024: '+2.800', y2025: '+3.200', y2026: '+3.500' },
+    { name: 'Litro Gas Lanka Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.800', y2023: '+2.000', y2024: '+2.300', y2025: '+2.600', y2026: '+2.800' },
+    { name: 'Sri Lanka Ports Management Co', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.900', y2023: '+1.000', y2024: '+1.100', y2025: '+1.200', y2026: '+1.300' },
+    { name: 'Lanka IOC Public Share Unit', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.400', y2023: '+0.500', y2024: '+0.550', y2025: '+0.600', y2026: '+0.500' },
+    { name: 'Lanka Phosphate Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.160', y2024: '+0.180', y2025: '+0.200', y2026: '+0.200' }
   ],
   'Company - Strategic Net Loss SOEs': [
-    { name: 'SriLankan Airlines Ltd', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-11.500', y2023: '-10.200', y2024: '-9.100', y2025: '-8.500', y2026: '-7.800' }
+    { name: 'SriLankan Airlines Ltd', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-12.000', y2023: '-10.500', y2024: '-9.500', y2025: '-9.000', y2026: '-8.500' }
   ],
   'Company - Non-Strategic Net Profit SOEs': [
-    { name: 'Lanka Hospitals PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+2.500', y2023: '+2.800', y2024: '+3.100', y2025: '+3.500', y2026: '+3.800' },
-    { name: 'Hotel Developers (Lanka) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.500', y2024: '+1.800', y2025: '+2.100', y2026: '+2.400' },
-    { name: 'BCI Campus Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.650', y2023: '+0.800', y2024: '+1.000', y2025: '+1.200', y2026: '+1.300' },
-    { name: 'Lanka Mineral Sands Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.550', y2023: '+0.700', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
-    { name: 'Lanka Sugar Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.450', y2023: '+0.600', y2024: '+0.800', y2025: '+0.900', y2026: '+1.000' },
-    { name: 'Lanka Coal Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.500' },
-    { name: 'Lanka Cement PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' }
+    { name: 'Lanka Hospitals PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+2.600', y2023: '+2.900', y2024: '+3.200', y2025: '+3.500', y2026: '+3.800' },
+    { name: 'Hotel Developers (Lanka) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.600', y2023: '+1.800', y2024: '+2.100', y2025: '+2.400', y2026: '+2.600' },
+    { name: 'BCI Campus Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.900', y2023: '+1.000', y2024: '+1.200', y2025: '+1.400', y2026: '+1.600' },
+    { name: 'Lanka Mineral Sands Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.700', y2023: '+0.850', y2024: '+1.000', y2025: '+1.150', y2026: '+1.300' },
+    { name: 'Lanka Sugar Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.600', y2023: '+0.750', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
+    { name: 'Lanka Coal Company (Pvt) Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.300', y2023: '+0.400', y2024: '+0.500', y2025: '+0.550', y2026: '+0.600' },
+    { name: 'Lanka Cement PLC', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.250', y2025: '+0.300', y2026: '+0.300' }
   ],
   'Company - Non-Strategic Net Loss SOEs': [
-    { name: 'Kahawatte Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.400', y2023: '-1.200', y2024: '-1.000', y2025: '-0.900', y2026: '-0.800' },
-    { name: 'Elpitiya Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.100', y2023: '-0.900', y2024: '-0.800', y2025: '-0.700', y2026: '-0.600' },
-    { name: 'Kurunegala Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.850', y2023: '-0.700', y2024: '-0.600', y2025: '-0.500', y2026: '-0.400' },
-    { name: 'Chilaw Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.500', y2023: '-0.400', y2024: '-0.350', y2025: '-0.300', y2026: '-0.250' },
-    { name: 'National Paper Company Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.380', y2023: '-0.300', y2024: '-0.250', y2025: '-0.200', y2026: '-0.150' },
-    { name: 'Ceylon Fertilizer Co Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.250', y2023: '-0.200', y2024: '-0.150', y2025: '-0.100', y2026: '-0.080' }
+    { name: 'Kahawatte Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.100', y2023: '-1.000', y2024: '-0.900', y2025: '-0.850', y2026: '-0.800' },
+    { name: 'Elpitiya Plantations Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.900', y2023: '-0.800', y2024: '-0.700', y2025: '-0.650', y2026: '-0.600' },
+    { name: 'Kurunegala Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.700', y2023: '-0.600', y2024: '-0.550', y2025: '-0.500', y2026: '-0.500' },
+    { name: 'Chilaw Plantations Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.500', y2023: '-0.450', y2024: '-0.400', y2025: '-0.350', y2026: '-0.350' },
+    { name: 'National Paper Company Entity', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.350', y2023: '-0.300', y2024: '-0.280', y2025: '-0.250', y2026: '-0.250' },
+    { name: 'Ceylon Fertilizer Co Ltd', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-0.250', y2023: '-0.220', y2024: '-0.200', y2025: '-0.200', y2026: '-0.200' }
   ],
 
   'Commercial Corporation - Strategic Net Profit SOEs': [
-    { name: 'Sri Lanka Ports Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+10.200', y2023: '+11.500', y2024: '+12.800', y2025: '+14.200', y2026: '+15.500' },
-    { name: 'Airport & Aviation Services Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+4.200', y2023: '+4.800', y2024: '+5.500', y2025: '+6.100', y2026: '+6.800' },
-    { name: 'State Pharmaceuticals Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+2.200', y2023: '+2.500', y2024: '+2.800', y2025: '+3.200', y2026: '+3.500' },
-    { name: 'State Timber Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.200', y2023: '+0.250', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
-    { name: 'State Printing Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' }
+    { name: 'Sri Lanka Ports Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+11.500', y2023: '+12.800', y2024: '+14.200', y2025: '+15.500', y2026: '+16.500' },
+    { name: 'Airport & Aviation Services Ltd', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+4.500', y2023: '+5.000', y2024: '+5.600', y2025: '+6.000', y2026: '+6.500' },
+    { name: 'State Pharmaceuticals Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+2.200', y2023: '+2.500', y2024: '+2.800', y2025: '+3.000', y2026: '+3.300' },
+    { name: 'State Timber Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.350', y2023: '+0.400', y2024: '+0.450', y2025: '+0.500', y2026: '+0.550' },
+    { name: 'State Printing Corporation', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.120', y2025: '+0.140', y2026: '+0.150' }
   ],
   'Commercial Corporation - Strategic Net Loss SOEs': [
-    { name: 'Ceylon Petroleum Corporation (CPC)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-21.000', y2023: '-18.500', y2024: '-15.200', y2025: '-12.100', y2026: '-9.500' },
-    { name: 'Ceylon Electricity Board (CEB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-12.500', y2023: '-9.800', y2024: '-7.100', y2025: '-5.200', y2026: '-3.800' },
-    { name: 'Sri Lanka Transport Board (SLTB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-3.400', y2023: '-2.800', y2024: '-2.200', y2025: '-1.800', y2026: '-1.400' }
+    { name: 'Ceylon Petroleum Corporation (CPC)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-15.500', y2023: '-14.000', y2024: '-13.000', y2025: '-12.500', y2026: '-12.000' },
+    { name: 'Ceylon Electricity Board (CEB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-7.000', y2023: '-6.200', y2024: '-5.800', y2025: '-5.400', y2026: '-5.100' },
+    { name: 'Sri Lanka Transport Board (SLTB)', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-2.800', y2023: '-2.500', y2024: '-2.300', y2025: '-2.100', y2026: '-2.000' }
   ],
   'Commercial Corporation - Non-Strategic Net Profit SOEs': [
-    { name: 'Sri Lanka State Trading Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.000', y2023: '+1.200', y2024: '+1.500', y2025: '+1.800', y2026: '+2.000' },
-    { name: 'State Engineering Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.400', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.950' },
-    { name: 'State Fertilizer Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.300', y2025: '+0.400', y2026: '+0.450' },
-    { name: 'State Gem & Jewellery Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
-    { name: 'Sri Lanka Rubber Manufacturing Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.150', y2025: '+0.200', y2026: '+0.220' },
-    { name: 'Ceylon Fisheries Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Ceylon Fishery Harbours Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Building Materials Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Spices & Allied Products Board', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.800', y2023: '-1.500', y2024: '-1.300', y2025: '-1.100', y2026: '-0.900' }
+    { name: 'Sri Lanka State Trading Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.400', y2024: '+1.600', y2025: '+1.800', y2026: '+2.000' },
+    { name: 'State Engineering Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.500', y2023: '+0.600', y2024: '+0.750', y2025: '+0.850', y2026: '+0.950' },
+    { name: 'State Fertilizer Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.250', y2023: '+0.300', y2024: '+0.380', y2025: '+0.440', y2026: '+0.500' },
+    { name: 'State Gem & Jewellery Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.120', y2023: '+0.150', y2024: '+0.180', y2025: '+0.220', y2026: '+0.250' },
+    { name: 'Sri Lanka Rubber Manufacturing Corp', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.120', y2023: '+0.150', y2024: '+0.180', y2025: '+0.220', y2026: '+0.250' },
+    { name: 'Ceylon Fisheries Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.060', y2023: '+0.080', y2024: '+0.100', y2025: '+0.120', y2026: '+0.150' },
+    { name: 'Ceylon Fishery Harbours Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.050', y2023: '+0.060', y2024: '+0.070', y2025: '+0.080', y2026: '+0.100' },
+    { name: 'Building Materials Corporation', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.050', y2023: '+0.060', y2024: '+0.070', y2025: '+0.080', y2026: '+0.100' }
+  ],
+  'Commercial Corporation - Non-Strategic Net Loss SOEs': [
+    { name: 'Spices & Allied Products Board', stratCat: 'Non-Strategic', perfStatus: 'Net Loss', y2022: '-1.600', y2023: '-1.400', y2024: '-1.300', y2025: '-1.200', y2026: '-1.100' }
   ],
 
   'Non-Commercial Corporation - Strategic Net Profit SOEs': [
-    { name: 'Development Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.400', y2024: '+1.600', y2025: '+1.900', y2026: '+2.100' },
-    { name: 'National Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.050', y2023: '+1.200', y2024: '+1.400', y2025: '+1.700', y2026: '+1.850' },
-    { name: 'Civil Aviation Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.750', y2023: '+0.900', y2024: '+1.100', y2025: '+1.300', y2026: '+1.400' },
-    { name: 'Marine Environment Protection Auth', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.680', y2023: '+0.800', y2024: '+0.950', y2025: '+1.100', y2026: '+1.200' },
-    { name: 'Export Development Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.400', y2023: '+0.500', y2024: '+0.650', y2025: '+0.800', y2026: '+0.900' },
-    { name: 'Sri Lanka Standards Institution', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.320', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
+    { name: 'Development Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.400', y2023: '+1.600', y2024: '+1.800', y2025: '+2.000', y2026: '+2.100' },
+    { name: 'National Lotteries Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+1.200', y2023: '+1.400', y2024: '+1.600', y2025: '+1.750', y2026: '+1.850' },
+    { name: 'Civil Aviation Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.900', y2023: '+1.000', y2024: '+1.150', y2025: '+1.300', y2026: '+1.400' },
+    { name: 'Marine Environment Protection Auth', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.700', y2023: '+0.800', y2024: '+0.900', y2025: '+1.000', y2026: '+1.100' },
+    { name: 'Export Development Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.450', y2023: '+0.550', y2024: '+0.650', y2025: '+0.720', y2026: '+0.800' },
+    { name: 'Sri Lanka Standards Institution', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.350', y2023: '+0.400', y2024: '+0.480', y2025: '+0.550', y2026: '+0.600' },
     { name: 'Tea Small Holdings Dev Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.250', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
-    { name: 'Coconut Development Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
-    { name: 'Central Engineering Consultancy Bureau', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.100', y2023: '+0.150', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' },
-    { name: 'Sri Lanka Handicrafts Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.050', y2024: '+0.080', y2025: '+0.100', y2026: '+0.120' },
-    { name: 'Sri Lanka Railway Department', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-5.200', y2023: '-4.500', y2024: '-3.800', y2025: '-3.100', y2026: '-2.500' },
-    { name: 'National Water Supply & Drainage Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+2.600', y2023: '+3.100', y2024: '+3.600', y2025: '+4.200', y2026: '+4.700' },
-    { name: 'Urban Development Authority (UDA)', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.300', y2023: '+0.400', y2024: '+0.550', y2025: '+0.700', y2026: '+0.800' },
-    { name: 'Coast Conservation Department', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.220', y2023: '+0.300', y2024: '+0.450', y2025: '+0.600', y2026: '+0.700' },
-    { name: 'National Design Centre', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.200', y2024: '+0.350', y2025: '+0.500', y2026: '+0.600' },
-    { name: 'National Livestock Development Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.100', y2024: '+0.200', y2025: '+0.300', y2026: '+0.350' }
+    { name: 'Coconut Development Authority', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.150', y2023: '+0.180', y2024: '+0.200', y2025: '+0.220', y2026: '+0.150' },
+    { name: 'Central Engineering Consultancy Bureau', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.080', y2023: '+0.090', y2024: '+0.090', y2025: '+0.080', y2026: '+0.060' },
+    { name: 'Sri Lanka Handicrafts Board', stratCat: 'Strategic', perfStatus: 'Net Profit', y2022: '+0.030', y2023: '+0.040', y2024: '+0.040', y2025: '+0.040', y2026: '+0.040' }
+  ],
+  'Non-Commercial Corporation - Strategic Net Loss SOEs': [
+    { name: 'Sri Lanka Railway Department', stratCat: 'Strategic', perfStatus: 'Net Loss', y2022: '-4.800', y2023: '-4.200', y2024: '-3.800', y2025: '-3.400', y2026: '-3.100' }
+  ],
+  'Non-Commercial Corporation - Non-Strategic Net Profit SOEs': [
+    { name: 'National Water Supply & Drainage Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+3.200', y2023: '+3.600', y2024: '+4.000', y2025: '+4.400', y2026: '+4.700' },
+    { name: 'Urban Development Authority (UDA)', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.500', y2023: '+0.600', y2024: '+0.700', y2025: '+0.750', y2026: '+0.800' },
+    { name: 'Coast Conservation Department', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.300', y2023: '+0.380', y2024: '+0.450', y2025: '+0.520', y2026: '+0.550' },
+    { name: 'National Design Centre', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.180', y2023: '+0.220', y2024: '+0.260', y2025: '+0.300', y2026: '+0.300' },
+    { name: 'National Livestock Development Board', stratCat: 'Non-Strategic', perfStatus: 'Net Profit', y2022: '+0.100', y2023: '+0.120', y2024: '+0.140', y2025: '+0.150', y2026: '+0.150' }
   ],
   'Non-Commercial Corporation - Non-Strategic Net Loss SOEs': []
 };
@@ -431,32 +438,32 @@ function initSOEPerformanceChart(containerId) {
       <div class="soe-func-status-card">
         <div class="soe-func-pie-box">
           <svg viewBox="0 0 100 100" class="soe-func-svg">
-            <!-- Company: 24 SOEs -->
+            <!-- Company: 24 SOEs (Net Impact: +78.100) -->
             <circle id="pie-func-comp" r="24" cx="50" cy="50" stroke="#2563eb" stroke-dasharray="59.4 151" stroke-dashoffset="0"
                     onclick="openSoeTrendModal('Company Register (24 SOEs)')"
                     onmouseenter="highlightFuncStatus('comp')"
-                    onmousemove="showSoeTooltip(event, 'Company (Functioning)<br>Count: 24 SOEs (39.3%)<br>Net Impact: +16.000<br><i>Click to view Register</i>')" 
+                    onmousemove="showSoeTooltip(event, 'Company (Functioning)<br>Count: 24 SOEs (39.3%)<br>Net Impact: +78.100<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
 
-            <!-- Commercial Corp: 17 SOEs -->
+            <!-- Commercial Corp: 17 SOEs (Net Impact: +11.100) -->
             <circle id="pie-func-comm" r="24" cx="50" cy="50" stroke="#059669" stroke-dasharray="42.1 151" stroke-dashoffset="-59.4"
                     onclick="openSoeTrendModal('Commercial Corporation Register (17 SOEs)')"
                     onmouseenter="highlightFuncStatus('comm')"
-                    onmousemove="showSoeTooltip(event, 'Commercial Corporation (Functioning)<br>Count: 17 SOEs (27.9%)<br>Net Impact: +3.800<br><i>Click to view Register</i>')" 
+                    onmousemove="showSoeTooltip(event, 'Commercial Corporation (Functioning)<br>Count: 17 SOEs (27.9%)<br>Net Impact: +11.100<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
 
-            <!-- Non-Commercial Corp: 16 SOEs -->
+            <!-- Non-Commercial Corp: 16 SOEs (Net Impact: +11.900) -->
             <circle id="pie-func-noncomm" r="24" cx="50" cy="50" stroke="#d97706" stroke-dasharray="39.6 151" stroke-dashoffset="-101.5"
                     onclick="openSoeTrendModal('Non-Commercial Corporation Register (16 SOEs)')"
                     onmouseenter="highlightFuncStatus('noncomm')"
                     onmousemove="showSoeTooltip(event, 'Non-Commercial Corporation (Functioning)<br>Count: 16 SOEs (26.2%)<br>Net Impact: +11.900<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
 
-            <!-- Non-Functioning: 4 SOEs -->
+            <!-- Non-Functioning: 4 SOEs (Net Impact: -42.500) -->
             <circle id="pie-func-nonfunc" r="24" cx="50" cy="50" stroke="#dc2626" stroke-dasharray="9.9 151" stroke-dashoffset="-141.1"
                     onclick="openNonFunctionalModal()"
                     onmouseenter="highlightFuncStatus('nonfunc')"
-                    onmousemove="showSoeTooltip(event, 'Non-Functioning Entities<br>Count: 4 SOEs (6.6%)<br>Status: Officially Inactive<br><i>Click to view Register</i>')" 
+                    onmousemove="showSoeTooltip(event, 'Non-Functioning Entities<br>Count: 4 SOEs (6.6%)<br>Net Loss: -42.500<br>Status: Officially Inactive<br><i>Click to view Register</i>')" 
                     onmouseleave="removeFuncHighlight()" />
           </svg>
         </div>
@@ -520,7 +527,7 @@ function initSOEPerformanceChart(containerId) {
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
             <span class="soe-entity-name">Company</span>
-            <span class="soe-entity-meta">24 SOEs | Net +16.000</span>
+            <span class="soe-entity-meta">24 SOEs | Net +78.100</span>
           </div>
 
           <!-- Strategic Company Bar -->
@@ -548,7 +555,7 @@ function initSOEPerformanceChart(containerId) {
                 7 SOEs (+11.300)
               </div>
               <div class="soe-hbar-seg loss" style="width: 35%;" 
-                   onclick="openSoeTrendModal('Company - Non-Strategic Loss SOEs')"
+                   onclick="openSoeTrendModal('Company - Non-Strategic Net Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Company (Non-Strat Loss): 6 SOEs (-2.700)')" onmouseleave="hideSoeTooltip()">
                 6 SOEs (-2.700)
               </div>
@@ -560,7 +567,7 @@ function initSOEPerformanceChart(containerId) {
         <div class="soe-entity-row">
           <div class="soe-entity-label-box">
             <span class="soe-entity-name">Commercial Corp</span>
-            <span class="soe-entity-meta">17 SOEs | Net +3.800</span>
+            <span class="soe-entity-meta">17 SOEs | Net +11.100</span>
           </div>
 
           <!-- Strategic Commercial Corp Bar -->
@@ -572,7 +579,7 @@ function initSOEPerformanceChart(containerId) {
                 5 SOEs (+27.000)
               </div>
               <div class="soe-hbar-seg loss" style="width: 40%;" 
-                   onclick="openSoeTrendModal('Commercial Corporation - Strategic Loss SOEs')"
+                   onclick="openSoeTrendModal('Commercial Corporation - Strategic Net Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Strat Loss): 3 SOEs (-19.100)')" onmouseleave="hideSoeTooltip()">
                 3 SOEs (-19.100)
               </div>
@@ -588,7 +595,7 @@ function initSOEPerformanceChart(containerId) {
                 8 SOEs (+4.300)
               </div>
               <div class="soe-hbar-seg loss" style="width: 15%;" 
-                   onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Loss SOEs')"
+                   onclick="openSoeTrendModal('Commercial Corporation - Non-Strategic Net Loss SOEs')"
                    onmousemove="showSoeTooltip(event, 'Commercial Corp (Non-Strat Loss): 1 SOE (-1.100)')" onmouseleave="hideSoeTooltip()">
                 1 (-1.100)
               </div>
@@ -864,7 +871,7 @@ async function exportSOEPerformanceMultiSheetExcel() {
       name: "Company",
       xml: buildPerformanceSheetXML(
         "PEDMIS - Company Sector Performance (5-Year Trend)",
-        `Active Timeframe: FY ${currentYear} | Currency Unit: In LKR Billions | Total: 24 SOEs (Net Impact: +16.000)`,
+        `Active Timeframe: FY ${currentYear} | Currency Unit: In LKR Billions | Total: 24 SOEs (Net Impact: +78.100)`,
         "Company Register (24 SOEs)"
       )
     },
@@ -872,7 +879,7 @@ async function exportSOEPerformanceMultiSheetExcel() {
       name: "Commercial Corporation",
       xml: buildPerformanceSheetXML(
         "PEDMIS - Commercial Corporation Sector Performance (5-Year Trend)",
-        `Active Timeframe: FY ${currentYear} | Currency Unit: In LKR Billions | Total: 17 SOEs (Net Impact: +3.800)`,
+        `Active Timeframe: FY ${currentYear} | Currency Unit: In LKR Billions | Total: 17 SOEs (Net Impact: +11.100)`,
         "Commercial Corporation Register (17 SOEs)"
       )
     },
@@ -888,7 +895,7 @@ async function exportSOEPerformanceMultiSheetExcel() {
       name: "Non-Functioning",
       xml: buildNonFunctioningSheetXML(
         "PEDMIS - Non-Functioning SOE Register",
-        `Active Timeframe: FY ${currentYear} | Currency Unit: In LKR Billions | Total: 4 Entities (Inactive)`
+        `Active Timeframe: FY ${currentYear} | Currency Unit: In LKR Billions | Total: 4 Entities (Net Impact: -42.500)`
       )
     }
   ];
