@@ -5,8 +5,9 @@
  * 1. Centered "Share of Total State Staff" label.
  * 2. Dynamic arc percentage tooltips following the cursor on hover.
  * 3. Two-way synchronized hover highlighting across Progress Bar Segments, Doughnut Arcs, and Legend items.
- * 4. Modal popups displaying 5-Year Headcount Trends (FY 2022 - FY 2026) per SOE.
- * 5. Multi-sheet Binary OpenXML (.xlsx) Report Generator across 4 performance categories.
+ * 4. Total SOE Workforce Summary Row placed directly under the Doughnut Chart Legend.
+ * 5. Modal popups displaying 5-Year Headcount Trends (FY 2022 - FY 2026) per SOE.
+ * 6. Multi-sheet Binary OpenXML (.xlsx) Report Generator across 4 performance categories.
  */
 
 const workforceCategoryData = {
@@ -171,7 +172,7 @@ function initWorkforceChart(containerId) {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 6px 10px;
+        padding: 5px 10px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -183,6 +184,20 @@ function initWorkforceChart(containerId) {
         border-color: var(--primary-blue);
         transform: translateX(4px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      }
+      .wf-legend-item.total-row {
+        background: #f8fafc;
+        border-top: 1px dashed var(--border-color);
+        margin-top: 4px;
+        padding-top: 6px;
+        font-weight: 800;
+        cursor: default;
+      }
+      .wf-legend-item.total-row:hover {
+        background: #f1f5f9;
+        transform: none;
+        box-shadow: none;
+        border-color: var(--border-color);
       }
       .wf-color-dot {
         width: 10px;
@@ -306,7 +321,7 @@ function initWorkforceChart(containerId) {
         </div>
       </div>
 
-      <!-- Flat 2D Doughnut Chart -->
+      <!-- Flat 2D Doughnut Chart with Total Value under Legend -->
       <div>
         <div class="chart-section-title">SOE Staff Distribution Breakdown</div>
         <div class="wf-chart-body">
@@ -359,6 +374,12 @@ function initWorkforceChart(containerId) {
                  onmouseenter="highlightCategory('nonstrat-loss')" onmouseleave="removeHighlight()">
               <span><span class="wf-color-dot" style="background:#e8d1ac;"></span>Non-Strategic SOEs - Net Loss</span>
               <strong>35,000 (18.9%)</strong>
+            </div>
+
+            <!-- Total SOE Workforce Summary under Legend -->
+            <div class="wf-legend-item total-row">
+              <span style="color: var(--text-primary);">Total SOE Workforce:</span>
+              <strong style="color: var(--primary-blue); font-size:16px;">185,000 (100%)</strong>
             </div>
           </div>
         </div>
