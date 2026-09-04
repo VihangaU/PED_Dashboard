@@ -9,7 +9,12 @@
  * - Disclaimer: Disclaimer of Opinion
  * - Unavailable: Not Uploaded Yet (Displays Latest Available Audit Year & Opinion)
  * 
- * Includes native multi-sheet OpenXML (.xlsx) report generation.
+ * Features:
+ * - Direct Count Badges per row without sub-percentage labels.
+ * - Total Audit Opinions Overall Values summary footer on the dashboard.
+ * - Interactive hover highlight synchronization.
+ * - Drill-down popups with pagination.
+ * - Multi-sheet OpenXML (.xlsx) report export.
  */
 
 const auditCategoryData = {
@@ -205,7 +210,7 @@ function initAuditChart(containerId) {
         gap: 12px;
       }
       .row-label-container {
-        width: 110px;
+        width: 120px;
         flex-shrink: 0;
         display: flex;
         align-items: center;
@@ -224,7 +229,7 @@ function initAuditChart(containerId) {
       }
       .stacked-row-track {
         flex-grow: 1;
-        height: 26px;
+        height: 28px;
         display: flex;
         border-radius: 6px;
         overflow: hidden;
@@ -245,6 +250,30 @@ function initAuditChart(containerId) {
       .row-segment:hover, .row-segment.highlighted {
         filter: brightness(1.15);
         box-shadow: inset 0 0 0 2px rgba(255,255,255,0.8);
+      }
+
+      /* Total Audit Opinions Summary Footer */
+      .audit-total-summary-card {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+      .audit-stat-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: 700;
       }
     </style>
 
@@ -379,7 +408,7 @@ function initAuditChart(containerId) {
         <!-- Row 5: Unavailable (4 Total) -->
         <div class="stacked-row-group">
           <div class="row-label-container">
-            <span class="row-label">Opinion Unavailable</span>
+            <span class="row-label">Unavailable</span>
             <span class="row-total-badge" style="background:#cbd5e1; color:#334155;">4</span>
           </div>
           <div class="stacked-row-track">
@@ -395,6 +424,15 @@ function initAuditChart(containerId) {
         </div>
 
       </div>
+
+      <!-- Total Audit Opinion Overall Values Banner -->
+      <div class="audit-total-summary-card">
+        <div>
+          <span>Total Audit Opinion Count:</span>
+          <span class="audit-stat-pill" style="color:var(--primary-blue); font-size:16px;">61</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- Modal Popup Component for Audit Segments -->
